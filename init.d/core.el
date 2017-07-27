@@ -100,10 +100,7 @@
   :config
   (global-evil-leader-mode 1)
   (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key "<SPC>" #'execute-extended-command)
-(use-package helm-config
-  :install (el-get-bundle helm)
-  :config (helm-mode 1))
+  (evil-leader/set-key "<SPC>" #'execute-extended-command))
 
 
 
