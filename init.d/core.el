@@ -46,7 +46,10 @@
 (menu-bar-mode 0)
 
 ; font and size
-(add-to-list 'default-frame-alist '(font . "ricty-12"))
+(let* ((size 12)
+       (fontfamily "Ricty"))
+  (set-face-attribute 'default nil :family fontfamily :height (* size 10))
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family fontfamily)))
 
 ; theme
 (use-package spacemacs-common
