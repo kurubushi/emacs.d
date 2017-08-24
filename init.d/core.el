@@ -46,20 +46,28 @@
 (menu-bar-mode 0)
 
 ; font and size
-(let* ((size 12)
-       (fontfamily "Ricty"))
-  (set-face-attribute 'default nil :family fontfamily :height (* size 10))
-  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family fontfamily)))
+;(defmacro add-hook-once (hook fun)
+;  `(let ((hookfun #'(lambda (&rest args) (funcall ,fun args) (remove-hook ,hook hookfun))))
+;    (add-hook ,hook hookfun)))
+
+(defun set-my-font-config (&rest args)
+  (let* ((size 12)
+         (fontfamily "Ricty"))
+    (set-face-attribute 'default nil :family fontfamily :height (* size 10))
+    (set-fontset-font t 'unicode (font-spec :family fontfamily))))
+(set-my-font-config)
+(defun set-my-font-config-atonce (&rest args)
+  (set-my-font-config)
+  (remove-hook 'after-make-frame-functions #'set-my-font-config-atonce))
+(add-hook 'after-make-frame-functions #'set-my-font-config-atonce) ;; systemd 経由だと適用されない．しょうがないので hook する
 
 ; theme
 (use-package spacemacs-common
-  :install
-  (el-get-bundle spacemacs-theme
+  :install (el-get-bundle spacemacs-theme
     :type github
     :pkgname "nashamri/spacemacs-theme"
     :post-init (add-to-list 'custom-theme-load-path default-directory))
-  :config
-  (load-theme 'spacemacs-dark t))
+  :config (load-theme 'spacemacs-dark t))
 (use-package darkmine-theme
   :install (el-get-bundle darkmine-theme)
   :config (load-theme 'darkmine t))
