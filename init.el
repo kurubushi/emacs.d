@@ -14,7 +14,7 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(add-to-list 'load-path (concat user-emacs-directory "el-get/el-get"))
 
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
@@ -44,6 +44,6 @@
 ; load local config
 (el-get-bundle! init-loader
   (setq init-loader-show-log-after-init t)
-  (init-loader-load "~/.emacs.d/rc.d"))
+  (init-loader-load (concat user-emacs-directory "rc.d")))
 
 ;EOF

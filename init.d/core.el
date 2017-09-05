@@ -197,9 +197,13 @@
   :init
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'en)
+  ;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
 
   :config
-  (add-hook 'evil-insert-state-entry-hook '(lambda () (skk-mode 1) (skk-latin-mode-on)))
-  (add-hook 'evil-insert-state-exit-hook '(lambda () (skk-mode 1) (skk-latin-mode-on))))
+  (defun skk-mode-on-auto ()
+    (skk-mode 1)
+    (skk-latin-mode-on))
+  (add-hook 'evil-insert-state-entry-hook #'skk-mode-on-auto)
+  (add-hook 'evil-insert-state-exit-hook #'skk-mode-on-auto))
 
 ;EOF
