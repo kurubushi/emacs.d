@@ -164,6 +164,7 @@
   :config
   (evil-leader/set-key "e" #'helm-find-files)
   (evil-leader/set-key "b" #'helm-buffers-list)
+  (evil-leader/set-key "<SPC>" #'helm-M-x)
   (helm-mode 1))
 
 
