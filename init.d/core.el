@@ -39,6 +39,9 @@
 ; ファイル末尾で必ず改行
 (setq require-final-newline t)
 
+; インデントはハードタブを使わない
+(setq-default indent-tabs-mode nil)
+
 ; disable tool-bar
 (tool-bar-mode 0)
 
