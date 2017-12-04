@@ -4,3 +4,4 @@
 
 
 ; add setq
+(setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")

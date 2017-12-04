@@ -5,20 +5,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; use-package / add :install
+; utils
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle! dash
   :type github
   :pkgname "magnars/dash.el")
-
-(setq use-package-keywords (--splice-list (equal it :init) '(:install :init) use-package-keywords)) ;; to expand from the last
-(defalias 'use-package-normalize/:install 'use-package-normalize-forms)
-(defun use-package-handler/:install (name keyword arg rest state)
-  (let ((body (use-package-process-keywords name rest state)))
-    (use-package-concat
-      (use-package-hook-injector (use-package-as-string name) :init arg)
-      body)))
 
 
 
@@ -65,14 +57,15 @@
 (add-hook 'after-make-frame-functions #'set-my-font-config-atonce) ;; systemd 経由だと適用されない．しょうがないので hook する
 
 ; theme
+(el-get-bundle spacemacs-theme
+  :type github
+  :pkgname "nashamri/spacemacs-theme"
+  :post-init (add-to-list 'custom-theme-load-path default-directory))
 (use-package spacemacs-common
-  :install (el-get-bundle spacemacs-theme
-    :type github
-    :pkgname "nashamri/spacemacs-theme"
-    :post-init (add-to-list 'custom-theme-load-path default-directory))
   :config (load-theme 'spacemacs-dark t))
+
+(el-get-bundle darkmine-theme)
 (use-package darkmine-theme
-  :install (el-get-bundle darkmine-theme)
   :config (load-theme 'darkmine t))
 
 
@@ -86,14 +79,12 @@
 ; evil / evil-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle evil)
 (use-package evil
-  :install (el-get-bundle evil)
-  
   :init
   (message "init")
   (setq hogehoge 4)
   (setq evil-want-C-u-scroll t)
-
   :config
   (message "config")
   (setq hogehoge 5)
@@ -108,9 +99,8 @@
 ; evil / evil-leader
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle evil-leader)
 (use-package evil-leader
-  :install (el-get-bundle evil-leader)
-
   :config
   (global-evil-leader-mode 1)
   (evil-leader/set-leader "<SPC>")
@@ -123,15 +113,12 @@
 ; persp-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle persp-mode
+  :type github
+  :pkgname "Bad-ptr/persp-mode.el")
 (use-package persp-mode
-  :install
-  (el-get-bundle persp-mode
-    :type github
-    :pkgname "Bad-ptr/persp-mode.el")
-  
   :init
   (setq persp-keymap-prefix nil) ;prefix
-  
   :config
   (persp-mode 1)
   (evil-leader/set-key "pn" #'persp-next)
@@ -162,8 +149,8 @@
 ; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle helm)
 (use-package helm-config
-  :install (el-get-bundle helm)
   :config
   (evil-leader/set-key "e" #'helm-find-files)
   (evil-leader/set-key "b" #'helm-buffers-list)
@@ -177,12 +164,10 @@
 ; auto-complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle auto-complete)
 (use-package auto-complete
-  :install (el-get-bundle auto-complete)
-
   :init
   (use-package auto-complete-config)
-
   :config
   (ac-config-default)
   (setq ac-use-menu-map t) ;; C-p/C-n move
@@ -195,14 +180,12 @@
 ; skk
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle ddskk)
 (use-package skk
-  :install (el-get-bundle ddskk)
-
   :init
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'en)
   ;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
-
   :config
   (defun skk-mode-on-auto ()
     (skk-mode 1)

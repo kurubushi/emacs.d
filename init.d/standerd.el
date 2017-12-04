@@ -8,12 +8,11 @@
 ; PDF
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle pdf-tools) ; requires automake and proppler.
 (use-package pdf-tools
-  :install (el-get-bundle pdf-tools) ; requires automake and proppler.
   :config
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
   (add-hook 'pdf-view-mode-hook #'pdf-sync-minor-mode)
-
   ;; configure for evil
   (evil-set-initial-state 'pdf-view-mode 'normal) ; use evil keybind
 ;  (evil-set-initial-state 'pdf-outline-buffer-mode 'normal)
@@ -46,9 +45,8 @@
 ; markdown
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package markdown-mode
-  :install
-  (el-get-bundle markdown-mode))
+(el-get-bundle markdown-mode)
+(use-package markdown-mode)
 
 
 
@@ -57,9 +55,8 @@
 ; haskell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package haskell-mode
-  :install
-  (el-get-bundle haskell-mode))
+(el-get-bundle haskell-mode)
+(use-package haskell-mode)
 
 
 
@@ -68,9 +65,8 @@
 ; ocaml
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(el-get-bundle tuareg-mode)
 (use-package tuareg-mode
-  :install
-  (el-get-bundle tuareg-mode)
   :config
   (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
   (setq auto-mode-alist
@@ -80,14 +76,28 @@
   (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
   (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer))
 
+(el-get-bundle merlin
+  :type github
+  :pkgname "ocaml/merlin"
+  :load-path "emacs")
 (use-package merlin
-  :install
-  (el-get-bundle merlin
-    :type github
-    :pkgname "ocaml/merlin"
-    :load-path "emacs")
   :config
   (add-hook 'tuareg-mode-hook 'merlin-mode)
   (setq merlin-use-auto-complete-mode t)
   (setq merlin-error-after-save nil))
-  
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; mgit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(el-get-bundle magit-popup
+  :type github
+  :pkgname "magit/magit-popup")
+(el-get-bundle magit)
+(use-package magit)
+
+(el-get-bundle evil-magit)
+(use-package evil-magit)
