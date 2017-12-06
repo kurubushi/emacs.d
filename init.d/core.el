@@ -90,7 +90,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle help-fns+) ; discribe-keymap
-(use-package help-fns+ :defer)
+(use-package help-fns+)
 
 
 
@@ -105,30 +105,29 @@
 
 (el-get-bundle evil)
 (use-package evil
-  :init
-  (message "init")
-  (setq hogehoge 4)
-  (setq evil-want-C-u-scroll t)
   :config
-  (message "config")
-  (setq hogehoge 5)
   (custom-set-variables '(evil-want-C-u-scroll t))
   (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ;; exclusive \n in visual state
   (custom-set-variables  '(evil-search-module 'evil-search))
   (evil-mode 1)
-  (define-key evil-insert-state-map (kbd "C-k") #'auto-complete))
+  ;keymap
+  (general-define-key :states '(insert)
+                      "C-k" 'auto-complete)
+  (general-define-key :states '(normal)
+                      :prefix "SPC"
+                      "SPC" 'execute-extended-command))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; evil / evil-leader
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle evil-leader)
-(use-package evil-leader
-  :config
-  (global-evil-leader-mode 1)
-  (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key "<SPC>" #'execute-extended-command))
+;(el-get-bundle evil-leader)
+;(use-package evil-leader
+;  :config
+;  (global-evil-leader-mode 1)
+;  (evil-leader/set-leader "<SPC>")
+;  (evil-leader/set-key "<SPC>" #'execute-extended-command))
 
 
 
@@ -145,26 +144,28 @@
   (setq persp-keymap-prefix nil) ;prefix
   :config
   (persp-mode 1)
-  (evil-leader/set-key "pn" #'persp-next)
-  (evil-leader/set-key "pp" #'persp-prev)
-  (evil-leader/set-key "ps" #'persp-frame-switch)
-  (evil-leader/set-key "pS" #'persp-window-switch)
-  (evil-leader/set-key "pr" #'persp-rename)
-  (evil-leader/set-key "pc" #'persp-copy)
-  (evil-leader/set-key "pC" #'persp-kill)
-  (evil-leader/set-key "pz" #'persp-save-and-kill)
-  (evil-leader/set-key "pa" #'persp-add-buffer)
-  (evil-leader/set-key "pb" #'persp-switch-to-buffer)
+  (general-define-key :state '(normal)
+                      :prefix "SPC"
+                      "pn" 'persp-next
+                      "pp" 'persp-prev
+                      "ps" 'persp-frame-switch
+                      "pS" 'persp-window-switch
+                      "pr" 'persp-rename
+                      "pc" 'persp-copy
+                      "pC" 'persp-kill
+                      "pz" 'persp-save-and-kill
+                      "pa" 'persp-add-buffer
+                      "pb" 'persp-switch-to-buffer
   
-  (evil-leader/set-key "pi" #'persp-import-buffers)
-  (evil-leader/set-key "pI" #'persp-import-win-conf)
-  (evil-leader/set-key "pk" #'persp-remove-buffer)
-  (evil-leader/set-key "pK" #'persp-kill-buffer)
-  (evil-leader/set-key "pw" #'persp-save-state-to-file)
-  (evil-leader/set-key "pW" #'persp-save-to-file-by-names)
-  (evil-leader/set-key "pl" #'persp-load-state-from-file)
-  (evil-leader/set-key "pL" #'persp-load-from-file-by-names)
-  (evil-leader/set-key "po" #'(lambda () (interactive) (persp-mode -1))))
+                      "pi" 'persp-import-buffers
+                      "pI" 'persp-import-win-conf
+                      "pk" 'persp-remove-buffer
+                      "pK" 'persp-kill-buffer
+                      "pw" 'persp-save-state-to-file
+                      "pW" 'persp-save-to-file-by-names
+                      "pl" 'persp-load-state-from-file
+                      "pL" 'persp-load-from-file-by-names
+                      "po" '(lambda () (interactive) (persp-mode -1))))
 
 
 
@@ -176,9 +177,11 @@
 (el-get-bundle helm)
 (use-package helm-config
   :config
-  (evil-leader/set-key "e" #'helm-find-files)
-  (evil-leader/set-key "b" #'helm-buffers-list)
-  (evil-leader/set-key "<SPC>" #'helm-M-x)
+  (general-define-key :state '(normal)
+                      :prefix "SPC"
+                      "SPC" 'helm-M-x
+                      "e" 'helm-find-files
+                      "b" 'helm-buffers-list)
   (helm-mode 1))
 
 
