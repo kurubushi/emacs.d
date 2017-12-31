@@ -4,13 +4,29 @@
 ; write core and common configures in it.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; utils
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; utils/packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle! dash
   :type github
   :pkgname "magnars/dash.el")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; utils/definitions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; insert current time
+(defun insert-current-time()
+  (interactive)
+  (let ((system-time-locale "C"))
+    (insert (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
 
 
 
@@ -39,11 +55,6 @@
 
 ; disable menu-bar
 (menu-bar-mode 0)
-
-; font and size
-;(defmacro add-hook-once (hook fun)
-;  `(let ((hookfun #'(lambda (&rest args) (funcall ,fun args) (remove-hook ,hook hookfun))))
-;    (add-hook ,hook hookfun)))
 
 (defun set-my-font-config (&rest args)
   (let* ((size 12)
@@ -144,7 +155,7 @@
   (setq persp-keymap-prefix nil) ;prefix
   :config
   (persp-mode 1)
-  (general-define-key :state '(normal)
+  (general-define-key :states '(normal)
                       :prefix "SPC"
                       "pn" 'persp-next
                       "pp" 'persp-prev
@@ -177,7 +188,7 @@
 (el-get-bundle helm)
 (use-package helm-config
   :config
-  (general-define-key :state '(normal)
+  (general-define-key :states '(normal)
                       :prefix "SPC"
                       "SPC" 'helm-M-x
                       "e" 'helm-find-files
@@ -219,5 +230,18 @@
     (skk-latin-mode-on))
   (add-hook 'evil-insert-state-entry-hook #'skk-mode-on-auto)
   (add-hook 'evil-insert-state-exit-hook #'skk-mode-on-auto))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; shell
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(el-get-bundle shell-pop)
+(use-package shell-pop
+  :config
+  (general-define-key :states '(normal insert)
+                      "<f8>" 'shell-pop))
 
 ;EOF
