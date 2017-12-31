@@ -122,9 +122,9 @@
   (custom-set-variables  '(evil-search-module 'evil-search))
   (evil-mode 1)
   ;keymap
-  (general-define-key :states '(insert)
+  (general-define-key :keymaps '(insert)
                       "C-k" 'auto-complete)
-  (general-define-key :states '(normal)
+  (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "SPC" 'execute-extended-command))
 
@@ -155,7 +155,7 @@
   (setq persp-keymap-prefix nil) ;prefix
   :config
   (persp-mode 1)
-  (general-define-key :states '(normal)
+  (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "pn" 'persp-next
                       "pp" 'persp-prev
@@ -188,7 +188,7 @@
 (el-get-bundle helm)
 (use-package helm-config
   :config
-  (general-define-key :states '(normal)
+  (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "SPC" 'helm-M-x
                       "e" 'helm-find-files
@@ -241,7 +241,7 @@
 (el-get-bundle shell-pop)
 (use-package shell-pop
   :config
-  (general-define-key :states '(normal insert)
+  (general-define-key :keymaps '(normal insert visual emacs)
                       "<f8>" 'shell-pop))
 
 ;EOF
