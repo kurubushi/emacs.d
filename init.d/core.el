@@ -41,6 +41,9 @@
 ; change yes/not into y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+; disable BEEP
+(setq ring-bell-function 'ignore)
+
 ; 括弧の対応をハイライト
 (show-paren-mode t)
 
@@ -68,12 +71,16 @@
 (add-hook 'after-make-frame-functions #'set-my-font-config-atonce) ;; systemd 経由だと適用されない．しょうがないので hook する
 
 ; theme
+
+(setq ns-use-srgb-colorspace nil) ; smooth powerline
+
 (el-get-bundle spacemacs-theme
   :type github
   :pkgname "nashamri/spacemacs-theme"
   :post-init (add-to-list 'custom-theme-load-path default-directory))
 (use-package spacemacs-common
   :config (load-theme 'spacemacs-dark t))
+
 
 (el-get-bundle darkmine-theme)
 (use-package darkmine-theme
@@ -147,36 +154,68 @@
 ; persp-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle persp-mode
+;(el-get-bundle persp-mode
+;  :type github
+;  :pkgname "Bad-ptr/persp-mode.el")
+;(use-package persp-mode
+;  :init
+;  (setq persp-keymap-prefix nil) ;prefix
+;  :config
+;  (persp-mode 1)
+;  (general-define-key :keymaps '(normal)
+;                      :prefix "SPC"
+;                      "pn" 'persp-next
+;                      "pp" 'persp-prev
+;                      "ps" 'persp-frame-switch
+;                      "pS" 'persp-window-switch
+;                      "pr" 'persp-rename
+;                      "pc" 'persp-copy
+;                      "pC" 'persp-kill
+;                      "pz" 'persp-save-and-kill
+;                      "pa" 'persp-add-buffer
+;                      "pb" 'persp-switch-to-buffer
+;  
+;                      "pi" 'persp-import-buffers
+;                      "pI" 'persp-import-win-conf
+;                      "pk" 'persp-remove-buffer
+;                      "pK" 'persp-kill-buffer
+;                      "pw" 'persp-save-state-to-file
+;                      "pW" 'persp-save-to-file-by-names
+;                      "pl" 'persp-load-state-from-file
+;                      "pL" 'persp-load-from-file-by-names
+;                      "po" '(lambda () (interactive) (persp-mode -1))))
+(el-get-bundle perspeen
   :type github
-  :pkgname "Bad-ptr/persp-mode.el")
-(use-package persp-mode
+  :pkgname "seudut/perspeen"
+  :depends (powerline))
+(use-package perspeen
   :init
-  (setq persp-keymap-prefix nil) ;prefix
+  (setq perspeen-use-tab t)
   :config
-  (persp-mode 1)
+  (perspeen-mode)
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
-                      "pn" 'persp-next
-                      "pp" 'persp-prev
-                      "ps" 'persp-frame-switch
-                      "pS" 'persp-window-switch
-                      "pr" 'persp-rename
-                      "pc" 'persp-copy
-                      "pC" 'persp-kill
-                      "pz" 'persp-save-and-kill
-                      "pa" 'persp-add-buffer
-                      "pb" 'persp-switch-to-buffer
-  
-                      "pi" 'persp-import-buffers
-                      "pI" 'persp-import-win-conf
-                      "pk" 'persp-remove-buffer
-                      "pK" 'persp-kill-buffer
-                      "pw" 'persp-save-state-to-file
-                      "pW" 'persp-save-to-file-by-names
-                      "pl" 'persp-load-state-from-file
-                      "pL" 'persp-load-from-file-by-names
-                      "po" '(lambda () (interactive) (persp-mode -1))))
+                      "pc" 'perspeen-create-ws
+                      "pN" 'perspeen-next-ws
+                      "pn" 'perspeen-tab-next
+                      "pP" 'perspeen-previous-ws
+                      "pp" 'perspeen-tab-previous
+                      "p'" 'perspeen-goto-last-ws
+                      "pe" 'perspeen-ws-eshell
+                      "pK" 'perspeen-delete-ws
+                      "pk" 'perspeen-tab-del
+                      "pr" 'perspeen-rename-ws
+                      "pd" 'perspeen-change-root-dir
+                      "p1" 'perspeen-ws-jump
+                      "p2" 'perspeen-ws-jump
+                      "p3" 'perspeen-ws-jump
+                      "p4" 'perspeen-ws-jump
+                      "p5" 'perspeen-ws-jump
+                      "p6" 'perspeen-ws-jump
+                      "p7" 'perspeen-ws-jump
+                      "p8" 'perspeen-ws-jump
+                      "p9" 'perspeen-ws-jump
+                      "pt" 'perspeen-tab-create-tab))
 
 
 
