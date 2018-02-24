@@ -151,39 +151,9 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; persp-mode
+; perspeen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(el-get-bundle persp-mode
-;  :type github
-;  :pkgname "Bad-ptr/persp-mode.el")
-;(use-package persp-mode
-;  :init
-;  (setq persp-keymap-prefix nil) ;prefix
-;  :config
-;  (persp-mode 1)
-;  (general-define-key :keymaps '(normal)
-;                      :prefix "SPC"
-;                      "pn" 'persp-next
-;                      "pp" 'persp-prev
-;                      "ps" 'persp-frame-switch
-;                      "pS" 'persp-window-switch
-;                      "pr" 'persp-rename
-;                      "pc" 'persp-copy
-;                      "pC" 'persp-kill
-;                      "pz" 'persp-save-and-kill
-;                      "pa" 'persp-add-buffer
-;                      "pb" 'persp-switch-to-buffer
-;  
-;                      "pi" 'persp-import-buffers
-;                      "pI" 'persp-import-win-conf
-;                      "pk" 'persp-remove-buffer
-;                      "pK" 'persp-kill-buffer
-;                      "pw" 'persp-save-state-to-file
-;                      "pW" 'persp-save-to-file-by-names
-;                      "pl" 'persp-load-state-from-file
-;                      "pL" 'persp-load-from-file-by-names
-;                      "po" '(lambda () (interactive) (persp-mode -1))))
 (el-get-bundle perspeen
   :type github
   :pkgname "seudut/perspeen"
@@ -195,7 +165,7 @@
   (perspeen-mode)
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
-                      "pc" 'perspeen-create-ws
+                      "pC" 'perspeen-create-ws
                       "pN" 'perspeen-next-ws
                       "pn" 'perspeen-tab-next
                       "pP" 'perspeen-previous-ws
@@ -204,8 +174,8 @@
                       "pe" 'perspeen-ws-eshell
                       "pK" 'perspeen-delete-ws
                       "pk" 'perspeen-tab-del
-                      "pr" 'perspeen-rename-ws
-                      "pd" 'perspeen-change-root-dir
+                      "pR" 'perspeen-rename-ws
+                      "pD" 'perspeen-change-root-dir
                       "p1" 'perspeen-ws-jump
                       "p2" 'perspeen-ws-jump
                       "p3" 'perspeen-ws-jump
@@ -215,7 +185,15 @@
                       "p7" 'perspeen-ws-jump
                       "p8" 'perspeen-ws-jump
                       "p9" 'perspeen-ws-jump
-                      "pt" 'perspeen-tab-create-tab))
+                      "pc" 'perspeen-tab-create-tab)
+  ; By default,
+  ; perspeen-tab--header-line-inactive <- mode-line-active
+  ; perspeen-tab--powerline-inactive1 <- mode-line-active + grayscale
+  (set-face-attribute 'perspeen-tab--header-line-inactive nil
+                      :inherit 'mode-line-inactive)
+  (set-face-attribute 'perspeen-tab--powerline-inactive1 nil
+                      :background "gray11"
+                      :inherit 'mode-line-inactive))
 
 
 
