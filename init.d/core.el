@@ -81,10 +81,37 @@
 (use-package spacemacs-common
   :config (load-theme 'spacemacs-dark t))
 
-
 (el-get-bundle darkmine-theme)
 (use-package darkmine-theme
   :config (load-theme 'darkmine t))
+
+; https://stackoverflow.com/questions/18904529/
+(defun* load-my-theme (&optional (frame (selected-frame)))
+  (interactive)
+  (with-selected-frame frame
+    (load-theme 'spacemacs-dark t)
+    (load-theme 'darkmine t)))
+(load-my-theme)
+(defun load-my-theme-in-gui-only-once (frame)
+  (when (and (display-graphic-p frame) (not loaded-theme-p))
+    (setq loaded-theme-p t)
+    (load-my-theme frame)))
+(setq loaded-theme-p nil)
+(add-hook 'after-make-frame-functions 'load-my-theme-in-gui-only-once)
+; I don't know why but if a newer frame executes `load-theme`,
+; color of older frames is broken.
+
+;(el-get-bundle spacemacs-theme
+;  :type github
+;  :pkgname "nashamri/spacemacs-theme"
+;  :post-init (add-to-list 'custom-theme-load-path default-directory))
+;(use-package spacemacs-common
+;  :config (load-theme 'spacemacs-dark t))
+;
+;
+;(el-get-bundle darkmine-theme)
+;(use-package darkmine-theme
+;  :config (load-theme 'darkmine t))
 
 
 
@@ -124,9 +151,11 @@
 (el-get-bundle evil)
 (use-package evil
   :config
+  (custom-set-variables '(search-invisible t)) ;https://github.com/syl20bnr/spacemacs/issues/3623
   (custom-set-variables '(evil-want-C-u-scroll t))
   (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ;; exclusive \n in visual state
-  (custom-set-variables  '(evil-search-module 'evil-search))
+  (custom-set-variables  '(evil-search-module 'isearch))
+  (custom-set-variables '(evil-want-integration nil)) ;; for evil-collection
   (evil-mode 1)
   ;keymap
   (general-define-key :keymaps '(insert)
@@ -134,6 +163,21 @@
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "SPC" 'execute-extended-command))
+
+(el-get-bundle evil-collection
+  :type github
+  :pkgname "emacs-evil/evil-collection"
+  :depends (evil))
+(use-package evil-collection
+  :after evil
+  :config (evil-collection-init))
+
+(defun evil-define-key-escape-spc (keymaps)
+  (general-define-key :states 'normal
+                      :keymaps keymaps
+                      "SPC" nil
+                      "S-SPC" nil
+                      "C-SPC" nil))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -169,7 +213,7 @@
                       "pN" 'perspeen-next-ws
                       "pn" 'perspeen-tab-next
                       "pP" 'perspeen-previous-ws
-                      "pp" 'perspeen-tab-previous
+                      "pp" 'perspeen-tab-prev
                       "p'" 'perspeen-goto-last-ws
                       "pe" 'perspeen-ws-eshell
                       "pK" 'perspeen-delete-ws
@@ -184,7 +228,7 @@
                       "p6" 'perspeen-ws-jump
                       "p7" 'perspeen-ws-jump
                       "p8" 'perspeen-ws-jump
-                      "p9" 'perspeen-ws-jump
+                      "p9" 'perspeen-ws-jumiousp
                       "pc" 'perspeen-tab-create-tab)
   ; By default,
   ; perspeen-tab--header-line-inactive <- mode-line-active
@@ -194,6 +238,12 @@
   (set-face-attribute 'perspeen-tab--powerline-inactive1 nil
                       :background "gray11"
                       :inherit 'mode-line-inactive))
+
+(el-get-bundle helm-perspeen
+  :type github
+  :pkgname "jimo1001/helm-perspeen"
+  :depends (perspeen helm))
+(use-package helm-perspeen)
 
 
 
@@ -242,6 +292,7 @@
   (setq skk-kutouten-type 'en)
   ;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
   :config
+  (skk-mode 1)
   (defun skk-mode-on-auto ()
     (skk-mode 1)
     (skk-latin-mode-on))
