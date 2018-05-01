@@ -22,11 +22,20 @@
 ; utils/definitions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; like Vim, insert after current point. (a/i)nsert
+(defun insert-after (string)
+  (forward-char)
+  (insert string))
+
 ;; insert current time
 (defun insert-current-time()
   (interactive)
   (let ((system-time-locale "C"))
     (insert (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
+(defun append-current-time()
+  (interactive)
+  (let ((system-time-locale "C"))
+    (insert-after (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
 
 
 
@@ -156,10 +165,36 @@
   (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ;; exclusive \n in visual state
   (custom-set-variables  '(evil-search-module 'isearch))
   (custom-set-variables '(evil-want-integration nil)) ;; for evil-collection
+  (custom-set-variables '(evil-move-cursor-back t)) ;; backword when returning from insert
   (evil-mode 1)
+
   ;keymap
+  ;; original `evil-execute-in-normal-state` changes the value `evil-move-cusor-back` into nil against our will.
+  ;; `evil-execute-in-normal-state-natively` doesn't change it and executes "C-o" like Vim.
+  (defun evil-execute-in-normal-state-natively ()
+    "Execute the next command in Normal state, natively."
+    (interactive)
+    (evil-delay '(not (memq this-command
+                            '(evil-execute-in-normal-state
+                              evil-use-register
+                              digit-argument
+                              negative-argument
+                              universal-argument
+                              universal-argument-minus
+                              universal-argument-more
+                              universal-argument-other-key)))
+        `(progn
+           (with-current-buffer ,(current-buffer)
+             (evil-change-state ',evil-state)))
+             ;(setq evil-move-cursor-back ',evil-move-cursor-back)))
+      'post-command-hook)
+    ;(setq evil-move-cursor-back nil)
+    (when (and (not (eolp)) evil-move-cursor-back) (forward-char))
+    (evil-normal-state)
+    (evil-echo "Switched to Normal state for the next command ..."))
   (general-define-key :keymaps '(insert)
-                      "C-k" 'auto-complete)
+                      "C-k" 'auto-complete
+                      "C-o" 'evil-execute-in-normal-state-natively)
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "SPC" 'execute-extended-command))
