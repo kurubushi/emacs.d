@@ -165,7 +165,7 @@
   (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ;; exclusive \n in visual state
   (custom-set-variables  '(evil-search-module 'isearch))
   (custom-set-variables '(evil-want-integration nil)) ;; for evil-collection
-  (custom-set-variables '(evil-move-cursor-back t)) ;; backword when returning from insert
+  (custom-set-variables '(evil-move-cursor-back t)) ;; goes back when reterning from insert and prevents going eol
   (evil-mode 1)
 
   ;keymap
@@ -189,7 +189,6 @@
              ;(setq evil-move-cursor-back ',evil-move-cursor-back)))
       'post-command-hook)
     ;(setq evil-move-cursor-back nil)
-    (when (and (not (eolp)) evil-move-cursor-back) (forward-char))
     (evil-normal-state)
     (evil-echo "Switched to Normal state for the next command ..."))
   (general-define-key :keymaps '(insert)
