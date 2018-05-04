@@ -38,11 +38,7 @@
 (el-get-bundle haskell-mode)
 (use-package haskell-mode)
 
-;(el-get-bundle intero
-;  :type github
-;  :pkgname "commercialhaskell/intero"
-;  :depends (flycheck company-mode)
-;  :load-path "elisp")
+;(el-get-bundle intero)
 ;(use-package intero
 ;  :config
 ;  (add-hook 'haskell-mode-hook 'intero-mode))
@@ -75,10 +71,7 @@
   (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
   (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer))
 
-(el-get-bundle merlin
-  :type github
-  :pkgname "ocaml/merlin"
-  :load-path "emacs")
+(el-get-bundle merlin)
 (use-package merlin
   :config
   (add-hook 'tuareg-mode-hook 'merlin-mode)
@@ -92,9 +85,7 @@
 ; mgit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle magit-popup
-  :type github
-  :pkgname "magit/magit-popup")
+(el-get-bundle magit-popup)
 (el-get-bundle magit)
 (use-package magit)
 

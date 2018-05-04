@@ -1,0 +1,4 @@
+(:name perspeen
+       :type github
+       :pkgname "seudut/perspeen"
+       :depends (powerline))

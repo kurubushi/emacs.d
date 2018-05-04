@@ -1,0 +1,3 @@
+(:name dash
+       :type github
+       :pkgname "magnars/dash.el")

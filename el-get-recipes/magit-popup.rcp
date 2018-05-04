@@ -1,0 +1,3 @@
+(:name magit-popup
+       :type github
+       :pkgname "magit/magit-popup")

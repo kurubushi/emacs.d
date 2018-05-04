@@ -13,9 +13,7 @@
 ; utils/packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle! dash
-  :type github
-  :pkgname "magnars/dash.el")
+(el-get-bundle dash)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -83,10 +81,7 @@
 
 (setq ns-use-srgb-colorspace nil) ; smooth powerline
 
-(el-get-bundle spacemacs-theme
-  :type github
-  :pkgname "nashamri/spacemacs-theme"
-  :post-init (add-to-list 'custom-theme-load-path default-directory))
+(el-get-bundle spacemacs-theme)
 (use-package spacemacs-common
   :config (load-theme 'spacemacs-dark t))
 
@@ -129,9 +124,7 @@
 ; general
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle general
-  :type github
-  :pkgname "noctuid/general.el")
+(el-get-bundle general)
 (use-package general
   :config
   (setq general-default-keymaps 'evil-normal-state-map))
@@ -198,10 +191,7 @@
                       :prefix "SPC"
                       "SPC" 'execute-extended-command))
 
-(el-get-bundle evil-collection
-  :type github
-  :pkgname "emacs-evil/evil-collection"
-  :depends (evil))
+(el-get-bundle evil-collection)
 (use-package evil-collection
   :after evil
   :config (evil-collection-init))
@@ -232,10 +222,7 @@
 ; perspeen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle perspeen
-  :type github
-  :pkgname "seudut/perspeen"
-  :depends (powerline))
+(el-get-bundle perspeen)
 (use-package perspeen
   :init
   (setq perspeen-use-tab t)
@@ -273,10 +260,7 @@
                       :background "gray11"
                       :inherit 'mode-line-inactive))
 
-(el-get-bundle helm-perspeen
-  :type github
-  :pkgname "jimo1001/helm-perspeen"
-  :depends (perspeen helm))
+(el-get-bundle helm-perspeen)
 (use-package helm-perspeen)
 
 

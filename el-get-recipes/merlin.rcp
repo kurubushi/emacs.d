@@ -1,0 +1,4 @@
+(:name merlin
+       :type github
+       :pkgname "ocaml/merlin"
+       :load-path "emacs")
