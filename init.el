@@ -20,9 +20,9 @@
   (with-current-buffer
       (url-retrieve-synchronously
        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (let (el-get-install-skip-emacswiki-recipes)
+;    (let (el-get-install-skip-emacswiki-recipes)
       (goto-char (point-max))
-      (eval-print-last-sexp))))
+      (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path (concat user-emacs-directory "el-get-recipes"))
 ;(el-get 'sync)

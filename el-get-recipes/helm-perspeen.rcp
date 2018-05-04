@@ -1,0 +1,4 @@
+(:name helm-perspeen
+       :type github
+       :pkgname "jimo1001/helm-perspeen"
+       :depends (perspeen helm))
