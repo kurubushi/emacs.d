@@ -353,6 +353,7 @@
   :init
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'en)
+  (setq skk-j-is-overriding nil)
   ;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
   :config
   (skk-mode 1)
@@ -360,7 +361,14 @@
     (skk-mode 1)
     (skk-latin-mode-on))
   (add-hook 'evil-insert-state-entry-hook #'skk-mode-on-auto)
-  (add-hook 'evil-insert-state-exit-hook #'skk-mode-on-auto))
+  (add-hook 'evil-insert-state-exit-hook #'skk-mode-on-auto)
+  ; https://github.com/haskell/haskell-mode/issues/1320
+  (defun skk-j-overrideing-minor ()
+    (unless skk-j-is-overriding
+      (add-to-list 'minor-mode-overriding-map-alist
+                   `(skk-j-mode . ,skk-j-mode-map))
+      (setq skk-j-is-overriding t)))
+  (add-hook 'skk-mode-hook 'skk-j-overrideing-minor))
 
 
 
