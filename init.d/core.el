@@ -90,18 +90,18 @@
   :config (load-theme 'darkmine t))
 
 ; https://stackoverflow.com/questions/18904529/
-(defun* load-my-theme (&optional (frame (selected-frame)))
+(defun* reload-my-theme (&optional (frame (selected-frame)))
   (interactive)
   (with-selected-frame frame
     (load-theme 'spacemacs-dark t)
     (load-theme 'darkmine t)))
-(load-my-theme)
-(defun load-my-theme-in-gui-only-once (frame)
+(reload-my-theme)
+(defun reload-my-theme-in-gui-only-once (frame)
   (when (and (display-graphic-p frame) (not loaded-theme-p))
     (setq loaded-theme-p t)
-    (load-my-theme frame)))
+    (reload-my-theme frame)))
 (setq loaded-theme-p nil)
-(add-hook 'after-make-frame-functions 'load-my-theme-in-gui-only-once)
+(add-hook 'after-make-frame-functions 'reload-my-theme-in-gui-only-once)
 ; I don't know why but if a newer frame executes `load-theme`,
 ; color of older frames is broken.
 
@@ -127,7 +127,20 @@
 (el-get-bundle general)
 (use-package general
   :config
-  (setq general-default-keymaps 'evil-normal-state-map))
+  (setq general-default-keymaps 'evil-normal-state-map)
+  (general-define-key :keymaps '(normal)
+                      :prefix "SPC"
+                      ;; view
+                      "vs" 'text-scale-adjust
+                      "vR" 'reload-my-theme
+                      "vl" 'load-theme
+                      "ve" 'enable-theme
+                      "vd" 'disable-theme
+                      ;;buffer
+                      "bd" 'kill-this-buffer
+                      "bn" 'next-buffer
+                      "bp" 'previous-buffer
+                      "bk" 'kill-some-buffers))
 
 
 
@@ -267,6 +280,23 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; recentf
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package recentf
+  :init
+  (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-exclude '("~$"))
+;  (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
+  :config
+  (add-hook 'find-file-hook 'recentf-save-list)
+  (recentf-mode 1))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -276,9 +306,24 @@
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "SPC" 'helm-M-x
-                      "e" 'helm-find-files
-                      "b" 'helm-buffers-list)
+                      ;; file
+                      "ff" 'helm-find-files
+                      "fr" 'helm-recentf
+                      ;; buffer
+                      "bl" 'helm-buffers-list)
   (helm-mode 1))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; which-key
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(el-get-bundle which-key)
+(use-package which-key
+  :config
+  (which-key-mode))
 
 
 
