@@ -42,6 +42,9 @@
 ; settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; coding-system
+(prefer-coding-system 'utf-8)
+
 ; custom.el を作らせない
 (setq custom-file (locate-user-emacs-file "custom.el"))
 

@@ -87,7 +87,12 @@
 
 (el-get-bundle magit-popup)
 (el-get-bundle magit)
-(use-package magit)
+(use-package magit
+  :config
+  (general-define-key :keymaps '(normal)
+                      :prefix "SPC"
+                      "gs" 'magit-status
+                      "gl" 'magit-log-popup))
 
 (el-get-bundle evil-magit)
 (use-package evil-magit)
