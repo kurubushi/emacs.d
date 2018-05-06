@@ -290,7 +290,7 @@
   :init
   (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
   (setq recentf-max-saved-items 2000)
-  (setq recentf-exclude '("~$"))
+  (setq recentf-exclude '("~$" "/recentf$"))
 ;  (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
   :config
   (add-hook 'find-file-hook 'recentf-save-list)
