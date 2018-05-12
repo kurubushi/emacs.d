@@ -290,7 +290,7 @@
   :init
   (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
   (setq recentf-max-saved-items 2000)
-  (setq recentf-exclude '("~$" "/recentf$"))
+  (setq recentf-exclude '("~$" "recentf$"))
 ;  (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
   :config
   (add-hook 'find-file-hook 'recentf-save-list)
@@ -326,7 +326,13 @@
 (el-get-bundle which-key)
 (use-package which-key
   :config
-  (which-key-mode))
+  (which-key-mode)
+  (general-define-key :keymaps '(normal)
+                      :prefix "SPC"
+                      "ww" 'which-key-show-top-level
+                      "wk" 'describe-key
+                      "wm" 'describe-mode
+                      "wM" 'describe-keymap))
 
 
 
