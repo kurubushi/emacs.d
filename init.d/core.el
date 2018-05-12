@@ -1,23 +1,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; core.el
+;; core.el
 ;----------
-; write core and common configures in it.
+;; write core and common configures in it.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; utils
+;; utils
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; utils/packages
+;; utils/packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle dash)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; utils/definitions
+;; utils/definitions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; like Vim, insert after current point. (a/i)nsert
@@ -39,34 +39,34 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; settings
+;; settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; coding-system
+;; coding-system
 (prefer-coding-system 'utf-8)
 
-; custom.el を作らせない
+;; custom.el を作らせない
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
-; change yes/not into y/n
+;; change yes/not into y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-; disable BEEP
+;; disable BEEP
 (setq ring-bell-function 'ignore)
 
-; 括弧の対応をハイライト
+;; 括弧の対応をハイライト
 (show-paren-mode t)
 
-; ファイル末尾で必ず改行
+;; ファイル末尾で必ず改行
 (setq require-final-newline t)
 
-; インデントはハードタブを使わない
+;; インデントはハードタブを使わない
 (setq-default indent-tabs-mode nil)
 
-; disable tool-bar
+;; disable tool-bar
 (tool-bar-mode 0)
 
-; disable menu-bar
+;; disable menu-bar
 (menu-bar-mode 0)
 
 (defun set-my-font-config (&rest args)
@@ -78,9 +78,9 @@
 (defun set-my-font-config-atonce (&rest args)
   (set-my-font-config)
   (remove-hook 'after-make-frame-functions #'set-my-font-config-atonce))
-(add-hook 'after-make-frame-functions #'set-my-font-config-atonce) ;; systemd 経由だと適用されない．しょうがないので hook する
+(add-hook 'after-make-frame-functions #'set-my-font-config-atonce) ; systemd 経由だと適用されない．しょうがないので hook する
 
-; theme
+;; theme
 
 (setq ns-use-srgb-colorspace nil) ; smooth powerline
 
@@ -92,7 +92,7 @@
 (use-package darkmine-theme
   :config (load-theme 'darkmine t))
 
-; https://stackoverflow.com/questions/18904529/
+;; https://stackoverflow.com/questions/18904529/
 (defun* reload-my-theme (&optional (frame (selected-frame)))
   (interactive)
   (with-selected-frame frame
@@ -105,26 +105,26 @@
     (reload-my-theme frame)))
 (setq loaded-theme-p nil)
 (add-hook 'after-make-frame-functions 'reload-my-theme-in-gui-only-once)
-; I don't know why but if a newer frame executes `load-theme`,
-; color of older frames is broken.
+;; I don't know why but if a newer frame executes `load-theme`,
+;; color of older frames is broken.
 
-;(el-get-bundle spacemacs-theme
-;  :type github
-;  :pkgname "nashamri/spacemacs-theme"
-;  :post-init (add-to-list 'custom-theme-load-path default-directory))
-;(use-package spacemacs-common
-;  :config (load-theme 'spacemacs-dark t))
-;
-;
-;(el-get-bundle darkmine-theme)
-;(use-package darkmine-theme
-;  :config (load-theme 'darkmine t))
+;;(el-get-bundle spacemacs-theme
+;;  :type github
+;;  :pkgname "nashamri/spacemacs-theme"
+;;  :post-init (add-to-list 'custom-theme-load-path default-directory))
+;;(use-package spacemacs-common
+;;  :config (load-theme 'spacemacs-dark t))
+;;
+;;
+;;(el-get-bundle darkmine-theme)
+;;(use-package darkmine-theme
+;;  :config (load-theme 'darkmine t))
 
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; general
+;; general
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle general)
@@ -149,7 +149,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; helper
+;; helper
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle help-fns+) ; discribe-keymap
@@ -159,11 +159,11 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; evil
+;; evil
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; evil / evil-mode
+;; evil / evil-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle evil)
@@ -171,13 +171,13 @@
   :config
   (custom-set-variables '(search-invisible t)) ;https://github.com/syl20bnr/spacemacs/issues/3623
   (custom-set-variables '(evil-want-C-u-scroll t))
-  (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ;; exclusive \n in visual state
+  (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ; exclusive \n in visual state
   (custom-set-variables  '(evil-search-module 'isearch))
-  (custom-set-variables '(evil-want-integration nil)) ;; for evil-collection
-  (custom-set-variables '(evil-move-cursor-back t)) ;; goes back when reterning from insert and prevents going eol
+  (custom-set-variables '(evil-want-integration nil)) ; for evil-collection
+  (custom-set-variables '(evil-move-cursor-back t)) ; goes back when reterning from insert and prevents going eol
   (evil-mode 1)
 
-  ;keymap
+  ;;keymap
   ;; original `evil-execute-in-normal-state` changes the value `evil-move-cusor-back` into nil against our will.
   ;; `evil-execute-in-normal-state-natively` doesn't change it and executes "C-o" like Vim.
   (defun evil-execute-in-normal-state-natively ()
@@ -195,9 +195,9 @@
         `(progn
            (with-current-buffer ,(current-buffer)
              (evil-change-state ',evil-state)))
-             ;(setq evil-move-cursor-back ',evil-move-cursor-back)))
+             ;;(setq evil-move-cursor-back ',evil-move-cursor-back)))
       'post-command-hook)
-    ;(setq evil-move-cursor-back nil)
+    ;;(setq evil-move-cursor-back nil)
     (evil-normal-state)
     (evil-echo "Switched to Normal state for the next command ..."))
   (general-define-key :keymaps '(insert)
@@ -221,21 +221,21 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; evil / evil-leader
+;; evil / evil-leader
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(el-get-bundle evil-leader)
-;(use-package evil-leader
-;  :config
-;  (global-evil-leader-mode 1)
-;  (evil-leader/set-leader "<SPC>")
-;  (evil-leader/set-key "<SPC>" #'execute-extended-command))
+;;(el-get-bundle evil-leader)
+;;(use-package evil-leader
+;;  :config
+;;  (global-evil-leader-mode 1)
+;;  (evil-leader/set-leader "<SPC>")
+;;  (evil-leader/set-key "<SPC>" #'execute-extended-command))
 
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; perspeen
+;; perspeen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle perspeen)
@@ -267,9 +267,9 @@
                       "p8" 'perspeen-ws-jump
                       "p9" 'perspeen-ws-jumiousp
                       "pc" 'perspeen-tab-create-tab)
-  ; By default,
-  ; perspeen-tab--header-line-inactive <- mode-line-active
-  ; perspeen-tab--powerline-inactive1 <- mode-line-active + grayscale
+  ;; By default,
+  ;; perspeen-tab--header-line-inactive <- mode-line-active
+  ;; perspeen-tab--powerline-inactive1 <- mode-line-active + grayscale
   (set-face-attribute 'perspeen-tab--header-line-inactive nil
                       :inherit 'mode-line-inactive)
   (set-face-attribute 'perspeen-tab--powerline-inactive1 nil
@@ -283,15 +283,15 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; recentf
+;; recentf
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package recentf
   :init
-  (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
+  (setq recentf-auto-cleanup 'never) ; disable before we start recentf!
   (setq recentf-max-saved-items 2000)
   (setq recentf-exclude '("~$" "recentf$"))
-;  (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
+;;  (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
   :config
   (add-hook 'find-file-hook 'recentf-save-list)
   (recentf-mode 1))
@@ -300,7 +300,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; helm
+;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle helm)
@@ -320,7 +320,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; which-key
+;; which-key
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle which-key)
@@ -338,7 +338,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; auto-complete
+;; auto-complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle auto-complete)
@@ -347,14 +347,14 @@
   (use-package auto-complete-config)
   :config
   (ac-config-default)
-  (setq ac-use-menu-map t) ;; C-p/C-n move
+  (setq ac-use-menu-map t) ; C-p/C-n move
   (setq ac-auto-start nil))
 
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; skk
+;; skk
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle ddskk)
@@ -363,7 +363,7 @@
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'en)
   (setq skk-j-is-overriding nil)
-  ;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
+  ;;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
   :config
   (skk-mode 1)
   (defun skk-mode-on-auto ()
@@ -371,7 +371,7 @@
     (skk-latin-mode-on))
   (add-hook 'evil-insert-state-entry-hook #'skk-mode-on-auto)
   (add-hook 'evil-insert-state-exit-hook #'skk-mode-on-auto)
-  ; https://github.com/haskell/haskell-mode/issues/1320
+  ;; https://github.com/haskell/haskell-mode/issues/1320
   (defun skk-j-overrideing-minor ()
     (unless skk-j-is-overriding
       (add-to-list 'minor-mode-overriding-map-alist
@@ -383,7 +383,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; shell
+;; shell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle shell-pop)
@@ -392,4 +392,4 @@
   (general-define-key :keymaps '(normal insert visual emacs)
                       "<f8>" 'shell-pop))
 
-;EOF
+;;EOF
