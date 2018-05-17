@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; core.el
-;----------
+;;----------
 ;; write core and common configures in it.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -362,21 +362,31 @@
   :init
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'en)
-  (setq skk-j-is-overriding nil)
   ;;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
+
   :config
-  (skk-mode 1)
-  (defun skk-mode-on-auto ()
-    (skk-mode 1)
-    (skk-latin-mode-on))
-  (add-hook 'evil-insert-state-entry-hook #'skk-mode-on-auto)
-  (add-hook 'evil-insert-state-exit-hook #'skk-mode-on-auto)
-  ;; https://github.com/haskell/haskell-mode/issues/1320
+
+  ;; to make global skk minor mode and use it always
+  ;; ref: https://stackoverflow.com/questions/16048231/
+  (define-globalized-minor-mode global-skk-mode skk-mode
+    (lambda () (skk-latin-mode 1)))
+  (global-skk-mode)
+
+  ;; to set C-j to evil-ex state
+  ;; ref: https://emacs.stackexchange.com/questions/14163/
+  (general-define-key :keymaps '(evil-ex-completion-map)
+                      "C-j" 'skk-kakutei)
+
+  ;; to return skk-latin-mode when entrying/exiting from insert-state
+  (add-hook 'evil-insert-state-entry-hook 'skk-latin-mode-on)
+  (add-hook 'evil-insert-state-exit-hook 'skk-latin-mode-on)
+
+  ;; priority to skk-j-mode-map over any minor mode map
+  ;; as default, haskell-mode binds ";" that I want to be 'skk-kakutei
+  ;; ref: https://github.com/haskell/haskell-mode/issues/1320
   (defun skk-j-overrideing-minor ()
-    (unless skk-j-is-overriding
-      (add-to-list 'minor-mode-overriding-map-alist
-                   `(skk-j-mode . ,skk-j-mode-map))
-      (setq skk-j-is-overriding t)))
+    (add-to-list 'minor-mode-overriding-map-alist
+                 `(skk-j-mode . ,skk-j-mode-map)))
   (add-hook 'skk-mode-hook 'skk-j-overrideing-minor))
 
 
