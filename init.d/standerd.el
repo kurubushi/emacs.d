@@ -113,10 +113,10 @@
   (setq TeX-source-correlate-method 'synctex)
   (setq TeX-source-correlate-start-server t)
   (setq TeX-source-correlate-mode t)
-  (add-hook 'LaTeX-mode-hook 'pdf-sync-minor-mode)
+  (add-hook 'TeX-mode-hook 'pdf-sync-minor-mode)
 
   ;; C-c C-c commands
-  (add-hook 'LaTeX-mode-hook
+  (add-hook 'TeX-mode-hook
             (function (lambda ()
                         (add-to-list 'TeX-command-list
                                      '("MyLaTeX" "%`%l%(mode)%' %t"

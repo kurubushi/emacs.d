@@ -355,7 +355,7 @@
                       "ff" 'helm-find-files
                       "fr" 'helm-recentf
                       ;; buffer
-                      "bl" 'helm-buffers-list)
+                      "bb" 'helm-buffers-list)
   (helm-mode 1))
 
 
