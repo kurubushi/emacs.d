@@ -36,7 +36,7 @@
     (insert-after (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
 
 
-;; kill all buffers except *-ed buffers
+;; kill all buffers except ... buffers
 
 (defun is-asterisked (buffer)
   (string-match "\\*.*\\*\\'" (buffer-name buffer)))
@@ -45,6 +45,14 @@
   (interactive)
   (mapc 'kill-buffer
         (remove-if 'is-asterisked (buffer-list))))
+
+(defun is-dired (buffer)
+  (eq 'dired-mode (buffer-local-value 'major-mode buffer)))
+
+(defun kill-all-dired-buffers ()
+  (interactive)
+  (mapc 'kill-buffer
+        (remove-if-not 'is-dired (buffer-list))))
 
 
 
@@ -152,7 +160,8 @@
                       "vd" 'disable-theme
                       ;;buffer
                       "bd" 'kill-this-buffer
-                      "bD" 'kill-all-buffers-except-asterisked-buffers
+                      "bD" 'kill-all-dired-buffers
+                      "bA" 'kill-all-buffers-except-asterisked-buffers
                       "bn" 'next-buffer
                       "bp" 'previous-buffer
                       "bk" 'kill-some-buffers))
