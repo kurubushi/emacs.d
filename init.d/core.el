@@ -36,6 +36,17 @@
     (insert-after (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
 
 
+;; kill all buffers except *-ed buffers
+
+(defun is-asterisked (buffer)
+  (string-match "\\*.*\\*\\'" (buffer-name buffer)))
+
+(defun kill-all-buffers-except-asterisked-buffers ()
+  (interactive)
+  (mapc 'kill-buffer
+        (remove-if 'is-asterisked (buffer-list))))
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -141,6 +152,7 @@
                       "vd" 'disable-theme
                       ;;buffer
                       "bd" 'kill-this-buffer
+                      "bD" 'kill-all-buffers-except-asterisked-buffers
                       "bn" 'next-buffer
                       "bp" 'previous-buffer
                       "bk" 'kill-some-buffers))
