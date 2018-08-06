@@ -134,8 +134,9 @@
   (setq TeX-command-default "latexmk")
 
   ;; to use pdfview with auctex
-  (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
-  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))
+  ;; (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
+  ;; (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))
+  (setq TeX-view-program-selection '((output-pdf "Evince")))
   ;; to revert viewed pdf after compilation
   ;; given argment is "hoge.dvi" but a buffer we want revert is PDF's.
   ;; TeX-revert-PDF-buffer reverts PDF's buffer
