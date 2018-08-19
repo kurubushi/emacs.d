@@ -1,0 +1,4 @@
+(:name gotham-theme
+       :type github
+       :pkgname "wasamasa/gotham-theme"
+       :post-init (add-to-list 'custom-theme-load-path default-directory))

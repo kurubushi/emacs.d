@@ -1,0 +1,4 @@
+(:name omtose-phellack-theme
+       :type github
+       :pkgname "franksn/omtose-phellack-theme"
+       :post-init (add-to-list 'custom-theme-load-path (concat default-directory "/variants")))

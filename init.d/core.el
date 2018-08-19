@@ -101,22 +101,19 @@
 
 ;; theme
 
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "theme.d/"))
+
 (setq ns-use-srgb-colorspace nil) ; smooth powerline
 
-(el-get-bundle spacemacs-theme)
-(use-package spacemacs-common
-  :config (load-theme 'spacemacs-dark t))
-
-(el-get-bundle darkmine-theme)
-(use-package darkmine-theme
-  :config (load-theme 'darkmine t))
+(el-get-bundle omtose-phellack-theme)
+(use-package omtose-phellack-theme)
 
 ;; https://stackoverflow.com/questions/18904529/
 (defun* reload-my-theme (&optional (frame (selected-frame)))
   (interactive)
   (with-selected-frame frame
-    (load-theme 'spacemacs-dark t)
-    (load-theme 'darkmine t)))
+    (load-theme 'omtose-darker t)
+    (load-theme 'omtose-darker2 t)))
 (reload-my-theme)
 (defun reload-my-theme-in-gui-only-once (frame)
   (when (and (display-graphic-p frame) (not loaded-theme-p))
@@ -124,20 +121,6 @@
     (reload-my-theme frame)))
 (setq loaded-theme-p nil)
 (add-hook 'after-make-frame-functions 'reload-my-theme-in-gui-only-once)
-;; I don't know why but if a newer frame executes `load-theme`,
-;; color of older frames is broken.
-
-;;(el-get-bundle spacemacs-theme
-;;  :type github
-;;  :pkgname "nashamri/spacemacs-theme"
-;;  :post-init (add-to-list 'custom-theme-load-path default-directory))
-;;(use-package spacemacs-common
-;;  :config (load-theme 'spacemacs-dark t))
-;;
-;;
-;;(el-get-bundle darkmine-theme)
-;;(use-package darkmine-theme
-;;  :config (load-theme 'darkmine t))
 
 
 
