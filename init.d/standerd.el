@@ -61,7 +61,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle tuareg-mode)
-(use-package tuareg-mode
+(use-package tuareg
   :config
   (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
   (setq auto-mode-alist
@@ -69,7 +69,10 @@
               ("\\.topml$" . tuareg-mode))
             auto-mode-alist))
   (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-  (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer))
+  (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;; prettify-symbols-mode
+  (setq tuareg-prettify-symbols-full t)
+  (add-hook 'tuareg-mode-hook 'prettify-symbols-mode))
 
 (el-get-bundle merlin)
 (use-package merlin
