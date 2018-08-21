@@ -150,6 +150,9 @@
 ;; 括弧の対応をハイライト
 (show-paren-mode t)
 
+;; highlights current line
+(hl-line-mode t)
+
 ;; ファイル末尾で必ず改行
 (setq require-final-newline t)
 
@@ -224,7 +227,12 @@
                       "bA" 'kill-all-buffers-except-asterisked-buffers
                       "bn" 'next-buffer
                       "bp" 'previous-buffer
-                      "bk" 'kill-some-buffers))
+                      "bk" 'kill-some-buffers)
+  ;; remove dangerous binds by typing miss
+  (general-define-key :keymaps '(global-map)
+                      "C-x C-u" 'nil ; delete 'upcase-region insted of 'disable
+                      "C-x C-l" 'nil ; delete 'downcase-region insted of 'disable
+                      ))
 
 
 
@@ -430,9 +438,11 @@
 (use-package helm-config
   :el-get helm
   :config
+  (general-define-key :keymaps '(normal visual)
+                      :prefix "SPC"
+                      "SPC" 'helm-M-x)
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
-                      "SPC" 'helm-M-x
                       ;; file
                       "ff" 'helm-find-files
                       "fr" 'helm-recentf
