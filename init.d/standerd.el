@@ -8,15 +8,14 @@
 ;; PDF
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle pdf-tools) ; requires automake and proppler.
 (use-package pdf-tools
-  :init
-  (pdf-tools-install)
+  :el-get pdf-tools ; requires automake and proppler.
+  :mode (("\\.pdf\\'" . pdf-view-mode))
   :config
+  (pdf-tools-install)
   ;; keymap depends on evil-collection
   (evil-define-key-escape-spc 'pdf-view-mode-map)
-  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
-  (add-hook 'pdf-view-mode-hook #'pdf-sync-minor-mode))
+  (add-hook 'pdf-view-mode-hook 'pdf-sync-minor-mode))
 
 
 
@@ -25,8 +24,9 @@
 ;; markdown
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle markdown-mode)
-(use-package markdown-mode)
+(use-package markdown-mode
+  :el-get markdown-mode
+  :mode (("\\.md\\'" . markdown-mode)))
 
 
 
@@ -35,12 +35,14 @@
 ;; haskell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle haskell-mode)
-(use-package haskell-mode)
+(use-package haskell-mode
+  :el-get haskell-mode
+  :mode (("\\.hs\\'" . haskell-mode)))
 
-;;(el-get-bundle intero)
 ;;(use-package intero
-;;  :config
+;;  :el-get intero
+;;  :commands intero-mode
+;;  :init
 ;;  (add-hook 'haskell-mode-hook 'intero-mode))
 
 
@@ -50,8 +52,9 @@
 ;; scala
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle scala-mode)
-(use-package scala-mode)
+(use-package scala-mode
+  :el-get scala-mode
+  :mode (("\\.scala\\'" . scala-mode)))
 
 
 
@@ -60,24 +63,23 @@
 ;; ocaml
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle tuareg-mode)
 (use-package tuareg
+  :el-get tuareg-mode
+  :mode (("\\.ml[ily]?\\'" . tuareg-mode))
   :config
-  (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
-  (setq auto-mode-alist
-    (append '(("\\.ml[ily]?$" . tuareg-mode)
-              ("\\.topml$" . tuareg-mode))
-            auto-mode-alist))
-  (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-  (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;;  (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
+;;  (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;;  (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 ;; prettify-symbols-mode
   (setq tuareg-prettify-symbols-full t)
   (add-hook 'tuareg-mode-hook 'prettify-symbols-mode))
 
-(el-get-bundle merlin)
 (use-package merlin
-  :config
+  :el-get merlin
+  :commands merlin-mode
+  :init
   (add-hook 'tuareg-mode-hook 'merlin-mode)
+  :config
   (setq merlin-use-auto-complete-mode t)
   (setq merlin-error-after-save nil))
 
@@ -88,17 +90,17 @@
 ;; mgit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle magit-popup)
-(el-get-bundle magit)
 (use-package magit
-  :config
+  :el-get (magit magit-popup)
+  :general
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "gs" 'magit-status
                       "gl" 'magit-log-popup))
 
-(el-get-bundle evil-magit)
-(use-package evil-magit)
+(use-package evil-magit
+  :el-get evil-magit
+  :after (evil magit))
 
 
 
@@ -107,19 +109,19 @@
 ;; tex
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle auctex)
 (use-package tex-site
+  :el-get auctex
+  :mode (("\\.tex\\'" . LaTeX-mode))
   :config
   (setq TeX-PDF-mode t)
-
   ;; enable synctex
   (setq TeX-source-correlate-method 'synctex)
   (setq TeX-source-correlate-start-server t)
   (setq TeX-source-correlate-mode t)
-  (add-hook 'TeX-mode-hook 'pdf-sync-minor-mode)
+  (add-hook 'LaTeX-mode-hook 'pdf-sync-minor-mode)
 
   ;; C-c C-c commands
-  (add-hook 'TeX-mode-hook
+  (add-hook 'LaTeX-mode-hook
             (function (lambda ()
                         (add-to-list 'TeX-command-list
                                      '("MyLaTeX" "%`%l%(mode)%' %t"

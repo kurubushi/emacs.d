@@ -4,16 +4,78 @@
 ;; write core and common configures in it.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; use-package
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun insert-to-list (x y zs)
+  (if (null zs)
+      (error "insert-to-list: %s is not in the list." y)
+    (let ((z (car zs))
+          (zs (cdr zs)))
+      (if (eq y z)
+          `(,x ,y . ,zs)
+        `(,z . ,(insert-to-list x y zs))))))
+(defun append-to-list (x y zs)
+  (if (null zs)
+      (error "insert-to-list: %s is not in the list." y)
+    (let ((z (car zs))
+          (zs (cdr zs)))
+      (if (eq y z)
+          `(,y ,x . ,zs)
+        `(,z . ,(append-to-list x y zs))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; use-package/:logging
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq use-package-inject-hooks 't)
+(setq use-package-keywords (insert-to-list :logging :init use-package-keywords))
+(defalias 'use-package-normalize/:logging 'use-package-nomalize-predicate)
+;; if `use-package-inject-hooks' become obsoluted,
+;; we create new keywords `:pre-init', `:pre-config' and their hooks
+;; and make `:logging' add `(message ...)' to these hooks.
+(defun use-package-handler/:logging (name keyword arg rest state)
+  (let ((name-s (use-package-as-string name))) ; use-package-as-string == symbol-name
+    (add-hook (intern (concat "use-package--" name-s "--pre-init-hook"))
+              `(lambda () (message "[use-package] Loading :init in %s" ,name-s)))
+    (add-hook (intern (concat "use-package--" name-s "--pre-config-hook"))
+              `(lambda () (message "[use-package] Loading :config in %s" ,name-s)))
+    (set (intern (concat "use-package--" name-s "--el-get-logging")) 't)
+    (use-package-process-keywords name rest state)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; use-package/:el-get
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq use-package-keywords (append-to-list :el-get :init use-package-keywords))
+(defalias 'use-package-normalize/:el-get 'use-package-normalize-symlist)
+(defun use-package-handler/:el-get (name keyword args rest state)
+  (let ((name-s (use-package-as-string name)))
+    (use-package-concat
+     (if (not (boundp (intern (concat "use-package--" name-s "--el-get-logging"))))
+         'nil
+       `((message "[use-package] (el-get 'sync %s) in %s" ',args ,name-s)))
+     `((el-get 'sync ',args))
+     (use-package-process-keywords name rest state))))
+
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; utils
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; utils/packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle dash)
+(use-package dash
+  :defer t
+  :el-get dash)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -105,8 +167,8 @@
 
 (setq ns-use-srgb-colorspace nil) ; smooth powerline
 
-(el-get-bundle omtose-phellack-theme)
-(use-package omtose-phellack-theme)
+(use-package omtose-phellack-theme
+  :el-get omtose-phellack-theme)
 
 ;; https://stackoverflow.com/questions/18904529/
 (defun* reload-my-theme (&optional (frame (selected-frame)))
@@ -129,8 +191,8 @@
 ;; general
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle general)
 (use-package general
+  :el-get general
   :config
   (setq general-default-keymaps 'evil-normal-state-map)
   (general-define-key :keymaps '(normal)
@@ -156,8 +218,8 @@
 ;; helper
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle help-fns+) ; discribe-keymap
-(use-package help-fns+)
+(use-package help-fns+
+  :el-get help-fns+) ; discribe-keymap
 
 
 
@@ -170,8 +232,8 @@
 ;; evil / evil-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle evil)
 (use-package evil
+  :el-get evil
   :config
   (custom-set-variables '(search-invisible t)) ;https://github.com/syl20bnr/spacemacs/issues/3623
   (custom-set-variables '(evil-want-C-u-scroll t))
@@ -211,8 +273,8 @@
                       :prefix "SPC"
                       "SPC" 'execute-extended-command))
 
-(el-get-bundle evil-collection)
 (use-package evil-collection
+  :el-get evil-collection
   :after evil
   :config
   (evil-collection-init)
@@ -284,8 +346,8 @@
 ;; perspeen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle perspeen)
 (use-package perspeen
+  :el-get perspeen
   :init
   (setq perspeen-use-tab t)
   :config
@@ -322,8 +384,9 @@
                       :background "gray11"
                       :inherit 'mode-line-inactive))
 
-(el-get-bundle helm-perspeen)
-(use-package helm-perspeen)
+(use-package helm-perspeen
+  :el-get helm-perspeen
+  :after (helm perspeen))
 
 
 
@@ -349,8 +412,8 @@
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle helm)
 (use-package helm-config
+  :el-get helm
   :config
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
@@ -369,8 +432,8 @@
 ;; which-key
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle which-key)
 (use-package which-key
+  :el-get which-key
   :config
   (which-key-mode)
   (general-define-key :keymaps '(normal)
@@ -387,11 +450,10 @@
 ;; auto-complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle auto-complete)
 (use-package auto-complete
-  :init
-  (use-package auto-complete-config)
+  :el-get auto-complete
   :config
+  (use-package auto-complete-config)
   (ac-config-default)
   (setq ac-use-menu-map t) ; C-p/C-n move
   (setq ac-auto-start nil))
@@ -403,8 +465,9 @@
 ;; skk
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle ddskk)
 (use-package skk
+  :logging t
+  :el-get ddskk
   :init
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'en)
@@ -442,9 +505,9 @@
 ;; shell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(el-get-bundle shell-pop)
 (use-package shell-pop
-  :config
+  :el-get shell-pop
+  :general
   (general-define-key :keymaps '(normal insert visual emacs)
                       "<f8>" 'shell-pop))
 
