@@ -117,6 +117,18 @@
         (remove-if-not 'is-dired (buffer-list))))
 
 
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value.
+   http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -195,6 +207,9 @@
   :el-get general
   :config
   (setq general-default-keymaps 'evil-normal-state-map)
+  (general-define-key :keymaps '(insert)
+                      ;; eval
+                      "C-x C-r" 'eval-and-replace)
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       ;; view
@@ -203,7 +218,7 @@
                       "vl" 'load-theme
                       "ve" 'enable-theme
                       "vd" 'disable-theme
-                      ;;buffer
+                      ;; buffer
                       "bd" 'kill-this-buffer
                       "bD" 'kill-all-dired-buffers
                       "bA" 'kill-all-buffers-except-asterisked-buffers
