@@ -84,7 +84,8 @@
 
 ;; like Vim, insert after current point. (a/i)nsert
 (defun insert-after (string)
-  (forward-char)
+  (if (not (eolp))
+      (forward-char))
   (insert string))
 
 ;; insert current time
@@ -96,6 +97,7 @@
   (interactive)
   (let ((system-time-locale "C"))
     (insert-after (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
+
 
 
 ;; kill all buffers except ... buffers
@@ -267,28 +269,22 @@
   (evil-mode 1)
 
   ;;keymap
-  ;; original `evil-execute-in-normal-state` changes the value `evil-move-cusor-back` into nil against our will.
-  ;; `evil-execute-in-normal-state-natively` doesn't change it and executes "C-o" like Vim.
+  ;; original `evil-execute-in-normal-state` executes as "C-\ C-o" of Vim.
+  ;; `evil-execute-in-normal-state-natively` executes as "C-o" of Vim.
   (defun evil-execute-in-normal-state-natively ()
     "Execute the next command in Normal state, natively."
     (interactive)
-    (evil-delay '(not (memq this-command
-                            '(evil-execute-in-normal-state
-                              evil-use-register
-                              digit-argument
-                              negative-argument
-                              universal-argument
-                              universal-argument-minus
-                              universal-argument-more
-                              universal-argument-other-key)))
-        `(progn
-           (with-current-buffer ,(current-buffer)
-             (evil-change-state ',evil-state)))
-             ;;(setq evil-move-cursor-back ',evil-move-cursor-back)))
-      'post-command-hook)
-    ;;(setq evil-move-cursor-back nil)
-    (evil-normal-state)
-    (evil-echo "Switched to Normal state for the next command ..."))
+    (setq evil-move-cursor-back_ evil-move-cursor-back)
+    (evil-execute-in-normal-state)
+    ;; returns to original value without wating evil-delay
+    (setq evil-move-cursor-back evil-move-cursor-back_))
+;; For some reason, the next function cannot restore evil-move-cursor-back.
+;;  (defun evil-execute-in-normal-state-natively ()
+;;    "Execute the next command in Normal state, natively."
+;;    (interactive)
+;;    (if (eolp)
+;;        (evil-backward-char))
+;;    (evil-execute-in-normal-state))
   (general-define-key :keymaps '(insert)
                       "C-k" 'auto-complete
                       "C-o" 'evil-execute-in-normal-state-natively)
