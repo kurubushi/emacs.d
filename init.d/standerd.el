@@ -109,6 +109,14 @@
 ;; tex
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;; (make-variable-buffer-local 'font-lock-extra-managed-props)
+;; (add-to-list 'font-lock-extra-managed-props 'invisible)
+;; (font-lock-add-keywords nil
+;;                         '(("\\(\\\\\\_<xxx\\_>\{\\)[a-zA-Z0-9_]+\\(\}\\)"
+;;                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ?@)))
+;;                            (2 '(face nil invisible t)))))
+;; [Using font-lock regexp groups - Emacs Stack Exchange](https://emacs.stackexchange.com/questions/28154/using-font-lock-regexp-groups)
 (use-package tex-site
   :el-get auctex
   :mode (("\\.tex\\'" . LaTeX-mode))
