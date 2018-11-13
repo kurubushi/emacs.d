@@ -362,51 +362,14 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; perspeen
+;; persp-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package perspeen
-  :el-get perspeen
-  :init
-  (setq perspeen-use-tab t)
+(use-package persp-mode
+  :el-get persp-mode
   :config
-  (perspeen-mode)
-  (general-define-key :keymaps '(normal)
-                      :prefix "SPC"
-                      "pC" 'perspeen-create-ws
-                      "pN" 'perspeen-next-ws
-                      "pn" 'perspeen-tab-next
-                      "pP" 'perspeen-previous-ws
-                      "pp" 'perspeen-tab-prev
-                      "p'" 'perspeen-goto-last-ws
-                      "pe" 'perspeen-ws-eshell
-                      "pK" 'perspeen-delete-ws
-                      "pk" 'perspeen-tab-del
-                      "pR" 'perspeen-rename-ws
-                      "pD" 'perspeen-change-root-dir
-                      "p1" 'perspeen-ws-jump
-                      "p2" 'perspeen-ws-jump
-                      "p3" 'perspeen-ws-jump
-                      "p4" 'perspeen-ws-jump
-                      "p5" 'perspeen-ws-jump
-                      "p6" 'perspeen-ws-jump
-                      "p7" 'perspeen-ws-jump
-                      "p8" 'perspeen-ws-jump
-                      "p9" 'perspeen-ws-jumiousp
-                      "pc" 'perspeen-tab-create-tab)
-  ;; By default,
-  ;; perspeen-tab--header-line-inactive <- mode-line-active
-  ;; perspeen-tab--powerline-inactive1 <- mode-line-active + grayscale
-  (set-face-attribute 'perspeen-tab--header-line-inactive nil
-                      :inherit 'mode-line-inactive)
-  (set-face-attribute 'perspeen-tab--powerline-inactive1 nil
-                      :background "gray11"
-                      :inherit 'mode-line-inactive))
-
-(use-package helm-perspeen
-  :el-get helm-perspeen
-  :after (helm perspeen))
-
+    (setq persp-add-on-switch-or-display t)
+    (persp-mode t))
 
 
 
@@ -523,21 +486,16 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; pangu-spacing
+;; auto-spacing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package pangu-spacing
-  :el-get pangu-spacing
+(use-package auto-spacing
+  :el-get auto-spacing
   :config
     ;; where to insert a space
-    (setq pangu-spacing-chinese-before-english-regexp
-          (rx (group-n 1 (category japanese))
-              (group-n 2 (in "a-zA-Z0-9$"))))
-    (setq pangu-spacing-chinese-after-english-regexp
-          (rx (group-n 1 (in "a-zA-Z0-9$"))
-              (group-n 2 (category japanese))))
-    ;; insert real spaces "overall" when "save file"
-    (setq pangu-spacing-real-insert-separtor t))
+    (setq auto-spacing-english-regexp (rx (in "a-zA-Z0-9$.`")))
+    (setq auto-spacing-non-english-regexp (rx (category japanese)))
+    (setq auto-spacing-non-english-exception-regexp (rx (in "。，．！？；：「」（）、"))))
 
 
 
