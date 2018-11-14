@@ -1,0 +1,4 @@
+(:name      use-package--el-get-test
+ :type      github
+ :pkgname   "kurubushi/use-package--el-get"
+ :load-path "demo")

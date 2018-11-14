@@ -9,58 +9,58 @@
 ;; use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun insert-to-list (x y zs)
-  (if (null zs)
-      (error "insert-to-list: %s is not in the list." y)
-    (let ((z (car zs))
-          (zs (cdr zs)))
-      (if (eq y z)
-          `(,x ,y . ,zs)
-        `(,z . ,(insert-to-list x y zs))))))
-(defun append-to-list (x y zs)
-  (if (null zs)
-      (error "insert-to-list: %s is not in the list." y)
-    (let ((z (car zs))
-          (zs (cdr zs)))
-      (if (eq y z)
-          `(,y ,x . ,zs)
-        `(,z . ,(append-to-list x y zs))))))
+;;(defun insert-to-list (x y zs)
+;;  (if (null zs)
+;;      (error "insert-to-list: %s is not in the list." y)
+;;    (let ((z (car zs))
+;;          (zs (cdr zs)))
+;;      (if (eq y z)
+;;          `(,x ,y . ,zs)
+;;        `(,z . ,(insert-to-list x y zs))))))
+;;(defun append-to-list (x y zs)
+;;  (if (null zs)
+;;      (error "insert-to-list: %s is not in the list." y)
+;;    (let ((z (car zs))
+;;          (zs (cdr zs)))
+;;      (if (eq y z)
+;;          `(,y ,x . ,zs)
+;;        `(,z . ,(append-to-list x y zs))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; use-package/:logging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq use-package-inject-hooks 't)
-(setq use-package-keywords (insert-to-list :logging :init use-package-keywords))
-(defalias 'use-package-normalize/:logging 'use-package-nomalize-predicate)
-;; if `use-package-inject-hooks' become obsoluted,
-;; we create new keywords `:pre-init', `:pre-config' and their hooks
-;; and make `:logging' add `(message ...)' to these hooks.
-(defun use-package-handler/:logging (name keyword arg rest state)
-  (let ((name-s (use-package-as-string name))) ; use-package-as-string == symbol-name
-    (add-hook (intern (concat "use-package--" name-s "--pre-init-hook"))
-              `(lambda () (message "[use-package] Loading :init in %s" ,name-s)))
-    (add-hook (intern (concat "use-package--" name-s "--pre-config-hook"))
-              `(lambda () (message "[use-package] Loading :config in %s" ,name-s)))
-    (set (intern (concat "use-package--" name-s "--el-get-logging")) 't)
-    (use-package-process-keywords name rest state)))
+;;(setq use-package-inject-hooks 't)
+;;(setq use-package-keywords (insert-to-list :logging :init use-package-keywords))
+;;(defalias 'use-package-normalize/:logging 'use-package-nomalize-predicate)
+;;;; if `use-package-inject-hooks' become obsoluted,
+;;;; we create new keywords `:pre-init', `:pre-config' and their hooks
+;;;; and make `:logging' add `(message ...)' to these hooks.
+;;(defun use-package-handler/:logging (name keyword arg rest state)
+;;  (let ((name-s (use-package-as-string name))) ; use-package-as-string == symbol-name
+;;    (add-hook (intern (concat "use-package--" name-s "--pre-init-hook"))
+;;              `(lambda () (message "[use-package] Loading :init in %s" ,name-s)))
+;;    (add-hook (intern (concat "use-package--" name-s "--pre-config-hook"))
+;;              `(lambda () (message "[use-package] Loading :config in %s" ,name-s)))
+;;    (set (intern (concat "use-package--" name-s "--el-get-logging")) 't)
+;;    (use-package-process-keywords name rest state)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; use-package/:el-get
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq use-package-keywords (append-to-list :el-get :init use-package-keywords))
-(defalias 'use-package-normalize/:el-get 'use-package-normalize-symlist)
-(defun use-package-handler/:el-get (name keyword args rest state)
-  (let ((name-s (use-package-as-string name)))
-    (use-package-concat
-     (if (not (boundp (intern (concat "use-package--" name-s "--el-get-logging"))))
-         'nil
-       `((message "[use-package] (el-get 'sync %s) in %s" ',args ,name-s)))
-     `((el-get 'sync ',args))
-     (use-package-process-keywords name rest state))))
+;;(setq use-package-keywords (append-to-list :el-get :init use-package-keywords))
+;;(defalias 'use-package-normalize/:el-get 'use-package-normalize-symlist)
+;;(defun use-package-handler/:el-get (name keyword args rest state)
+;;  (let ((name-s (use-package-as-string name)))
+;;    (use-package-concat
+;;     (if (not (boundp (intern (concat "use-package--" name-s "--el-get-logging"))))
+;;         'nil
+;;       `((message "[use-package] (el-get 'sync %s) in %s" ',args ,name-s)))
+;;     `((el-get 'sync ',args))
+;;     (use-package-process-keywords name rest state))))
 
 
 
@@ -450,7 +450,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package skk
-  :logging t
   :el-get ddskk
   :init
   (setq skk-sticky-key ";")

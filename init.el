@@ -35,6 +35,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (el-get-bundle! use-package)
+(el-get-bundle! use-package--el-get)
 
 
 
