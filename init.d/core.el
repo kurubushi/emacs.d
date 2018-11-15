@@ -494,8 +494,11 @@
     ;; where to insert a space
     (setq auto-spacing-english-regexp (rx (in "a-zA-Z0-9$.`")))
     (setq auto-spacing-non-english-regexp (rx (category japanese)))
-    (setq auto-spacing-non-english-exception-regexp (rx (in "。，．！？；：「」（）、"))))
-
+    (setq auto-spacing-non-english-exception-regexp (rx (in "。，．！？；：「」（）、")))
+    ;; add insert functions
+    (setq auto-spacing-self-insert-command-list
+          '(skk-insert
+            TeX-insert-dollar)))
 
 
 
