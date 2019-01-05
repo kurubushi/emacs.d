@@ -199,3 +199,14 @@
 ;;                                       "TeX-evince-sync-view"
 ;;                                       TeX-run-discard-or-function t t :help "Forward search with Evince"))
 ;;                        (add-hook 'before-save-hook 'replace-dot-comma nil 'make-it-local)))))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fish
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package emacs-fish
+  :el-get emacs-fish)
+
