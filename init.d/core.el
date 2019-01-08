@@ -512,4 +512,19 @@
   (general-define-key :keymaps '(normal insert visual emacs)
                       "<f8>" 'shell-pop))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; env
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package exec-path-from-shell
+  :el-get exec-path-from-shell
+  :config
+  ;; copy current universal env variables related ssh-agent in fish
+  (defun resetenv ()
+    (interactive)
+    (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+    (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+  (resetenv))
+
 ;;EOF
