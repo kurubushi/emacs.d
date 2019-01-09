@@ -522,6 +522,7 @@
   :config
   ;; copy current universal env variables related ssh-agent in fish
   ;; with export ESHELL=$(which fish)
+  (setq exec-path-from-shell-shell-name (getenv "ESHELL"))
   (defun resetenv ()
     (interactive)
     (exec-path-from-shell-copy-envs '("SSH_AGENT_PID" "SSH_AUTH_SOCK")))
