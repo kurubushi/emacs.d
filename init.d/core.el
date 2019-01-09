@@ -517,14 +517,14 @@
 ;; env
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;(use-package exec-path-from-shell
-;;  :el-get exec-path-from-shell
-;;  :config
-;;  ;; copy current universal env variables related ssh-agent in fish
-;;  (defun resetenv ()
-;;    (interactive)
-;;    (exec-path-from-shell-copy-env "SSH_AGENT_PID")
-;;    (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
-;;  (resetenv))
+(use-package exec-path-from-shell
+  :el-get exec-path-from-shell
+  :config
+  ;; copy current universal env variables related ssh-agent in fish
+  ;; with export ESHELL=$(which fish)
+  (defun resetenv ()
+    (interactive)
+    (exec-path-from-shell-copy-envs '("SSH_AGENT_PID" "SSH_AUTH_SOCK")))
+  (resetenv))
 
 ;;EOF
