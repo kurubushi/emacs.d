@@ -167,16 +167,16 @@
 ;; disable menu-bar
 (menu-bar-mode 0)
 
-(defun set-my-font-config (&rest args)
-  (let* ((size 12)
-         (fontfamily "Ricty"))
+(defun set-my-font-with-size (size)
+  (interactive "nsize: ")
+  (let* ((fontfamily "Ricty"))
     (set-face-attribute 'default nil :family fontfamily :height (* size 10))
     (set-fontset-font t 'unicode (font-spec :family fontfamily))))
-(set-my-font-config)
-(defun set-my-font-config-atonce (&rest args)
-  (set-my-font-config)
-  (remove-hook 'after-make-frame-functions #'set-my-font-config-atonce))
-(add-hook 'after-make-frame-functions #'set-my-font-config-atonce) ; systemd 経由だと適用されない．しょうがないので hook する
+(set-my-font-with-size 12)
+(defun set-my-font-atonce (&rest args)
+  (set-my-font-with-size 12)
+  (remove-hook 'after-make-frame-functions #'set-my-font-atonce))
+(add-hook 'after-make-frame-functions #'set-my-font-atonce) ; systemd 経由だと適用されない．しょうがないので hook する
 
 ;; theme
 
@@ -219,6 +219,7 @@
                       :prefix "SPC"
                       ;; view
                       "vs" 'text-scale-adjust
+                      "vS" 'set-my-font-with-size
                       "vR" 'reload-my-theme
                       "vl" 'load-theme
                       "ve" 'enable-theme
@@ -453,7 +454,7 @@
   :el-get ddskk
   :init
   (setq skk-sticky-key ";")
-  (setq skk-kutouten-type 'en)
+  (setq skk-kutouten-type 'jp)
   ;;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
 
   :config
