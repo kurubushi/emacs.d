@@ -66,6 +66,16 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; env
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; for flycheck "flycheck invalid multibyte char"
+(setenv "LANG" "ja_JP.UTF-8")
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; utils
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -287,7 +297,6 @@
 ;;        (evil-backward-char))
 ;;    (evil-execute-in-normal-state))
   (general-define-key :keymaps '(insert)
-                      "C-k" 'auto-complete
                       "C-o" 'evil-execute-in-normal-state-natively)
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
@@ -363,18 +372,6 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; persp-mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package persp-mode
-  :el-get persp-mode
-  :config
-    (setq persp-add-on-switch-or-display t)
-    (persp-mode t))
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; recentf
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -432,16 +429,30 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; auto-complete
+;; company
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package auto-complete
-  :el-get auto-complete
+(use-package company
+  :el-get company-mode
+
   :config
-  (use-package auto-complete-config)
-  (ac-config-default)
-  (setq ac-use-menu-map t) ; C-p/C-n move
-  (setq ac-auto-start nil))
+  (global-company-mode)
+
+
+  :general
+  (general-define-key :keymaps '(insert)
+                      "C-k" 'company-complete))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; flycheck
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package flycheck
+  :el-get flycheck
+  :config (global-flycheck-mode))
 
 
 

@@ -230,4 +230,29 @@
 
 (use-package ruby-mode
   :el-get (ruby-mode)
-  :mode (("\\.rb\\'" . ruby-mode)))
+  :mode (("\\.rb\\'" . ruby-mode))
+  :init
+  (setq ruby-insert-encoding-magic-comment nil))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; node
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package js2-mode
+  :el-get (js2-mode add-node-modules-path)
+  :mode (("\\.js\\'" . js2-mode))
+
+  :config
+  (add-hook 'js-mode-hook #'add-node-modules-path)
+  (flycheck-disable-checker '(javascript-jshint javascript-jscs)))
+
+(use-package exec-path-from-shell
+  :el-get exec-path-from-shell
+  :custom
+  (exec-path-from-shell-check-startup-files nil)
+  :config
+  (push "HISTFILE" exec-path-from-shell-variables)
+  (exec-path-from-shell-initialize))
