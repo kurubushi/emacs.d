@@ -210,3 +210,24 @@
 (use-package emacs-fish
   :el-get emacs-fish)
 
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; go
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package go-mode
+  :el-get (go-mode go-autocomplete)
+  :mode (("\\.go\\'" . go-mode)))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ruby
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package ruby-mode
+  :el-get (ruby-mode)
+  :mode (("\\.rb\\'" . ruby-mode)))
