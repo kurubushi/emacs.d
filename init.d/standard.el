@@ -256,3 +256,8 @@
   :config
   (push "HISTFILE" exec-path-from-shell-variables)
   (exec-path-from-shell-initialize))
+
+(use-package prettier-js
+  :el-get (prettier-js)
+  :config
+  (add-hook 'js2-mode-hook 'prettier-js-mode))
