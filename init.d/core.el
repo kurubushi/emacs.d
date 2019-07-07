@@ -4,73 +4,19 @@
 ;; write core and common configures in it.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; use-package
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;(defun insert-to-list (x y zs)
-;;  (if (null zs)
-;;      (error "insert-to-list: %s is not in the list." y)
-;;    (let ((z (car zs))
-;;          (zs (cdr zs)))
-;;      (if (eq y z)
-;;          `(,x ,y . ,zs)
-;;        `(,z . ,(insert-to-list x y zs))))))
-;;(defun append-to-list (x y zs)
-;;  (if (null zs)
-;;      (error "insert-to-list: %s is not in the list." y)
-;;    (let ((z (car zs))
-;;          (zs (cdr zs)))
-;;      (if (eq y z)
-;;          `(,y ,x . ,zs)
-;;        `(,z . ,(append-to-list x y zs))))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; use-package/:logging
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;(setq use-package-inject-hooks 't)
-;;(setq use-package-keywords (insert-to-list :logging :init use-package-keywords))
-;;(defalias 'use-package-normalize/:logging 'use-package-nomalize-predicate)
-;;;; if `use-package-inject-hooks' become obsoluted,
-;;;; we create new keywords `:pre-init', `:pre-config' and their hooks
-;;;; and make `:logging' add `(message ...)' to these hooks.
-;;(defun use-package-handler/:logging (name keyword arg rest state)
-;;  (let ((name-s (use-package-as-string name))) ; use-package-as-string == symbol-name
-;;    (add-hook (intern (concat "use-package--" name-s "--pre-init-hook"))
-;;              `(lambda () (message "[use-package] Loading :init in %s" ,name-s)))
-;;    (add-hook (intern (concat "use-package--" name-s "--pre-config-hook"))
-;;              `(lambda () (message "[use-package] Loading :config in %s" ,name-s)))
-;;    (set (intern (concat "use-package--" name-s "--el-get-logging")) 't)
-;;    (use-package-process-keywords name rest state)))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; use-package/:el-get
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;(setq use-package-keywords (append-to-list :el-get :init use-package-keywords))
-;;(defalias 'use-package-normalize/:el-get 'use-package-normalize-symlist)
-;;(defun use-package-handler/:el-get (name keyword args rest state)
-;;  (let ((name-s (use-package-as-string name)))
-;;    (use-package-concat
-;;     (if (not (boundp (intern (concat "use-package--" name-s "--el-get-logging"))))
-;;         'nil
-;;       `((message "[use-package] (el-get 'sync %s) in %s" ',args ,name-s)))
-;;     `((el-get 'sync ',args))
-;;     (use-package-process-keywords name rest state))))
-
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; env
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; for flycheck "flycheck invalid multibyte char"
-(setenv "LANG" "ja_JP.UTF-8")
+(use-package exec-path-from-shell
+  :el-get exec-path-from-shell
+  :config
+  (setq exec-path-from-shell-shell-name (getenv "ESHELL"))
+  (setq exec-path-from-shell-variables
+        '("PATH" "LD_LIBRARY_PATH"
+          "SSH_AGENT_PID" "SSH_AUTH_SOCK")) ; ssh-agent
+  (exec-path-from-shell-initialize)
+  (setenv "LANG" "ja_JP.UTF-8")) ;; to pass "flycheck invalid multibyte char"
 
 
 
@@ -92,38 +38,42 @@
 ;; utils/definitions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; like Vim, insert after current point. (a/i)nsert
 (defun insert-after (string)
+  "Insert STRING after the current point."
   (if (not (eolp))
       (forward-char))
   (insert string))
 
-;; insert current time
 (defun insert-current-time()
+  "Insert CURRENT-TIME at the current point."
   (interactive)
   (let ((system-time-locale "C"))
     (insert (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
+
 (defun append-current-time()
+  "Insert CURRENT-TIME after the current point."
   (interactive)
   (let ((system-time-locale "C"))
     (insert-after (format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time)))))
 
 
 
-;; kill all buffers except ... buffers
-
 (defun is-asterisked (buffer)
+  "Check if BUFFER's name is surrounded asterisks."
   (string-match "\\*.*\\*\\'" (buffer-name buffer)))
 
 (defun kill-all-buffers-except-asterisked-buffers ()
+  "Kill all asterisked buffers."
   (interactive)
   (mapc 'kill-buffer
         (remove-if 'is-asterisked (buffer-list))))
 
 (defun is-dired (buffer)
+  "Check if BUFFER is directory buffer."
   (eq 'dired-mode (buffer-local-value 'major-mode buffer)))
 
 (defun kill-all-dired-buffers ()
+  "Kill all directory buffers."
   (interactive)
   (mapc 'kill-buffer
         (remove-if-not 'is-dired (buffer-list))))
@@ -131,7 +81,7 @@
 
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value.
-   http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
+http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
   (interactive)
   (backward-kill-sexp)
   (condition-case nil
@@ -147,23 +97,16 @@
 ;; settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; coding-system
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; settings/encoding
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (prefer-coding-system 'utf-8)
 
-;; custom.el を作らせない
-(setq custom-file (locate-user-emacs-file "custom.el"))
 
-;; change yes/not into y/n
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; disable BEEP
-(setq ring-bell-function 'ignore)
-
-;; 括弧の対応をハイライト
-(show-paren-mode t)
-
-;; highlights current line
-(hl-line-mode t)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; settings/edit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ファイル末尾で必ず改行
 (setq require-final-newline t)
@@ -171,22 +114,53 @@
 ;; インデントはハードタブを使わない
 (setq-default indent-tabs-mode nil)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; settings/files
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; custom.el を作らせない
+(setq custom-file (locate-user-emacs-file "custom.el"))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; settings/view
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; disable tool-bar
 (tool-bar-mode 0)
 
 ;; disable menu-bar
 (menu-bar-mode 0)
 
+;; 括弧の対応をハイライト
+(show-paren-mode t)
+
+;; highlights current line
+(hl-line-mode t)
+
+;; yes/not -> y/n
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; disable BEEP
+(setq ring-bell-function 'ignore)
+
+
 (defun set-my-font-with-size (size)
+  "Set my font in the SIZE."
   (interactive "nsize: ")
   (let* ((fontfamily "Ricty"))
     (set-face-attribute 'default nil :family fontfamily :height (* size 10))
     (set-fontset-font t 'unicode (font-spec :family fontfamily))))
+
 (set-my-font-with-size 12)
+
 (defun set-my-font-atonce (&rest args)
+  "Set my font only once with ARGS."
   (set-my-font-with-size 12)
   (remove-hook 'after-make-frame-functions #'set-my-font-atonce))
 (add-hook 'after-make-frame-functions #'set-my-font-atonce) ; systemd 経由だと適用されない．しょうがないので hook する
+
 
 ;; theme
 
@@ -199,16 +173,22 @@
 
 ;; https://stackoverflow.com/questions/18904529/
 (defun* reload-my-theme (&optional (frame (selected-frame)))
+  "Reload my theme."
   (interactive)
   (with-selected-frame frame
     (load-theme 'omtose-darker t)
     (load-theme 'omtose-darker2 t)))
+
 (reload-my-theme)
+
 (defun reload-my-theme-in-gui-only-once (frame)
+  "Reload my theme with FRAME only once."
   (when (and (display-graphic-p frame) (not loaded-theme-p))
     (setq loaded-theme-p t)
     (reload-my-theme frame)))
+
 (setq loaded-theme-p nil)
+
 (add-hook 'after-make-frame-functions 'reload-my-theme-in-gui-only-once)
 
 
@@ -270,12 +250,14 @@
 
 (use-package evil
   :el-get evil
+  :init
+  (custom-set-variables '(evil-want-keybinding nil)) ; for evil-collection
   :config
   (custom-set-variables '(search-invisible t)) ;https://github.com/syl20bnr/spacemacs/issues/3623
   (custom-set-variables '(evil-want-C-u-scroll t))
   (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ; exclusive \n in visual state
-  (custom-set-variables  '(evil-search-module 'isearch))
   (custom-set-variables '(evil-want-integration nil)) ; for evil-collection
+  (custom-set-variables  '(evil-search-module 'isearch))
   (custom-set-variables '(evil-move-cursor-back t)) ; goes back when reterning from insert and prevents going eol
   (evil-mode 1)
 
@@ -289,13 +271,6 @@
     (evil-execute-in-normal-state)
     ;; returns to original value without wating evil-delay
     (setq evil-move-cursor-back evil-move-cursor-back_))
-;; For some reason, the next function cannot restore evil-move-cursor-back.
-;;  (defun evil-execute-in-normal-state-natively ()
-;;    "Execute the next command in Normal state, natively."
-;;    (interactive)
-;;    (if (eolp)
-;;        (evil-backward-char))
-;;    (evil-execute-in-normal-state))
   (general-define-key :keymaps '(insert)
                       "C-o" 'evil-execute-in-normal-state-natively)
   (general-define-key :keymaps '(normal)
@@ -305,12 +280,14 @@
 (use-package evil-collection
   :el-get evil-collection
   :after evil
+  :init
+  (custom-set-variables '(evil-want-keybinding nil)) ; for evil-collection
   :config
   (evil-collection-init)
 
   ;; https://github.com/emacs-evil/evil-collection/issues/79
   ;; commited code was wrong.
-  ;; this is called by (evil-collection-paren-setup) 
+  ;; this is called by (evil-collection-paren-setup)
   (defun evil-collection-paren-show-paren-function (f &rest args)
     "Integrate `show-paren-function' with `evil'."
     (if (not (bound-and-true-p evil-mode))
@@ -355,18 +332,6 @@
                       "SPC" nil
                       "S-SPC" nil
                       "C-SPC" nil))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; evil / evil-leader
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;(el-get-bundle evil-leader)
-;;(use-package evil-leader
-;;  :config
-;;  (global-evil-leader-mode 1)
-;;  (evil-leader/set-leader "<SPC>")
-;;  (evil-leader/set-key "<SPC>" #'execute-extended-command))
 
 
 
@@ -524,20 +489,4 @@
   (general-define-key :keymaps '(normal insert visual emacs)
                       "<f8>" 'shell-pop))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; env
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package exec-path-from-shell
-  :el-get exec-path-from-shell
-  :config
-  ;; copy current universal env variables related ssh-agent in fish
-  ;; with export ESHELL=$(which fish)
-  (setq exec-path-from-shell-shell-name (getenv "ESHELL"))
-  (defun resetenv ()
-    (interactive)
-    (exec-path-from-shell-copy-envs '("SSH_AGENT_PID" "SSH_AUTH_SOCK")))
-  (resetenv))
-
-;;EOF
+;;; core.el ends here
