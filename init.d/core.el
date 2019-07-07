@@ -145,7 +145,11 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 ;; disable BEEP
 (setq ring-bell-function 'ignore)
 
+;; smooth powerline
+(setq ns-use-srgb-colorspace nil)
 
+
+;; fonts
 (defun set-my-font-with-size (size)
   "Set my font in the SIZE."
   (interactive "nsize: ")
@@ -163,33 +167,11 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 
 
 ;; theme
-
-(add-to-list 'custom-theme-load-path (concat user-emacs-directory "theme.d/"))
-
-(setq ns-use-srgb-colorspace nil) ; smooth powerline
-
 (use-package omtose-phellack-theme
-  :el-get omtose-phellack-theme)
-
-;; https://stackoverflow.com/questions/18904529/
-(defun* reload-my-theme (&optional (frame (selected-frame)))
-  "Reload my theme."
-  (interactive)
-  (with-selected-frame frame
-    (load-theme 'omtose-darker t)
-    (load-theme 'omtose-darker2 t)))
-
-(reload-my-theme)
-
-(defun reload-my-theme-in-gui-only-once (frame)
-  "Reload my theme with FRAME only once."
-  (when (and (display-graphic-p frame) (not loaded-theme-p))
-    (setq loaded-theme-p t)
-    (reload-my-theme frame)))
-
-(setq loaded-theme-p nil)
-
-(add-hook 'after-make-frame-functions 'reload-my-theme-in-gui-only-once)
+  :el-get omtose-phellack-theme
+  :config
+  (add-to-list 'custom-theme-load-path (concat user-emacs-directory "theme.d/"))
+  (load-theme 'omtose-darker2 t))
 
 
 
