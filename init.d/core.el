@@ -406,6 +406,8 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skk
+;;;;;;;;;;
+;; doc: https://skk-dev.github.io/ddskk/skk.html
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package skk
@@ -413,6 +415,9 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
   :init
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'jp)
+  (setq skk-rom-kana-rule-list
+                '(("!" nil "！")
+                  ("?" nil "？")))
   ;;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
 
   :config
