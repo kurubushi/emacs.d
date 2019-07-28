@@ -167,11 +167,22 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 
 
 ;; theme
-(use-package omtose-phellack-theme
-  :el-get omtose-phellack-theme
+(use-package doom-themes
+  :el-get doom-themes
+  :init
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
   :config
-  (add-to-list 'custom-theme-load-path (concat user-emacs-directory "theme.d/"))
-  (load-theme 'omtose-darker2 t))
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+  ;; may have their own settings.
+  (load-theme 'doom-Iosvkem t)
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 
 

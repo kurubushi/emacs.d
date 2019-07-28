@@ -1,0 +1,5 @@
+(:name doom-themes
+       :type github
+       :pkgname "hlissner/emacs-doom-themes"
+       :depends (cl-lib)
+       :post-init (add-to-list 'custom-theme-load-path default-directory))
