@@ -1,0 +1,4 @@
+(:name all-the-icons
+       :type github
+       :pkgname "domtronn/all-the-icons.el"
+       :depends memoize)

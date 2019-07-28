@@ -1,0 +1,4 @@
+(:name neotree
+       :type github
+       :pkgname "jaypei/emacs-neotree"
+       :depends (cl-lib))
