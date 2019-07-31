@@ -530,4 +530,20 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       "l" 'neotree-change-root
                       "h" 'neotree-go-up-node))
 
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; git-gutter
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package git-gutter
+  :el-get git-gutter
+  :custom
+  (git-gutter:added-sign    "+")
+  (git-gutter:deleted-sign  "-")
+  (git-gutter:modified-sign "=")
+  :config
+  (global-git-gutter-mode +1))
+
 ;;; core.el ends here
