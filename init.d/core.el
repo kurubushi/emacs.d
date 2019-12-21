@@ -546,4 +546,27 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
   :config
   (global-git-gutter-mode +1))
 
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; perspective-el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package perspective-el
+  :el-get perspective-el
+  :config
+  (persp-mode)
+  (add-hook 'kill-emacs-hook #'persp-state-save)
+  :general
+  (general-define-key :keymaps '(normal)
+                      :prefix "SPC"
+                      "pp" 'persp-switch
+                      "pk" 'persp-remove-buffer
+                      "pc" 'persp-kill
+                      "pr" 'persp-rename
+                      "pa" 'persp-add-buffer
+                      "pA" 'persp-set-buffer
+                      "pi" 'persp-import))
+
 ;;; core.el ends here

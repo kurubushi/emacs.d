@@ -1,0 +1,4 @@
+(:name perspective-el
+ :type github
+ :pkgname "nex3/perspective-el"
+ :depends (cl-lib thingatpt+ subr+))
