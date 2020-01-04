@@ -557,14 +557,17 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
   :el-get persp-mode
   :config
   (persp-mode 1)
+  (defun persp-helm-mini ()
+    (interactive)
+    (with-persp-buffer-list () (helm-mini)))
   :general
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
-                      "pp" 'persp-frame-switch
-                      "pP" 'persp-window
+                      "ps" 'persp-frame-switch
+                      "pS" 'persp-window
                       "pr" 'persp-rename
                       "pc" 'persp-copy
                       "pk" 'persp-kill
-                      "pb" 'persp-switch-to-buffer))
+                      "pp" 'persp-helm-mini))
 
 ;;; core.el ends here
