@@ -550,23 +550,21 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; perspective-el
+;; persp-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package perspective
-  :el-get perspective
+(use-package persp-mode
+  :el-get persp-mode
   :config
-  (persp-mode)
-  (add-hook 'kill-emacs-hook #'persp-state-save)
+  (persp-mode 1)
   :general
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
-                      "pp" 'persp-switch
-                      "pk" 'persp-remove-buffer
-                      "pc" 'persp-kill
+                      "pp" 'persp-frame-switch
+                      "pP" 'persp-window
                       "pr" 'persp-rename
-                      "pa" 'persp-add-buffer
-                      "pA" 'persp-set-buffer
-                      "pi" 'persp-import))
+                      "pc" 'persp-copy
+                      "pk" 'persp-kill
+                      "pb" 'persp-switch-to-buffer))
 
 ;;; core.el ends here
