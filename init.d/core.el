@@ -553,8 +553,8 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 ;; perspective-el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package perspective-el
-  :el-get perspective-el
+(use-package perspective
+  :el-get perspective
   :config
   (persp-mode)
   (add-hook 'kill-emacs-hook #'persp-state-save)
