@@ -181,4 +181,14 @@
   (add-hook 'web-mode-hook 'prettier-js-mode))
 
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Terraform
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package terraform-mode
+  :el-get (terraform-mode)
+  :mode (("\\.tf\\'" . terraform-mode)))
+
 ;;; standard.el ends here
