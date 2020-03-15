@@ -168,7 +168,6 @@
 ;; node
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (use-package web-mode
   :el-get (web-mode add-node-modules-path prettier-js)
   :mode (("\\.js\\'" . web-mode))
