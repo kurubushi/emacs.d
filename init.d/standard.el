@@ -168,7 +168,6 @@
 ;; node
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (use-package web-mode
   :el-get (web-mode add-node-modules-path prettier-js)
   :mode (("\\.js\\'" . web-mode)
@@ -186,6 +185,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+<<<<<<< HEAD
 ;; TypeScript
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -204,5 +204,15 @@
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`
     (company-mode +1)))
+
+
+
+
+;; Terraform
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package terraform-mode
+  :el-get (terraform-mode)
+  :mode (("\\.tf\\'" . terraform-mode)))
 
 ;;; standard.el ends here
