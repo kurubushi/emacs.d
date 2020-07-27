@@ -171,7 +171,8 @@
 
 (use-package web-mode
   :el-get (web-mode add-node-modules-path prettier-js)
-  :mode (("\\.js\\'" . web-mode))
+  :mode (("\\.js\\'" . web-mode)
+         ("\\.tsx\\'" . web-mode))
   :init
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
@@ -181,5 +182,27 @@
   (add-hook 'web-mode-hook 'add-node-modules-path)
   (add-hook 'web-mode-hook 'prettier-js-mode))
 
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; TypeScript
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package tide
+  :el-get (tide)
+
+  :config
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1)))
 
 ;;; standard.el ends here
