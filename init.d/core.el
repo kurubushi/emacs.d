@@ -580,7 +580,7 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 (use-package perspeen
   :el-get perspeen
   :init
-  (setq perspeen-use-tab t)
+  (setq perspeen-use-tab nil)
   :config
   (perspeen-mode)
   (general-define-key :keymaps '(normal)
