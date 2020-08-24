@@ -357,6 +357,14 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun helm-kill-selected-buffer ()
+  "Kill a selected buffer in helm-mini."
+  (interactive)
+  (with-helm-alive-p
+    (with-helm-window
+      (kill-buffer (helm-get-selection))
+      (helm-delete-current-selection))))
+
 (use-package helm-config
   :el-get helm
   :config
@@ -369,7 +377,9 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       "ff" 'helm-find-files
                       "fr" 'helm-recentf
                       ;; buffer
-                      "bb" 'helm-buffers-list)
+                      "bb" 'helm-mini)
+  (general-define-key :keymaps 'helm-buffer-map
+                      "C-k" 'helm-kill-selected-buffer)
   (helm-mode 1))
 
 
