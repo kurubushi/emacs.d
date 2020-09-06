@@ -629,6 +629,13 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       :background "gray10"
                       :inherit 'mode-line-inactive))
 
+(use-package helm-perspeen
+  :el-get helm-perspeen
+  :general
+  (general-define-key :keymaps '(normal)
+                      :prefix "SPC"
+                      "pp" 'helm-perspeen))
+
 
 
 
