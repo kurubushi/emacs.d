@@ -368,7 +368,7 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 (use-package helm-config
   :el-get helm
   :custom
-  (helm-boring-buffer-regexp-list '("\\`\\*.*\\*\\'"))
+  (helm-boring-buffer-regexp-list '("\\`\\*.*\\*\\'" "\\`magit: " "\\`magit-[^:]+:"))
   (helm-white-buffer-regexp-list '("\\`*scratch*" "\\`*Message*"))
   :config
   (general-define-key :keymaps '(normal visual)
