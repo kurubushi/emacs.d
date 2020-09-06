@@ -663,19 +663,19 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
       (format "[%s]" (perspeen-ws-struct-name perspeen-current-ws))))
   (telephone-line-defsegment telephone-line-mule-info-segment ()
     '("" mode-line-mule-info "%*"))
+  (telephone-line-defsegment* telephone-line-position-info-segment ()
+    '("" "%l.%C"))
 
   (setq telephone-line-lhs
         '((evil   . (telephone-line-evil-tag-segment))
           (accent . (telephone-line-major-mode-segment
                      telephone-line-mule-info-segment))
-          (nil    . (telephone-line-buffer-name-segment))))
-  (setq telephone-line-center-rhs
-        '((accent . (telephone-line-process-segment
-                     telephone-line-airline-position-segment))
+          (nil    . (telephone-line-buffer-name-segment))
+          (accent . (telephone-line-position-info-segment))
           (nil    . (telephone-line-nyan-segment))))
   (setq telephone-line-rhs
-        '((accent  . (telephone-line-vc-segment
-                      telephone-line-perspeen-segment))))
+        '((accent . (telephone-line-vc-segment
+                     telephone-line-perspeen-segment))))
 
   (telephone-line-mode t))
 
