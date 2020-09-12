@@ -687,20 +687,27 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package doom-modeline
-  :el-get doom-modeline
   ; font が足りていなければ M-x all-the-icons-install-fonts
-  :init
-  (setq column-number-mode t) ; これは Emacs 由来のもの
+  :el-get doom-modeline
 
   :custom
   (doom-modeline-buffer-file-name-style 'buffer-name)
   (doom-modeline-icon t)
 
+  :init
+  ;; Emacs 標準の mode-line に関する値を調整
+  (setq column-number-mode t)
+  (setq mode-line-misc-info nil) ; perspeen の情報等を出さない
+
   :config
   ;; define segments
   ;; https://github.com/seagle0128/doom-modeline/blob/master/doom-modeline-segments.el
-  (doom-modeline-def-segment evil
-    "The current state of evil."
+
+  ;; override modal segment
+  ;; doom-modeline-main のほか doom-modeline-vcs 等様々な modeline に利用されているので上書き
+  ;; https://github.com/seagle0128/doom-modeline/pull/267
+  (doom-modeline-def-segment modals
+    "Display current state of evil."
     (when evil-mode
       (let ((state (cond
                     ((evil-normal-state-p) "N")
@@ -739,15 +746,10 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
        (perspeen-ws-struct-name perspeen-current-ws)
        (doom-modeline-spc))))
 
-  ;; define modelines
-  (doom-modeline-def-modeline 'simple
-    '(bar evil buffer-info remote-host position)
+  ;; override main modeline
+  (doom-modeline-def-modeline 'main
+    '(bar modals buffer-info remote-host position)
     '(buffer-encoding vcs checker perspeen))
-
-  (defun setup-custom-doom-modeline ()
-    (doom-modeline-set-modeline 'simple 'default))
-  (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
-
-  (doom-modeline-mode 1))
+  (doom-modeline-mode t))
 
 ;;; core.el ends here
