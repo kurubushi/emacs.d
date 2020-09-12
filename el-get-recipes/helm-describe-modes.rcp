@@ -1,0 +1,4 @@
+(:name helm-describe-modes
+ :type github
+ :pkgname "emacs-helm/helm-describe-modes"
+ :depends helm)

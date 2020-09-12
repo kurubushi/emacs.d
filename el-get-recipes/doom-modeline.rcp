@@ -1,0 +1,4 @@
+(:name doom-modeline
+ :type github
+ :pkgname "seagle0128/doom-modeline"
+ :depends (all-the-icons shrink-path dash))

@@ -652,31 +652,102 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; telephone-line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;(use-package telephone-line
+;;  :el-get telephone-line
+;;  :config
+;;  ;; https://github.com/dbordak/telephone-line/blob/master/examples.org
+;;  (setq telephone-line-evil-use-short-tag t)
+;;  (telephone-line-defsegment telephone-line-perspeen-segment ()
+;;    (when perspeen-mode
+;;      (format "[%s]" (perspeen-ws-struct-name perspeen-current-ws))))
+;;  (telephone-line-defsegment telephone-line-mule-info-segment ()
+;;    '("" mode-line-mule-info "%*"))
+;;  (telephone-line-defsegment* telephone-line-position-info-segment ()
+;;    '("" "%l.%C"))
+;;
+;;  (setq telephone-line-lhs
+;;        '((evil   . (telephone-line-evil-tag-segment))
+;;          (accent . (telephone-line-major-mode-segment
+;;                     telephone-line-mule-info-segment))
+;;          (nil    . (telephone-line-buffer-name-segment))
+;;          (accent . (telephone-line-position-info-segment))
+;;          (nil    . (telephone-line-nyan-segment))))
+;;  (setq telephone-line-rhs
+;;        '((accent . (telephone-line-vc-segment
+;;                     telephone-line-perspeen-segment))))
+;;
+;;  (telephone-line-mode t))
 
-(use-package telephone-line
-  :el-get telephone-line
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; doom-modeline
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package doom-modeline
+  :el-get doom-modeline
+  ; font が足りていなければ M-x all-the-icons-install-fonts
+  :init
+  (setq column-number-mode t) ; これは Emacs 由来のもの
+
+  :custom
+  (doom-modeline-buffer-file-name-style 'buffer-name)
+  (doom-modeline-icon t)
+
   :config
-  ;; https://github.com/dbordak/telephone-line/blob/master/examples.org
-  (setq telephone-line-evil-use-short-tag t)
-  (telephone-line-defsegment telephone-line-perspeen-segment ()
+  ;; define segments
+  ;; https://github.com/seagle0128/doom-modeline/blob/master/doom-modeline-segments.el
+  (doom-modeline-def-segment evil
+    "The current state of evil."
+    (when evil-mode
+      (let ((state (cond
+                    ((evil-normal-state-p) "N")
+                    ((evil-insert-state-p) "I")
+                    ((evil-motion-state-p) "M")
+                    ((evil-visual-state-p) "V")
+                    ((evil-operator-state-p) "O")
+                    ((evil-replace-state-p) "R")
+                    (t "?")))
+            (rec (if defining-kbd-macro
+                     (propertize (all-the-icons-material "fiber_manual_record")
+                                 'face '(:foreground "red")))))
+        (concat
+         (doom-modeline-spc)
+         rec
+         state))))
+
+  (doom-modeline-def-segment position
+    "The current position in the current buffer."
+    (concat
+     (doom-modeline-spc)
+     "%l:%C"
+     (when nyan-mode
+       (doom-modeline-vspc)
+       (propertize (nyan-create)
+                   'face '(:background "#111111")))
+     (doom-modeline-spc)))
+
+  (doom-modeline-def-segment perspeen
+    "The current perspeen workspace name."
     (when perspeen-mode
-      (format "[%s]" (perspeen-ws-struct-name perspeen-current-ws))))
-  (telephone-line-defsegment telephone-line-mule-info-segment ()
-    '("" mode-line-mule-info "%*"))
-  (telephone-line-defsegment* telephone-line-position-info-segment ()
-    '("" "%l.%C"))
+      (concat
+       (doom-modeline-spc)
+       (all-the-icons-material "desktop_windows")
+       (doom-modeline-vspc)
+       (perspeen-ws-struct-name perspeen-current-ws)
+       (doom-modeline-spc))))
 
-  (setq telephone-line-lhs
-        '((evil   . (telephone-line-evil-tag-segment))
-          (accent . (telephone-line-major-mode-segment
-                     telephone-line-mule-info-segment))
-          (nil    . (telephone-line-buffer-name-segment))
-          (accent . (telephone-line-position-info-segment))
-          (nil    . (telephone-line-nyan-segment))))
-  (setq telephone-line-rhs
-        '((accent . (telephone-line-vc-segment
-                     telephone-line-perspeen-segment))))
+  ;; define modelines
+  (doom-modeline-def-modeline 'simple
+    '(bar evil buffer-info remote-host position)
+    '(buffer-encoding vcs checker perspeen))
 
-  (telephone-line-mode t))
+  (defun setup-custom-doom-modeline ()
+    (doom-modeline-set-modeline 'simple 'default))
+  (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
+
+  (doom-modeline-mode 1))
 
 ;;; core.el ends here

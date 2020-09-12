@@ -1,0 +1,4 @@
+(:name shrink-path
+ :type git
+ :url "git@gitlab.com:bennya/shrink-path.el.git"
+ :depends (dash f s))
