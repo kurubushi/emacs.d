@@ -703,8 +703,8 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
   ;; define segments
   ;; https://github.com/seagle0128/doom-modeline/blob/master/doom-modeline-segments.el
 
-  ;; override modal segment
-  ;; doom-modeline-main のほか doom-modeline-vcs 等様々な modeline に利用されているので上書き
+  ;; override modals segment
+  ;; doom-modeline-main のほか doom-modeline-vcs 等の modeline に利用されているので上書き
   ;; https://github.com/seagle0128/doom-modeline/pull/267
   (doom-modeline-def-segment modals
     "Display current state of evil."
@@ -725,15 +725,17 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
          rec
          state))))
 
-  (doom-modeline-def-segment position
+  ;; override position segment
+  (doom-modeline-def-segment buffer-position
     "The current position in the current buffer."
     (concat
      (doom-modeline-spc)
      "%l:%C"
      (when nyan-mode
-       (doom-modeline-vspc)
-       (propertize (nyan-create)
-                   'face '(:background "#111111")))
+       (concat
+        (doom-modeline-vspc)
+        (propertize (nyan-create) ; nyancat の現在地を強調する face
+                    'face '(:background "#111111"))))
      (doom-modeline-spc)))
 
   (doom-modeline-def-segment perspeen
@@ -748,7 +750,7 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 
   ;; override main modeline
   (doom-modeline-def-modeline 'main
-    '(bar modals buffer-info remote-host position)
+    '(bar modals buffer-info remote-host buffer-position)
     '(buffer-encoding vcs checker perspeen))
   (doom-modeline-mode t))
 
