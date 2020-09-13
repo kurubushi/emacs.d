@@ -1,0 +1,94 @@
+;;; config--doom-modeline.el --- Configuration of doom-modeline.
+
+;;; Commentary:
+
+;; conflict with `config--telephone-line'.
+
+;;; Code:
+
+(eval-when-compile
+  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
+
+(require 'use-package)
+
+
+;;; doom-modeline
+
+(use-package doom-modeline
+  ; font が足りていなければ M-x all-the-icons-install-fonts
+  :el-get doom-modeline
+
+  :after (config--evil
+          config--nyan-mode
+          config--perspeen
+          config--all-the-icons)
+
+  :custom
+  (doom-modeline-buffer-file-name-style 'buffer-name)
+  (doom-modeline-icon t)
+
+  :init
+  ;; Emacs 標準の mode-line に関する値を調整
+  (setq column-number-mode t)
+  (setq mode-line-misc-info nil) ; perspeen の情報等を出さない
+
+  :config
+  ;; define segments
+  ;; https://github.com/seagle0128/doom-modeline/blob/master/doom-modeline-segments.el
+
+  ;; override modals segment
+  ;; doom-modeline-main のほか doom-modeline-vcs 等の modeline に利用されているので上書き
+  ;; https://github.com/seagle0128/doom-modeline/pull/267
+  (doom-modeline-def-segment modals
+    "Display current state of evil."
+    (when evil-mode
+      (let ((state (cond
+                    ((evil-normal-state-p) "N")
+                    ((evil-insert-state-p) "I")
+                    ((evil-motion-state-p) "M")
+                    ((evil-visual-state-p) "V")
+                    ((evil-operator-state-p) "O")
+                    ((evil-replace-state-p) "R")
+                    (t "?")))
+            (rec (if defining-kbd-macro
+                     (propertize (all-the-icons-material "fiber_manual_record")
+                                 'face '(:foreground "red")))))
+        (concat
+         (doom-modeline-spc)
+         rec
+         state))))
+
+  ;; override position segment
+  (doom-modeline-def-segment buffer-position
+    "The current position in the current buffer."
+    (concat
+     (doom-modeline-spc)
+     "%l:%C"
+     (when nyan-mode
+       (concat
+        (doom-modeline-vspc)
+        (propertize (nyan-create) ; nyancat の現在地を強調する face
+                    'face '(:background "#111111"))))
+     (doom-modeline-spc)))
+
+  (doom-modeline-def-segment perspeen
+    "The current perspeen workspace name."
+    (when perspeen-mode
+      (concat
+       (doom-modeline-spc)
+       (all-the-icons-material "desktop_windows")
+       (doom-modeline-vspc)
+       (perspeen-ws-struct-name perspeen-current-ws)
+       (doom-modeline-spc))))
+
+  ;; override main modeline
+  (doom-modeline-def-modeline 'main
+    '(bar modals buffer-info remote-host buffer-position)
+    '(buffer-encoding vcs checker perspeen))
+  (doom-modeline-mode t))
+
+
+(provide 'config--doom-modeline)
+
+
+;;; config--doom-modeline.el ends here

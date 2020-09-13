@@ -2,13 +2,37 @@
 
 ;;; Commentary:
 
-;; A List of `(load xx.el)'
+;; A List of `require' and `load'.
 
 ;;; Code:
 
+;;; require
+
+(eval-when-compile
+  (add-to-list 'load-path (concat user-emacs-directory "config")))
+
+(require 'config--env)
+(require 'config--view)
+(require 'config--keymaps)
+(require 'config--file)
+(require 'config--evil)
+(require 'config--helm)
+(require 'config--company)
+(require 'config--flycheck)
+(require 'config--skk)
+(require 'config--auto-spacing)
+(require 'config--shell-pop)
+(require 'config--neotree)
+(require 'config--git-gutter)
+(require 'config--perspeen)
+(require 'config--nyan-mode)
+(require 'config--doom-modeline)
+
+
+;;; load
+
 (defconst active-custom-elisp-files
-  '("init.d/core.el"
-    "init.d/standard.el"))
+  '("init.d/standard.el"))
 
 (let ((load-file (lambda (file-name)
                    (load (concat user-emacs-directory file-name)))))

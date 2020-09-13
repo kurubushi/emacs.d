@@ -1,0 +1,29 @@
+;;; config--recentf.el --- Configuration of recentf.
+
+;;; Commentary:
+
+;;; Code:
+
+(eval-when-compile
+  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
+
+(require 'use-package)
+
+
+;;; recentf
+
+(use-package recentf
+  :init
+  (setq recentf-auto-cleanup 'never) ; disable before we start recentf!
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-exclude '("~$" "recentf$"))
+;;  (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
+  :config
+  (add-hook 'find-file-hook 'recentf-save-list)
+  (recentf-mode 1))
+
+
+(provide 'config--recentf)
+
+
+;;; config--recentf.el ends here
