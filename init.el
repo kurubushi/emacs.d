@@ -11,17 +11,6 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(eval-when-compile
-  ;; Packages are stored at ~/.emacs.d/el-get.
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/el-get")))
-
-(require 'el-get)
-
-
-;;; Variables
-
-(defvar el-get--directory (concat user-emacs-directory "el-get/"))
-
 
 ;;; El-Get
 
@@ -33,6 +22,13 @@
        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
       (goto-char (point-max))
       (eval-print-last-sexp)))
+
+(eval-when-compile
+  ;; Packages are stored at ~/.emacs.d/el-get.
+  (add-to-list 'load-path (concat user-emacs-directory "el-get/el-get"))
+  (require 'el-get))
+
+(defvar el-get--directory (concat user-emacs-directory "el-get/"))
 
 (add-to-list 'el-get-recipe-path (concat user-emacs-directory "el-get-recipes"))
 
