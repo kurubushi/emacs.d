@@ -16,7 +16,7 @@
   :el-get helm
 
   :custom
-  (helm-boring-buffer-regexp-list '("\\`\\*.*\\*\\'" "\\`magit: " "\\`magit-[^:]+:"))
+  (helm-boring-buffer-regexp-list '("\\` *\\*.*\\*\\'" "\\`magit: " "\\`magit-[^:]+:"))
   (helm-white-buffer-regexp-list '("\\`*scratch*" "\\`*Message*"))
 
   :config

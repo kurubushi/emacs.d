@@ -36,10 +36,7 @@
     ;; returns to original value without wating evil-delay
     (setq evil-move-cursor-back evil-move-cursor-back_))
   (general-define-key :keymaps '(insert)
-                      "C-o" 'evil-execute-in-normal-state-natively)
-  (general-define-key :keymaps '(normal)
-                      :prefix "SPC"
-                      "SPC" 'execute-extended-command))
+                      "C-o" 'evil-execute-in-normal-state-natively))
 
 
 (provide 'config--evil)
