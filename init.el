@@ -16,6 +16,10 @@
 
 ;; https://github.com/dimitri/el-get
 
+(eval-when-compile
+  ;; Packages are stored at ~/.emacs.d/el-get.
+  (add-to-list 'load-path (concat user-emacs-directory "el-get/el-get")))
+
 (unless (require 'el-get nil t)
   (with-current-buffer
       (url-retrieve-synchronously
@@ -23,10 +27,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
 
-(eval-when-compile
-  ;; Packages are stored at ~/.emacs.d/el-get.
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/el-get"))
-  (require 'el-get))
+(require 'el-get)
 
 (defvar el-get--directory (concat user-emacs-directory "el-get/"))
 

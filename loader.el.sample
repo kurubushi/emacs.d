@@ -15,6 +15,11 @@
 (require 'use-package)
 
 
+;;; setq
+
+(setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
+
+
 ;;; Emacs
 
 (use-package config--emacs)
