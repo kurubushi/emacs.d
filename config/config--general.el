@@ -55,7 +55,7 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
   :el-get general
   :config
   (setq general-default-keymaps 'evil-normal-state-map)
-  :general
+  ;; ここで :general キーワードは利用できない
   (general-define-key :keymaps '(insert)
                       ;; eval
                       "C-x C-r" 'eval-and-replace)

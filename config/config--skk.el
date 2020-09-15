@@ -25,7 +25,6 @@
   ;;(setq skk-large-jisyo "/large/jisyo/path") ; setq in prefix.el
 
   :config
-
   ;; to make global skk minor mode and use it always
   ;; ref: https://stackoverflow.com/questions/16048231/
   (define-globalized-minor-mode global-skk-mode skk-mode

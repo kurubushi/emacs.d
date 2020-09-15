@@ -31,6 +31,9 @@
   ;; Emacs 標準の mode-line に関する値を調整
   (setq column-number-mode t)
   (setq mode-line-misc-info nil) ; perspeen の情報等を出さない
+  ;; disable SKK indicator at modeline
+  (defadvice skk-setup-modeline (around disable--skk-setup-modeline activate)
+    "Disable SKK indicator at modeline.")
 
   :config
   ;; define segments

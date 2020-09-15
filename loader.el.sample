@@ -9,34 +9,109 @@
 ;;; require
 
 (eval-when-compile
+  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package"))
   (add-to-list 'load-path (concat user-emacs-directory "config")))
 
-(require 'config--env)
-(require 'config--view)
-(require 'config--keymaps)
-(require 'config--file)
-(require 'config--evil)
-(require 'config--helm)
-(require 'config--company)
-(require 'config--flycheck)
-(require 'config--skk)
-(require 'config--auto-spacing)
-(require 'config--shell-pop)
-(require 'config--neotree)
-(require 'config--git-gutter)
-(require 'config--perspeen)
-(require 'config--nyan-mode)
-(require 'config--doom-modeline)
+(require 'use-package)
 
 
-;;; load
+;;; Emacs
 
-(defconst active-custom-elisp-files
-  '("init.d/standard.el"))
+(use-package config--emacs)
+(use-package config--exec-path-from-shell)
+(use-package config--general) ; provides :general keyword
 
-(let ((load-file (lambda (file-name)
-                   (load (concat user-emacs-directory file-name)))))
-  (mapc load-file active-custom-elisp-files))
+
+;;; file/buffer
+
+(use-package config--recentf)
+(use-package config--helm)
+(use-package config--neotree)
+(use-package config--perspeen)
+(use-package config--helm-perspeen)
+
+
+;;; edit
+
+(use-package config--evil)
+(use-package config--evil-collection)
+(use-package config--company)
+(use-package config--skk)
+(use-package config--auto-spacing)
+
+
+;;; view
+
+(use-package config--all-the-icons)
+(use-package config--nyan-mode)
+(use-package config--doom-themes)
+(use-package config--doom-modeline)
+
+
+;;; etc
+
+(use-package config--which-key)
+(use-package config--flycheck)
+(use-package config--shell-pop)
+
+
+;;; Git
+
+(use-package config--magit)
+(use-package config--evil-magit)
+(use-package config--git-gutter)
+
+
+;;; Markdown
+
+(use-package config--markdown-mode)
+
+
+;;; Haskell
+
+(use-package config--haskell-mode)
+
+
+;;; Scala
+
+(use-package config--scala-mode)
+
+
+;;; OCaml
+
+(use-package config--tuareg)
+(use-package config--merlin)
+
+
+;;; TeX
+
+(use-package config--tex-site)
+
+
+;;; Go
+
+(use-package config--go-mode)
+
+
+;;; Ruby
+
+(use-package config--ruby-mode)
+(use-package config--rubocop)
+
+
+;;; Node
+
+(use-package config--web-mode)
+
+
+;;; TypeScript
+
+(use-package config--tide)
+
+
+;;; Terraform
+
+(use-package config--terraform-mode)
 
 
 ;;; loader.el ends here

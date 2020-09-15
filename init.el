@@ -49,7 +49,11 @@
 
 ;;; Configurations with use-package
 
-(load (concat user-emacs-directory "loader.el"))
+;; example: loader.el.sample
+
+(let ((file-name (concat user-emacs-directory "loader.el")))
+  (when (file-exists-p file-name)
+    (load file-name)))
 
 
 ;; Local Variables:

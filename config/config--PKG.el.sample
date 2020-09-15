@@ -1,0 +1,23 @@
+;;; config--PKG.el --- Configuration of PKG.
+
+;;; Commentary:
+
+;;; Code:
+
+(eval-when-compile
+  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
+
+(require 'use-package)
+
+
+;;; use-package
+
+(use-package PKG
+  :el-get PKG
+  :after (config--PKG1 config--PKG2))
+
+
+(provide 'config--PKG)
+
+
+;;; config--PKG.el ends here
