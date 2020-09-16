@@ -18,6 +18,7 @@
   :custom
   (helm-boring-buffer-regexp-list '("\\` *\\*.*\\*\\'" "\\`magit: " "\\`magit-[^:]+:"))
   (helm-white-buffer-regexp-list '("\\`*scratch*" "\\`*Message*"))
+  (helm-ff-keep-cached-candidates nil) ; disable cache
 
   :config
   (defun helm-kill-selected-buffer ()
