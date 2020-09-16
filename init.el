@@ -93,6 +93,7 @@
 (use-package config--magit)
 (use-package config--evil-magit)
 (use-package config--git-gutter)
+(use-package config--helm-git-grep)
 
 
 ;;; Markdown
