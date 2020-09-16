@@ -1,0 +1,6 @@
+;; https://melpa.org#/tide
+(:name tide
+       :description "TypeScript IDE"
+       :depends (typescript-mode flycheck dash cl-lib s)
+       :type github
+       :pkgname "ananthakumaran/tide")
