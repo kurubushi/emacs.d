@@ -16,10 +16,26 @@
 
 (use-package perspeen
   :el-get perspeen
+
   :init
   (setq perspeen-use-tab nil)
+
   :config
   (perspeen-mode)
+
+  ;; Use the old definition as a workaround.
+  ;; https://github.com/emacs-helm/helm/commit/f7fa3a9e0ef1f69c42e0c513d02c9f76ea9a4344
+  (defun perspeen-helm-buffer-list (orig-fun &rest args)
+    "Advice of `helm-buffer-list'. Use ido."
+    (require 'ido)
+    (let ((ido-process-ignore-lists t)
+          ido-ignored-list
+          ido-ignore-buffers
+          ido-use-virtual-buffers)
+      (ido-make-buffer-list nil)))
+  (advice-add 'helm-buffer-list :around #'perspeen-helm-buffer-list)
+
+  :general
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
                       "pC" 'perspeen-create-ws
