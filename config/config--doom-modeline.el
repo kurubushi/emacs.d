@@ -20,7 +20,6 @@
 
   :after (config--evil
           config--nyan-mode
-          config--perspeen
           config--all-the-icons)
 
   :custom
@@ -84,10 +83,20 @@
        (perspeen-ws-struct-name perspeen-current-ws)
        (doom-modeline-spc))))
 
+  (doom-modeline-def-segment persp-mode
+    "The current persp-mode workspace name."
+    (when (and persp-mode (get-current-persp))
+      (concat
+       (doom-modeline-spc)
+       (all-the-icons-material "desktop_windows")
+       (doom-modeline-vspc)
+       (persp-name (get-current-persp))
+       (doom-modeline-spc))))
+
   ;; override main modeline
   (doom-modeline-def-modeline 'main
     '(bar modals buffer-info remote-host buffer-position)
-    '(buffer-encoding vcs checker perspeen))
+    '(buffer-encoding vcs checker perspeen persp-mode))
   (doom-modeline-mode t))
 
 

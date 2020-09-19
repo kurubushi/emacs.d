@@ -58,10 +58,16 @@
 ;;; file/buffer
 
 (use-package config--recentf)
-(use-package config--helm)
 (use-package config--neotree)
-(use-package config--perspeen)
-(use-package config--helm-perspeen)
+
+;; ivy + persp-mode
+(use-package config--ivy)
+(use-package config--persp-mode)
+
+;; helm + perspeen
+;;(use-package config--helm)
+;;(use-package config--perspeen)
+;;(use-package config--helm-perspeen)
 
 
 ;;; edit
@@ -93,7 +99,7 @@
 (use-package config--magit)
 (use-package config--evil-magit)
 (use-package config--git-gutter)
-(use-package config--helm-git-grep)
+;;(use-package config--helm-git-grep)
 
 
 ;;; Markdown
