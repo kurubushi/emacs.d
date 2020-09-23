@@ -1,0 +1,4 @@
+(:name ivy-rich
+       :type github
+       :pkgname "Yevgnen/ivy-rich"
+       :depends (swiper))

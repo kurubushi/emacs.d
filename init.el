@@ -62,6 +62,7 @@
 
 ;; ivy + persp-mode
 (use-package config--ivy)
+(use-package config--ivy-rich)
 (use-package config--persp-mode)
 
 ;; helm + perspeen
