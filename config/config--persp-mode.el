@@ -37,6 +37,23 @@
 
   (persp-mode 1)
 
+  ;; Setup initial buffers (add-to-hook after persp-mode is enabled to avoid applyint to the first workspace)
+  (defun persp-setup-initial-buffers (persp &rest args)
+    "Create a buffer for scratch and Share some buffers in PERSP, ignoring ARGS."
+    (let* ((scratch-buf (format "*scratch<%s>*" (format-time-string "%s")))
+           (shared-buffers `("*Messages*" ,scratch-buf)))
+
+      ;; create a buffer for scratch.
+      (switch-to-buffer scratch-buf)
+      (funcall initial-major-mode)
+      (insert (format ";;; %s created at %s\n\n" (buffer-name) (format-time-string "%Y-%m-%d %H:%M:%S.%N")))
+
+      ;; add buffers to new workspace
+      (persp-add-buffer shared-buffers persp)
+
+      (switch-to-buffer scratch-buf)))
+  (add-hook 'persp-created-functions 'persp-setup-initial-buffers)
+
   :general
   (general-define-key
    :keymaps 'normal
