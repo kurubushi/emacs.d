@@ -43,7 +43,7 @@
   (general-define-key ; for Git
    :keymaps 'normal
    :prefix "SPC g"
-   "g" 'counsel-gitgrep))
+   "g" 'counsel-git-grep))
 
 
 (provide 'config--ivy)
