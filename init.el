@@ -155,6 +155,11 @@
 (use-package config--terraform-mode)
 
 
+;;; Protocol Buffer
+
+(use-package config--protobuf-mode)
+
+
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
