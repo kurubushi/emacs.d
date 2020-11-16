@@ -160,6 +160,10 @@
 (use-package config--protobuf-mode)
 
 
+;;; YAML
+(use-package config--yaml-mode)
+
+
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
