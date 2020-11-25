@@ -161,7 +161,13 @@
 
 
 ;;; YAML
+
 (use-package config--yaml-mode)
+
+
+;;; JSON
+
+(use-package config--json-mode)
 
 
 ;;; Device-specific configuration
