@@ -14,8 +14,10 @@
 
 (use-package go-mode
   :el-get (go-mode go-autocomplete)
-  :mode (("\\.go\\'" . go-mode)))
-
+  :mode (("\\.go\\'" . go-mode))
+  :init
+  (add-to-list 'exec-path (concat (getenv "HOME") "/.go/bin"))
+  (add-hook 'before-save-hook 'gofmt-before-save))
 
 (provide 'config--go-mode)
 
