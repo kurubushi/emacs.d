@@ -95,6 +95,13 @@
 (use-package config--shell-pop)
 
 
+;; LSP
+
+(use-package config--lsp-mode)
+(use-package config--lsp-ui)
+(use-package config--company-lsp)
+
+
 ;;; Git
 
 (use-package config--magit)
