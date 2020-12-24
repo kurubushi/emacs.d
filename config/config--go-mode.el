@@ -13,9 +13,11 @@
 ;;; use-package
 
 (use-package go-mode
-  :el-get (go-mode go-autocomplete)
+  :el-get go-mode
   :mode (("\\.go\\'" . go-mode))
   :init
+  ;; depends on gofmt(built-in) and godef
+  ;; $ go get -u github.com/rogpeppe/godef
   (add-to-list 'exec-path (concat (getenv "HOME") "/.go/bin"))
   (add-hook 'before-save-hook 'gofmt-before-save))
 
