@@ -14,9 +14,13 @@
 
 (use-package lsp-mode
   :el-get lsp-mode
-  ;; [Go] install gopls:
-  ;; $ go get golang.org/x/tools/gopls
-  :hook (go-mode . lsp)
+  :hook
+  (;; [Go] install gopls:
+   ;; $ go get golang.org/x/tools/gopls
+   (go-mode . lsp)
+   ;; [Ruby] install solargraph
+   ;; $ gem install --user solargraph
+   (ruby-mode . lsp))
   :commands lsp
   :init
   ;; define functions for backward compatibility
