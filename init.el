@@ -78,6 +78,8 @@
 (use-package config--company)
 (use-package config--skk)
 (use-package config--auto-spacing)
+(use-package config--ispell)
+(use-package config--flyspell)
 
 
 ;;; view
