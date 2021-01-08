@@ -1,0 +1,20 @@
+;;; pre-config.el --- Device-specific configuration.
+
+;;; Commentary:
+
+;; Loaded by init.el before `(use-package config--PKG)'s.
+
+;;; Code:
+
+;;; Go
+
+(setq env--gopath (concat (getenv "HOME") "/.go"))
+
+
+(provide 'pre-config)
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
+
+;;; pre-config.el ends here

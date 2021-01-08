@@ -48,6 +48,11 @@
 (require 'use-package) ; avoids Flycheck errors
 
 
+;;; Device-specific configuration
+
+(use-package pre-config) ; sample: custom/pre-config.sample.el
+
+
 ;;; Emacs
 
 (use-package config--emacs)
