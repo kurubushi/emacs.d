@@ -16,6 +16,9 @@
   :el-get tide
   :after (config--flycheck config--company)
 
+  :custom
+  (typescript-indent-level 2)
+
   :config
   (defun setup-tide-mode ()
     (interactive)
