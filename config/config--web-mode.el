@@ -16,6 +16,7 @@
   :el-get (web-mode add-node-modules-path prettier-js)
   :after config--flycheck
   :mode (("\\.js\\'" . web-mode)
+         ("\\.ts\\'" . web-mode)
          ("\\.tsx\\'" . web-mode))
   :init
   (setq web-mode-markup-indent-offset 2)
