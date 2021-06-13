@@ -52,11 +52,11 @@
     (set-face-attribute 'default nil :family fontfamily :height (* size 10))
     (set-fontset-font t 'unicode (font-spec :family fontfamily))))
 
-(set-my-font-with-size 12)
+(set-my-font-with-size 15)
 
 (defun set-my-font-atonce (&rest args)
   "Set my font only once with ARGS."
-  (set-my-font-with-size 12)
+  (set-my-font-with-size 15)
   (remove-hook 'after-make-frame-functions #'set-my-font-atonce))
 (add-hook 'after-make-frame-functions #'set-my-font-atonce) ; systemd 経由だと適用されない．しょうがないので hook する
 
