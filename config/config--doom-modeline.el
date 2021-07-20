@@ -44,21 +44,20 @@
   (doom-modeline-def-segment modals
     "Display current state of evil."
     (when evil-mode
-      (let ((state (cond
-                    ((evil-normal-state-p) "N")
-                    ((evil-insert-state-p) "I")
-                    ((evil-motion-state-p) "M")
-                    ((evil-visual-state-p) "V")
-                    ((evil-operator-state-p) "O")
-                    ((evil-replace-state-p) "R")
-                    (t "?")))
-            (rec (if defining-kbd-macro
-                     (concat
-                      (all-the-icons-material "fiber_manual_record" :face '(:foreground "red"))
-                      (doom-modeline-vspc)))))
+      (let* ((state-char (cond
+                          ((evil-normal-state-p) "N")
+                          ((evil-insert-state-p) "I")
+                          ((evil-motion-state-p) "M")
+                          ((evil-visual-state-p) "V")
+                          ((evil-operator-state-p) "O")
+                          ((evil-replace-state-p) "R")
+                          (t "?")))
+             (state-face (if defining-kbd-macro
+                              '(:weight bold :foreground "red")
+                            '(:weight bold)))
+             (state (propertize state-char 'face state-face)))
         (concat
          (doom-modeline-spc)
-         rec
          state))))
 
   ;; override position segment
