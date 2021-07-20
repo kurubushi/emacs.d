@@ -53,8 +53,9 @@
                     ((evil-replace-state-p) "R")
                     (t "?")))
             (rec (if defining-kbd-macro
-                     (propertize (all-the-icons-material "fiber_manual_record")
-                                 'face '(:foreground "red")))))
+                     (concat
+                      (all-the-icons-material "fiber_manual_record" :face '(:foreground "red"))
+                      (doom-modeline-vspc)))))
         (concat
          (doom-modeline-spc)
          rec
