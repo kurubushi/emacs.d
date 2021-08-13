@@ -85,6 +85,7 @@
 (use-package config--auto-spacing)
 (use-package config--ispell)
 (use-package config--flyspell)
+(use-package config--undo-fu)
 
 
 ;;; view
@@ -101,6 +102,7 @@
 (use-package config--which-key)
 (use-package config--flycheck)
 (use-package config--shell-pop)
+(use-package config--tramp)
 
 
 ;; LSP

@@ -14,8 +14,11 @@
 
 (use-package evil
   :el-get evil
+  :after config--undo-fu
+
   :init
   (custom-set-variables '(evil-want-keybinding nil)) ; for evil-collection
+
   :config
   (custom-set-variables '(search-invisible t)) ;https://github.com/syl20bnr/spacemacs/issues/3623
   (custom-set-variables '(evil-want-C-u-scroll t))
@@ -23,6 +26,8 @@
   (custom-set-variables '(evil-want-integration nil)) ; for evil-collection
   (custom-set-variables  '(evil-search-module 'isearch))
   (custom-set-variables '(evil-move-cursor-back t)) ; goes back when reterning from insert and prevents going eol
+  ;; https://github.com/emacs-evil/evil/pull/1360
+  (evil-set-undo-system 'undo-fu)
   (evil-mode 1)
 
   ;;keymap

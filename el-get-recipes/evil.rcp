@@ -6,7 +6,7 @@
  :type github
  :pkgname "emacs-evil/evil"
  :features evil
- :depends (undo-tree goto-chg)
+ :depends (goto-chg)
  :build (("make" "docstrings" "all"))
  :build/berkeley-unix (("gmake" "docstrings" "all"))
  :build/darwin `(("make" ,(format "EMACS=%s" el-get-emacs) "docstrings" "all")))
