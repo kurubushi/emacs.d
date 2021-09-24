@@ -15,9 +15,12 @@
 (use-package lsp-haskell
   :el-get lsp-haskell
   :after (config--haskell-mode config--lsp-mode)
-  ;; depens on haskell-language-server(hls)
-  ;; $ stack install hls
-  :hook (haskell-mode . lsp))
+  :hook
+  (;; [Haskell] install hls
+   ;; $ ghcup install hls
+   (haskell-mode . lsp))
+  :init
+  (add-to-list 'exec-path (concat (getenv "HOME") "/.ghcup/bin")))
 
 
 (provide 'config--lsp-haskell)
