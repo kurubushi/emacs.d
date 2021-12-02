@@ -30,10 +30,27 @@
     (call-process "nc" nil t nil "localhost" clipboard-nc-recv-port)
     (buffer-string)))
 
-(setq interprogram-cut-function
-      (lambda (text &optional push) (send-to-nc text)))
+;; Interactive functions
+(defun clipboard-send-to-nc ()
+  ;; Send clipboard to the port.
+  (interactive)
+  (send-to-nc (current-kill 0)))
 
-(setq interprogram-paste-function 'recv-from-nc)
+(defun clipboard-recv-from-nc ()
+  ;; Receive clipboard from the port.
+  (interactive)
+  (kill-new (recv-from-nc)))
+
+;; Use send-to-nc and recsv-from-nc in ordinary copy-paste functions.
+;; (setq interprogram-cut-function
+;;       (lambda (text &optional push) (send-to-nc text)))
+;; 
+;; (setq interprogram-paste-function 'recv-from-nc)
+
+(general-define-key :keymaps '(normal)
+                    :prefix "SPC"
+                    "cs" 'clipboard-send-to-nc
+                    "cr" 'clipboard-recv-from-nc)
 
 
 (provide 'config--clipboard)
