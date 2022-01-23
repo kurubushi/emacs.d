@@ -188,6 +188,11 @@
 (use-package config--json-mode)
 
 
+;;; Dockerfile
+
+(use-package config--dockerfile-mode)
+
+
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
