@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package markdown-mode
-  :el-get markdown-mode
+  :quelpa markdown-mode
   :mode (("\\.md\\'" . markdown-mode))
   :custom
   (markdown-header-scaling t)

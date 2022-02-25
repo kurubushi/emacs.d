@@ -13,7 +13,7 @@
 ;;; doom-themes
 
 (use-package doom-themes
-  :el-get doom-themes
+  :quelpa doom-themes
   :after (config--all-the-icons)
   :init
   ;; Global settings (defaults)

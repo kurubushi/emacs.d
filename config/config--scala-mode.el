@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package scala-mode
-  :el-get scala-mode
+  :quelpa scala-mode
   :mode (("\\.scala\\'" . scala-mode)))
 
 

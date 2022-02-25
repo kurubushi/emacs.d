@@ -52,7 +52,7 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
 ;;; general
 
 (use-package general
-  :el-get general
+  :quelpa general
   :config
   (setq general-default-keymaps 'evil-normal-state-map)
   ;; ここで :general キーワードは利用できない

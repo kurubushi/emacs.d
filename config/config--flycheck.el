@@ -13,7 +13,7 @@
 ;;; Flycheck
 
 (use-package flycheck
-  :el-get flycheck
+  :quelpa flycheck
   :config (global-flycheck-mode))
 
 

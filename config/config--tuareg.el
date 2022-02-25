@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package tuareg
-  :el-get tuareg-mode
+  :quelpa tuareg-mode
   :mode (("\\.ml[ily]?\\'" . tuareg-mode))
   :config
 ;;  (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)

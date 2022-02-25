@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package yaml-mode
-  :el-get yaml-mode
+  :quelpa yaml-mode
   :mode (("\\.yaml\\'" . yaml-mode)
          ("\\.yml\\'" . yaml-mode)))
 

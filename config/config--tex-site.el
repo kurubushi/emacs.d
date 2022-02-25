@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package tex-site
-  :el-get auctex
+  :quelpa auctex
   :if (locate-file "pdftex" exec-path)
   :mode (("\\.tex\\'" . LaTeX-mode))
   :config

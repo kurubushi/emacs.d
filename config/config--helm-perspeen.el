@@ -15,7 +15,7 @@
 ;;; use-package
 
 (use-package helm-perspeen
-  :el-get helm-perspeen
+  :quelpa helm-perspeen
   :after (config--helm config--perspeen)
   :general
   (general-define-key :keymaps '(normal)

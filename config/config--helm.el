@@ -13,7 +13,7 @@
 ;;; Helm
 
 (use-package helm-config
-  :el-get helm
+  :quelpa helm
 
   :custom
   (helm-boring-buffer-regexp-list '("\\` *\\*.*\\*\\'" "\\`magit: " "\\`magit-[^:]+:"))

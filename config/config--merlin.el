@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package merlin
-  :el-get merlin
+  :quelpa merlin
   :after config--tuareg
   :commands merlin-mode
   :init

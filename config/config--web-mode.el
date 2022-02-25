@@ -12,8 +12,14 @@
 
 ;;; use-package
 
+(use-package add-node-modules-path
+  :quelpa)
+
+(use-package prettier-js
+  :quelpa)
+
 (use-package web-mode
-  :el-get (web-mode add-node-modules-path prettier-js)
+  :quelpa
   :after config--flycheck
   :mode (("\\.js\\'" . web-mode)
          ("\\.ts\\'" . web-mode)

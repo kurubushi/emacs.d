@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package flyspell
-  :el-get flyspell
+  :quelpa flyspell
   :hook
   (text-mode . flyspell-mode)
   (prog-mode . flyspell-prog-mode))

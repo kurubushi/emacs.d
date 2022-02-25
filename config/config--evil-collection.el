@@ -13,7 +13,7 @@
 ;; use-package
 
 (use-package evil-collection
-  :el-get evil-collection
+  :quelpa evil-collection
   :after config--evil
   :init
   (custom-set-variables '(evil-want-keybinding nil)) ; for evil-collection

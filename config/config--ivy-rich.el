@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package ivy-rich
-  :el-get ivy-rich
+  :quelpa ivy-rich
   :after config--ivy
 
   :config

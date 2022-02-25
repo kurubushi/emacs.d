@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package tide
-  :el-get tide
+  :quelpa tide
   :after (config--flycheck config--company)
 
   :custom

@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package lsp-mode
-  :el-get lsp-mode
+  :quelpa lsp-mode
   :hook
   (;; [Go] install gopls:
    ;; $ go get golang.org/x/tools/gopls

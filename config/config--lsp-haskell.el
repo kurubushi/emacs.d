@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package lsp-haskell
-  :el-get lsp-haskell
+  :quelpa lsp-haskell
   :after (config--haskell-mode config--lsp-mode)
   :hook
   (;; [Haskell] install hls

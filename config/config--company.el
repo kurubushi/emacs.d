@@ -13,7 +13,7 @@
 ;;; company-mode
 
 (use-package company
-  :el-get company-mode
+  :quelpa company-mode
 
   :config
   (global-company-mode)

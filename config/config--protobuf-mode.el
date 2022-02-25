@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package protobuf-mode
-  :el-get protobuf-mode
+  :quelpa protobuf-mode
   :mode (("\\.proto\\'" . protobuf-mode)))
 
 

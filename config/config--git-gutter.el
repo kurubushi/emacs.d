@@ -13,7 +13,7 @@
 ;;; git-gutter
 
 (use-package git-gutter
-  :el-get git-gutter
+  :quelpa git-gutter
   :custom
   (git-gutter:added-sign    "+")
   (git-gutter:deleted-sign  "-")

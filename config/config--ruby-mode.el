@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package ruby-mode
-  :el-get ruby-mode
+  :quelpa ruby-mode
   :mode (("\\.rb\\'" . ruby-mode))
   :init
   (setq ruby-insert-encoding-magic-comment nil))

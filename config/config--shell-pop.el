@@ -13,7 +13,7 @@
 ;;; shell-pop
 
 (use-package shell-pop
-  :el-get shell-pop
+  :quelpa shell-pop
   :general
   (general-define-key :keymaps '(normal insert visual emacs)
                       "<f8>" 'shell-pop))

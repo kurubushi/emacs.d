@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package dockerfile-mode
-  :el-get dockerfile-mode)
+  :quelpa dockerfile-mode)
 
 
 (provide 'config--dockerfile-mode)

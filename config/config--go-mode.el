@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package go-mode
-  :el-get go-mode
+  :quelpa go-mode
   :after pre-config
   :mode (("\\.go\\'" . go-mode))
   :init

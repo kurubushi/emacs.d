@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package terraform-mode
-  :el-get (terraform-mode)
+  :quelpa (terraform-mode)
   :mode (("\\.tf\\'" . terraform-mode)))
 
 

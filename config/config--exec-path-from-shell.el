@@ -13,7 +13,7 @@
 ;;; exec-path-from-shell
 
 (use-package exec-path-from-shell
-  :el-get exec-path-from-shell
+  :quelpa exec-path-from-shell
   :config
   (setq exec-path-from-shell-shell-name (getenv "ESHELL"))
   (setq exec-path-from-shell-variables

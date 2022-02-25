@@ -13,7 +13,7 @@
 ;;; neotree
 
 (use-package neotree
-  :el-get neotree
+  :quelpa neotree
   :after (config--evil)
   :commands (neotree-show neotree-hide neotree-dir neotree-find)
   :custom

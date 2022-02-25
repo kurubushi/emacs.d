@@ -15,7 +15,7 @@
 ;; GitHub: https://github.com/iqbalansari/emacs-emojify
 
 (use-package emojify
-  :el-get emojify
+  :quelpa emojify
   :hook (after-init . global-emojify-mode)
   :config (emojify-set-emoji-styles '(github)))
 

@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package haskell-mode
-  :el-get haskell-mode
+  :quelpa haskell-mode
   :mode (("\\.hs\\'" . haskell-mode)))
 
 

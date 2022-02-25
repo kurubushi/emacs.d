@@ -15,7 +15,7 @@
 ;; doc: https://skk-dev.github.io/ddskk/skk.html
 
 (use-package skk
-  :el-get ddskk
+  :quelpa ddskk
   :init
   (setq skk-sticky-key ";")
   (setq skk-kutouten-type 'jp)

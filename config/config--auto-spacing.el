@@ -13,7 +13,7 @@
 ;;; auto-spacing
 
 (use-package auto-spacing
-  :el-get auto-spacing
+  :quelpa (auto-spacing :fetcher github :repo "kurubushi/auto-spacing")
   :config
     ;; where to insert a space
     (setq auto-spacing-english-regexp (rx (in "a-zA-Z0-9$.`")))

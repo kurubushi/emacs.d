@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package undo-fu
-  :el-get undo-fu)
+  :quelpa undo-fu)
 
 
 (provide 'config--undo-fu)

@@ -15,7 +15,7 @@
 ;;; perspeen
 
 (use-package perspeen
-  :el-get perspeen
+  :quelpa perspeen
 
   :init
   (setq perspeen-use-tab nil)
@@ -73,7 +73,7 @@
 ;;; helm-perspeen
 
 (use-package helm-perspeen
-  :el-get helm-perspeen
+  :quelpa helm-perspeen
   :after (helm perspeen)
   :general
   (general-define-key :keymaps '(normal)

@@ -14,7 +14,7 @@
 ;;; persp-mode
 
 (use-package persp-mode
-  :el-get persp-mode
+  :quelpa persp-mode
   :after (config--emacs config--ivy)
 
   :custom

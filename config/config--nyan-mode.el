@@ -13,7 +13,7 @@
 ;;; nyan-mode
 
 (use-package nyan-mode
-  :el-get nyan-mode
+  :quelpa nyan-mode
   :config (nyan-mode t))
 
 

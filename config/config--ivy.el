@@ -14,8 +14,11 @@
 
 ;; ref. https://takaxp.github.io/articles/qiita-helm2ivy.html
 
+(use-package swiper
+  :quelpa swiper)
+
 (use-package counsel ; requires ivy and swiper
-  :el-get swiper
+  :quelpa counsel
 
   :config
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法

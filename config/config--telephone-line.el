@@ -14,7 +14,7 @@
 ;;; telephone-line
 
 (use-package telephone-line
-  :el-get telephone-line
+  :quelpa telephone-line
   :after (config--evil config--nyan-mode config--perspeen)
   :config
   ;; https://github.com/dbordak/telephone-line/blob/master/examples.org

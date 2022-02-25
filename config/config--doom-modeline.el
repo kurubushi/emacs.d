@@ -16,7 +16,7 @@
 
 (use-package doom-modeline
   ; font が足りていなければ M-x all-the-icons-install-fonts
-  :el-get doom-modeline
+  :quelpa doom-modeline
 
   :after (config--evil
           config--nyan-mode

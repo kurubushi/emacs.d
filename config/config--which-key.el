@@ -13,7 +13,7 @@
 ;;; whitch-key
 
 (use-package which-key
-  :el-get which-key
+  :quelpa which-key
   :config
   (which-key-mode)
   :general

@@ -13,12 +13,19 @@
 ;;; use-package
 
 (use-package magit
-  :el-get (magit magit-popup)
+  :quelpa magit
   :general
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
-                      "gs" 'magit-status
+                      "gs" 'magit-status))
+
+(use-package magit-popup
+  :quelpa
+  :general
+  (general-define-key :keymaps '(normal)
+                      :prefix "SPC"
                       "gl" 'magit-log-popup))
+
 
 
 (provide 'config--magit)

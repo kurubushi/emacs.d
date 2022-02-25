@@ -13,7 +13,7 @@
 ;;; all-the-icons
 
 (use-package all-the-icons
-  :el-get all-the-icons
+  :quelpa all-the-icons
   :config
   (all-the-icons-install-fonts t))
 

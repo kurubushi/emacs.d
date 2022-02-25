@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package helm-git-grep
-  :el-get helm-git-grep
+  :quelpa helm-git-grep
   :after helm
   :general
   (general-define-key

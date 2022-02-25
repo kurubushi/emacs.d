@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package lsp-ui
-  :el-get lsp-ui
+  :quelpa lsp-ui
   :after (config--lsp-mode)
   :commands lsp-ui-mode)
 

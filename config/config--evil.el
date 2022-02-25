@@ -13,7 +13,7 @@
 ;;; Evil
 
 (use-package evil
-  :el-get evil
+  :quelpa evil
   :after config--undo-fu
 
   :init

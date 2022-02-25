@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package json-mode
-  :el-get json-mode
+  :quelpa json-mode
   :custom (js-indent-level 2)
   :mode (("\\.json\\'" . json-mode)))
 

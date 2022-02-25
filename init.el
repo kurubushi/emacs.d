@@ -6,59 +6,63 @@
 
 ;;; Code:
 
-(package-initialize)
+;;; Constants
 
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/el-get"))
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package"))
-  (add-to-list 'load-path (concat user-emacs-directory "config"))
-  (add-to-list 'load-path (concat user-emacs-directory "custom")))
+;;; Repositories
 
+(require 'package)
 
-;;; El-Get
+(setq package-archives
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")))
 
-;; https://github.com/dimitri/el-get
+(package-initialize)
+(package-refresh-contents)
+(package-install 'gnu-elpa-keyring-update)
 
-(unless (require 'el-get nil t)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
+;;; quelpa
 
-(require 'el-get) ; avoids Flycheck errors
+;; https://github.com/quelpa/quelpa
 
-(defvar el-get--directory (concat user-emacs-directory "el-get/"))
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents
+     "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
 
-(add-to-list 'el-get-recipe-path (concat user-emacs-directory "el-get-recipes"))
-
+(require 'quelpa)
 
 ;;; use-package
 
 ;; https://github.com/jwiegley/use-package
 
-(declare-function el-get-bundle-el-get (concat el-get--directory "el-get/el-get-bundle.el"))
+(quelpa 'use-package)
+(require 'use-package)
 
-(el-get-bundle! use-package)
-(el-get-bundle! use-package--el-get)
+(quelpa '(quelpa-use-package
+          :fetcher git
+          :url "https://github.com/quelpa/quelpa-use-package.git"))
+(require 'quelpa-use-package)
 
-(require 'use-package) ; avoids Flycheck errors
+;;; Load configurations
 
+(eval-when-compile
+  (add-to-list 'load-path (concat user-emacs-directory "config"))
+  (add-to-list 'load-path (concat user-emacs-directory "custom")))
 
 ;;; Device-specific configuration
 
 (use-package pre-config) ; sample: custom/pre-config.sample.el
-
 
 ;;; Emacs
 
 (use-package config--emacs)
 (use-package config--exec-path-from-shell)
 (use-package config--general) ; provides :general keyword
-
 
 ;;; file/buffer
 
@@ -75,7 +79,6 @@
 ;;(use-package config--perspeen)
 ;;(use-package config--helm-perspeen)
 
-
 ;;; edit
 
 (use-package config--evil)
@@ -87,7 +90,6 @@
 (use-package config--flyspell)
 (use-package config--undo-fu)
 
-
 ;;; view
 
 (use-package config--all-the-icons)
@@ -96,111 +98,88 @@
 (use-package config--doom-themes)
 (use-package config--doom-modeline)
 
-
 ;;; etc
 
 (use-package config--which-key)
 (use-package config--flycheck)
 (use-package config--shell-pop)
-(use-package config--tramp)
 
-
-;; LSP
+;;; LSP
 
 (use-package config--lsp-mode)
 (use-package config--lsp-ui)
-(use-package config--company-lsp)
-
 
 ;;; Git
 
 (use-package config--magit)
-(use-package config--evil-magit)
 (use-package config--git-gutter)
 ;;(use-package config--helm-git-grep)
-
 
 ;;; Markdown
 
 (use-package config--markdown-mode)
-
 
 ;;; Haskell
 
 (use-package config--haskell-mode)
 (use-package config--lsp-haskell)
 
-
 ;;; Scala
 
 (use-package config--scala-mode)
-
 
 ;;; OCaml
 
 (use-package config--tuareg)
 (use-package config--merlin)
 
-
 ;;; TeX
 
 (use-package config--tex-site)
 
-
 ;;; Go
 
 (use-package config--go-mode)
-
 
 ;;; Ruby
 
 (use-package config--ruby-mode)
 (use-package config--rubocop)
 
-
 ;;; Node
 
 (use-package config--web-mode)
-
 
 ;;; TypeScript
 
 (use-package config--tide)
 
-
 ;;; Terraform
 
 (use-package config--terraform-mode)
-
 
 ;;; Protocol Buffer
 
 (use-package config--protobuf-mode)
 
-
 ;;; YAML
 
 (use-package config--yaml-mode)
-
 
 ;;; JSON
 
 (use-package config--json-mode)
 
-
 ;;; Dockerfile
 
 (use-package config--dockerfile-mode)
-
 
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
 
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not cl-functions obsolete)
 ;; End:
-
 
 ;;; init.el ends here

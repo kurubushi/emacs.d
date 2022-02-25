@@ -13,7 +13,7 @@
 ;;; use-package
 
 (use-package rubocop
-  :el-get (rubocop)
+  :quelpa (rubocop)
   :after config--flycheck
   :config
   (add-hook 'ruby-mode-hook 'rubocop-mode)
