@@ -4,21 +4,14 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package lsp-ui
-  :quelpa lsp-ui
+  :quelpa
   :after (config--lsp-mode)
   :commands lsp-ui-mode)
 
-
 (provide 'config--lsp-ui)
-
 
 ;;; config--lsp-ui.el ends here

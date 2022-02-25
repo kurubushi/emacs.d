@@ -4,20 +4,13 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package protobuf-mode
-  :quelpa protobuf-mode
+  :quelpa
   :mode (("\\.proto\\'" . protobuf-mode)))
 
-
 (provide 'config--protobuf-mode)
-
 
 ;;; config--protobuf-mode.el ends here

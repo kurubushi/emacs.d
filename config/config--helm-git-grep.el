@@ -4,24 +4,17 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package helm-git-grep
-  :quelpa helm-git-grep
+  :quelpa
   :after helm
-  :general
-  (general-define-key
-   :keymaps 'normal
-   :prefix "SPC g"
-   "g" 'helm-git-grep))
+  :general (general-define-key :keymaps 'normal
+                               :prefix "SPC g"
+                               "g" 'helm-git-grep))
 
 (provide 'config--helm-git-grep)
-
 
 ;;; config--helm-git-grep.el ends here

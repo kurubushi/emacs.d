@@ -4,13 +4,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package tuareg
   :quelpa tuareg-mode
@@ -23,8 +18,6 @@
   (setq tuareg-prettify-symbols-full t)
   (add-hook 'tuareg-mode-hook 'prettify-symbols-mode))
 
-
 (provide 'config--tuareg)
-
 
 ;;; config--tuareg.el ends here

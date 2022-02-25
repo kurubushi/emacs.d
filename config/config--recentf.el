@@ -4,13 +4,7 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; recentf
 
 (use-package recentf
   :init
@@ -22,8 +16,6 @@
   (add-hook 'find-file-hook 'recentf-save-list)
   (recentf-mode 1))
 
-
 (provide 'config--recentf)
-
 
 ;;; config--recentf.el ends here

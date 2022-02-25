@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package markdown-mode
-  :quelpa markdown-mode
+  :quelpa
   :mode (("\\.md\\'" . markdown-mode))
   :custom
   (markdown-header-scaling t)
@@ -23,8 +18,6 @@
   (markdown-enable-math t)
   (markdown-display-remote-images t))
 
-
 (provide 'config--markdown-mode)
-
 
 ;;; config--markdown-mode.el ends here

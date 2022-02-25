@@ -4,13 +4,7 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
-(require 'use-package)
-
-
-;;; use-package
+(require 'general)
 
 (defcustom clipboard-nc-send-port "8001"
   "Port to send the kill ring")
@@ -52,8 +46,6 @@
                     "cs" 'clipboard-send-to-nc
                     "cr" 'clipboard-recv-from-nc)
 
-
 (provide 'config--clipboard)
-
 
 ;;; config--clipboard.el ends here

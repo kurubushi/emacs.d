@@ -4,12 +4,6 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
-(require 'use-package)
-
-
 ;;; hooks
 
 (defvar after-find-file-hooks nil)
@@ -20,17 +14,14 @@
 
 (advice-add 'find-file :after 'after-find-file-advice)
 
-
 ;;; coding
 
 (prefer-coding-system 'utf-8)
-
 
 ;;; edit
 
 (setq require-final-newline t) ; ファイル末尾で必ず改行
 (setq-default indent-tabs-mode nil) ; インデントはハードタブを使わない
-
 
 ;;; view
 
@@ -41,7 +32,6 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p) ; yes/not -> y/n
 (setq ring-bell-function 'ignore) ; disable BEEP
-
 
 ;;; fonts
 
@@ -60,13 +50,12 @@
   (remove-hook 'after-make-frame-functions #'set-my-font-atonce))
 (add-hook 'after-make-frame-functions #'set-my-font-atonce) ; systemd 経由だと適用されない．しょうがないので hook する
 
-
 ;;; theme
 
 (setq custom-file (locate-user-emacs-file "custom.el")) ; custom.el を作らせない
 
+;;; provide
 
 (provide 'config--emacs)
-
 
 ;;; config--emacs.el ends here

@@ -4,16 +4,12 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; neotree
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package neotree
-  :quelpa neotree
+  :quelpa
   :after (config--evil)
   :commands (neotree-show neotree-hide neotree-dir neotree-find)
   :custom
@@ -41,8 +37,6 @@
                       "l" 'neotree-change-root
                       "h" 'neotree-go-up-node))
 
-
 (provide 'config--neotree)
-
 
 ;;; config--neotree.el ends here

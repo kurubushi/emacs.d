@@ -4,20 +4,19 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package PKG
-  :el-get PKG
-  :after (config--PKG1 config--PKG2))
-
+  :quelpa                              ; install PKG
+  ;; :quelpa PKG
+  ;; :quelpa (PKG :fetcher github
+  ;;              :repo "kurubushi/hoge")
+  :after (config--PKG1 config--PKG2)
+  :general (general-define-key :keymaps '(insert)
+                               "C-x" 'some-function))
 
 (provide 'config--PKG)
-
 
 ;;; config--PKG.el ends here

@@ -4,22 +4,15 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package ruby-mode
-  :quelpa ruby-mode
+  :quelpa
   :mode (("\\.rb\\'" . ruby-mode))
   :init
   (setq ruby-insert-encoding-magic-comment nil))
 
-
 (provide 'config--ruby-mode)
-
 
 ;;; config--ruby-mode.el ends here

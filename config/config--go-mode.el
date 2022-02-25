@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package go-mode
-  :quelpa go-mode
+  :quelpa
   :after pre-config
   :mode (("\\.go\\'" . go-mode))
   :init
@@ -23,6 +18,5 @@
   (add-hook 'before-save-hook 'gofmt-before-save))
 
 (provide 'config--go-mode)
-
 
 ;;; config--go-mode.el ends here

@@ -4,20 +4,13 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package scala-mode
-  :quelpa scala-mode
+  :quelpa
   :mode (("\\.scala\\'" . scala-mode)))
 
-
 (provide 'config--scala-mode)
-
 
 ;;; config--scala-mode.el ends here

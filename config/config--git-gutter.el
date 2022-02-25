@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; git-gutter
+(require 'quelpa-use-package)
 
 (use-package git-gutter
-  :quelpa git-gutter
+  :quelpa
   :custom
   (git-gutter:added-sign    "+")
   (git-gutter:deleted-sign  "-")
@@ -21,8 +16,6 @@
   :config
   (global-git-gutter-mode +1))
 
-
 (provide 'config--git-gutter)
-
 
 ;;; config--git-gutter.el ends here

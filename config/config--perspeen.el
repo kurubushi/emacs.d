@@ -6,11 +6,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
+(require 'quelpa-use-package)
+(require 'general)
 
 ;;; perspeen
 
@@ -69,7 +67,6 @@
                       :background "gray10"
                       :inherit 'mode-line-inactive))
 
-
 ;;; helm-perspeen
 
 (use-package helm-perspeen
@@ -80,8 +77,6 @@
                       :prefix "SPC"
                       "pp" 'helm-perspeen))
 
-
 (provide 'config--perspeen)
-
 
 ;;; config--perspeen.el ends here

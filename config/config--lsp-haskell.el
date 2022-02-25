@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package lsp-haskell
-  :quelpa lsp-haskell
+  :quelpa
   :after (config--haskell-mode config--lsp-mode)
   :hook
   (;; [Haskell] install hls
@@ -22,8 +17,6 @@
   :init
   (add-to-list 'exec-path (concat (getenv "HOME") "/.ghcup/bin")))
 
-
 (provide 'config--lsp-haskell)
-
 
 ;;; config--lsp-haskell.el ends here

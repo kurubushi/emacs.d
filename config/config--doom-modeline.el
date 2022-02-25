@@ -6,17 +6,12 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; doom-modeline
+(require 'quelpa-use-package)
 
 (use-package doom-modeline
   ; font が足りていなければ M-x all-the-icons-install-fonts
-  :quelpa doom-modeline
+  :quelpa
 
   :after (config--evil
           config--nyan-mode
@@ -99,8 +94,6 @@
     '(buffer-encoding vcs checker perspeen persp-mode))
   (doom-modeline-mode t))
 
-
 (provide 'config--doom-modeline)
-
 
 ;;; config--doom-modeline.el ends here

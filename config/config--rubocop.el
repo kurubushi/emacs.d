@@ -4,25 +4,20 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
+(require 'quelpa-use-package)
 
 ;;; use-package
 
 (use-package rubocop
-  :quelpa (rubocop)
-  :after config--flycheck
+  :quelpa
+  :after (config--flycheck config--ruby-mode)
   :config
   (add-hook 'ruby-mode-hook 'rubocop-mode)
   (add-hook 'ruby-mode-hook
             '(lambda ()
                (setq flycheck-checker 'ruby-rubocop))))
 
-
 (provide 'config--rubocop)
-
 
 ;;; config--rubocop.el ends here

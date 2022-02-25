@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package merlin
-  :quelpa merlin
+  :quelpa
   :after config--tuareg
   :commands merlin-mode
   :init
@@ -22,8 +17,6 @@
   (setq merlin-use-auto-complete-mode t)
   (setq merlin-error-after-save nil))
 
-
 (provide 'config--merlin)
-
 
 ;;; config--merlin.el ends here

@@ -4,13 +4,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package add-node-modules-path
   :quelpa)
@@ -33,8 +28,6 @@
   (add-hook 'web-mode-hook 'add-node-modules-path)
   (add-hook 'web-mode-hook 'prettier-js-mode))
 
-
 (provide 'config--web-mode)
-
 
 ;;; config--web-mode.el ends here

@@ -4,20 +4,13 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; Flycheck
+(require 'quelpa-use-package)
 
 (use-package flycheck
-  :quelpa flycheck
+  :quelpa
   :config (global-flycheck-mode))
 
-
 (provide 'config--flycheck)
-
 
 ;;; config--flycheck.el ends here

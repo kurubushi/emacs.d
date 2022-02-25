@@ -4,19 +4,12 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package dockerfile-mode
-  :quelpa dockerfile-mode)
-
+  :quelpa)
 
 (provide 'config--dockerfile-mode)
-
 
 ;;; config--dockerfile-mode.el ends here

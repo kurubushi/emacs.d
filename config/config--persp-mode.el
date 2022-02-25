@@ -6,15 +6,12 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-;;; persp-mode
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package persp-mode
-  :quelpa persp-mode
+  :quelpa
   :after (config--emacs config--ivy)
 
   :custom
@@ -65,6 +62,5 @@
    "k" 'persp-kill))
 
 (provide 'config--persp-mode)
-
 
 ;;; config--persp-mode.el ends here

@@ -4,16 +4,13 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; Evil
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package evil
-  :quelpa evil
+  :quelpa
+
   :after config--undo-fu
 
   :init
@@ -25,7 +22,7 @@
   (custom-set-variables  '(evil-want-visual-char-semi-exclusive t)) ; exclusive \n in visual state
   (custom-set-variables '(evil-want-integration nil)) ; for evil-collection
   (custom-set-variables  '(evil-search-module 'isearch))
-  (custom-set-variables '(evil-move-cursor-back t)) ; goes back when reterning from insert and prevents going eol
+
   ;; https://github.com/emacs-evil/evil/pull/1360
   (evil-set-undo-system 'undo-fu)
   (evil-mode 1)
@@ -43,8 +40,6 @@
   (general-define-key :keymaps '(insert)
                       "C-o" 'evil-execute-in-normal-state-natively))
 
-
 (provide 'config--evil)
-
 
 ;;; config--evil.el ends here

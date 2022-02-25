@@ -4,21 +4,14 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; all-the-icons
+(require 'quelpa-use-package)
 
 (use-package all-the-icons
-  :quelpa all-the-icons
+  :quelpa
   :config
   (all-the-icons-install-fonts t))
 
-
 (provide 'config--all-the-icons)
-
 
 ;;; config--all-the-icons.el ends here

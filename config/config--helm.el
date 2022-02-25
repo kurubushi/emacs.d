@@ -4,13 +4,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; Helm
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package helm-config
   :quelpa helm
@@ -43,8 +39,6 @@
                       "C-k" 'helm-kill-selected-buffer)
   (helm-mode 1))
 
-
 (provide 'config--helm)
-
 
 ;;; config--helm.el ends here

@@ -4,13 +4,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package tex-site
   :quelpa auctex
@@ -54,8 +49,6 @@
     (TeX-revert-document-buffer (replace-regexp-in-string "[^.]*$" "pdf" file)))
   (add-hook 'TeX-after-compilation-finished-functions 'TeX-revert-PDF-buffer))
 
-
 (provide 'config--tex-site)
-
 
 ;;; config--tex-site.el ends here

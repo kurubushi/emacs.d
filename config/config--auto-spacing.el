@@ -4,13 +4,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; auto-spacing
+(require 'quelpa-use-package)
 
 (use-package auto-spacing
   :quelpa (auto-spacing :fetcher github :repo "kurubushi/auto-spacing")
@@ -24,8 +19,6 @@
           '(skk-insert
             TeX-insert-dollar)))
 
-
 (provide 'config--auto-spacing)
-
 
 ;;; config--auto-spacing.el ends here

@@ -4,13 +4,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/cl-lib"))
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'cl-lib)
 (require 'use-package)
-
+(require 'quelpa-use-package)
 
 ;;; buffer
 
@@ -34,7 +30,6 @@
   (mapc 'kill-buffer
         (cl-remove-if-not 'is-dired (buffer-list))))
 
-
 ;;; eval
 
 (defun eval-and-replace ()
@@ -47,7 +42,6 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
              (current-buffer))
     (error (message "Invalid expression")
            (insert (current-kill 0)))))
-
 
 ;;; general
 
@@ -81,8 +75,6 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       "C-x C-l" 'nil ; delete 'downcase-region insted of 'disable
                       ))
 
-
 (provide 'config--general)
-
 
 ;;; config--general.el ends here

@@ -4,21 +4,17 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
+(require 'quelpa-use-package)
+(require 'general)
 
-
-;;; use-package
-
-;; ref. https://takaxp.github.io/articles/qiita-helm2ivy.html
+;; https://takaxp.github.io/articles/qiita-helm2ivy.html
 
 (use-package swiper
-  :quelpa swiper)
+  :quelpa)
 
 (use-package counsel ; requires ivy and swiper
-  :quelpa counsel
+  :quelpa
 
   :config
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法
@@ -48,8 +44,6 @@
    :prefix "SPC g"
    "g" 'counsel-git-grep))
 
-
 (provide 'config--ivy)
-
 
 ;;; config--ivy.el ends here

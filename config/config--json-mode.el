@@ -4,21 +4,14 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package json-mode
-  :quelpa json-mode
+  :quelpa
   :custom (js-indent-level 2)
   :mode (("\\.json\\'" . json-mode)))
 
-
 (provide 'config--json-mode)
-
 
 ;;; config--json-mode.el ends here

@@ -6,15 +6,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-;;; telephone-line
+(require 'quelpa-use-package)
 
 (use-package telephone-line
-  :quelpa telephone-line
+  :quelpa
   :after (config--evil config--nyan-mode config--perspeen)
   :config
   ;; https://github.com/dbordak/telephone-line/blob/master/examples.org
@@ -40,8 +36,6 @@
 
   (telephone-line-mode t))
 
-
 (provide 'config--telephone-line)
-
 
 ;;; config--telephone-line.el ends here

@@ -4,20 +4,13 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package haskell-mode
-  :quelpa haskell-mode
+  :quelpa
   :mode (("\\.hs\\'" . haskell-mode)))
 
-
 (provide 'config--haskell-mode)
-
 
 ;;; config--haskell-mode.el ends here

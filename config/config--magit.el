@@ -4,16 +4,12 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package magit
-  :quelpa magit
+  :quelpa
   :general
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
@@ -26,9 +22,6 @@
                       :prefix "SPC"
                       "gl" 'magit-log-popup))
 
-
-
 (provide 'config--magit)
-
 
 ;;; config--magit.el ends here

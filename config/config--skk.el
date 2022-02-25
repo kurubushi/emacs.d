@@ -4,15 +4,10 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
+(require 'quelpa-use-package)
 
-
-;;; SKK
-
-;; doc: https://skk-dev.github.io/ddskk/skk.html
+;; https://skk-dev.github.io/ddskk/skk.html
 
 (use-package skk
   :quelpa ddskk
@@ -48,8 +43,6 @@
                  `(skk-j-mode . ,skk-j-mode-map)))
   (add-hook 'skk-mode-hook 'skk-j-overrideing-minor))
 
-
 (provide 'config--skk)
-
 
 ;;; config--skk.el ends here

@@ -4,16 +4,12 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; whitch-key
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package which-key
-  :quelpa which-key
+  :quelpa
   :config
   (which-key-mode)
   :general
@@ -24,8 +20,6 @@
                       "wm" 'describe-mode
                       "wM" 'describe-keymap))
 
-
 (provide 'config--which-key)
-
 
 ;;; config--which-key.el ends here

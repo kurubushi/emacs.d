@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; exec-path-from-shell
+(require 'quelpa-use-package)
 
 (use-package exec-path-from-shell
-  :quelpa exec-path-from-shell
+  :quelpa
   :config
   (setq exec-path-from-shell-shell-name (getenv "ESHELL"))
   (setq exec-path-from-shell-variables
@@ -23,6 +18,5 @@
   (setenv "LANG" "ja_JP.UTF-8")) ; to pass "flycheck invalid multibyte char"
 
 (provide 'config--exec-path-from-shell)
-
 
 ;;; config--exec-path-from-shell.el ends here

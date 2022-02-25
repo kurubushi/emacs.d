@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; doom-themes
+(require 'quelpa-use-package)
 
 (use-package doom-themes
-  :quelpa doom-themes
+  :quelpa
   :after (config--all-the-icons)
   :init
   ;; Global settings (defaults)
@@ -30,8 +25,6 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-
 (provide 'config--doom-themes)
-
 
 ;;; config--doom-themes.el ends here

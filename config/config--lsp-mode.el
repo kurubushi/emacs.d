@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package lsp-mode
-  :quelpa lsp-mode
+  :quelpa
   :hook
   (;; [Go] install gopls:
    ;; $ go get golang.org/x/tools/gopls
@@ -33,8 +28,6 @@
   (defun lsp--resolve-completion (item)
     (lsp-completion--resolve item)))
 
-
 (provide 'config--lsp-mode)
-
 
 ;;; config--lsp-mode.el ends here

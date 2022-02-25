@@ -4,22 +4,15 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package flyspell
-  :quelpa flyspell
+  :quelpa
   :hook
   (text-mode . flyspell-mode)
   (prog-mode . flyspell-prog-mode))
 
-
 (provide 'config--flyspell)
-
 
 ;;; config--flyspell.el ends here

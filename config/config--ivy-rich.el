@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package ivy-rich
-  :quelpa ivy-rich
+  :quelpa
   :after config--ivy
 
   :config
@@ -73,8 +68,6 @@
 
   (ivy-rich-mode t))
 
-
 (provide 'config--ivy-rich)
-
 
 ;;; config--ivy-rich.el ends here

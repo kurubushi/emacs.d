@@ -4,16 +4,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; use-package
+(require 'quelpa-use-package)
 
 (use-package tide
-  :quelpa tide
+  :quelpa
   :after (config--flycheck config--company)
 
   :custom
@@ -32,8 +27,6 @@
     ;; `M-x package-install [ret] company`
     (company-mode +1)))
 
-
 (provide 'config--tide)
-
 
 ;;; config--tide.el ends here

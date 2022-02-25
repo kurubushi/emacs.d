@@ -4,22 +4,16 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (add-to-list 'load-path (concat user-emacs-directory "el-get/use-package")))
-
 (require 'use-package)
-
-
-;;; shell-pop
+(require 'quelpa-use-package)
+(require 'general)
 
 (use-package shell-pop
-  :quelpa shell-pop
+  :quelpa
   :general
   (general-define-key :keymaps '(normal insert visual emacs)
                       "<f8>" 'shell-pop))
 
-
 (provide 'config--shell-pop)
-
 
 ;;; config--shell-pop.el ends here
