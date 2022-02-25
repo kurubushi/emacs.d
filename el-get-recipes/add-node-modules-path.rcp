@@ -1,3 +1,0 @@
-(:name    add-node-modules-path
- :type    github
- :pkgname "codesuki/add-node-modules-path")

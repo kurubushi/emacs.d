@@ -1,3 +1,0 @@
-(:name    use-package--el-get
- :type    github
- :pkgname "kurubushi/use-package--el-get")

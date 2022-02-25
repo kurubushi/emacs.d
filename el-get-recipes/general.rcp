@@ -1,3 +1,0 @@
-(:name general
-       :type github
-       :pkgname "noctuid/general.el")

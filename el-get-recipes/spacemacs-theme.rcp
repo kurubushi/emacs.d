@@ -1,4 +1,0 @@
-(:name spacemacs-theme
-       :type github
-       :pkgname "nashamri/spacemacs-theme"
-       :post-init (add-to-list 'custom-theme-load-path default-directory))

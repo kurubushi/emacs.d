@@ -1,5 +1,0 @@
-(:name intero
-       :type github
-       :pkgname "commercialhaskell/intero"
-       :depends (flycheck company-mode)
-       :load-path "elisp")

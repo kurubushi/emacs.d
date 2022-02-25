@@ -1,4 +1,0 @@
-(:name paganini-theme
-       :type github
-       :pkgname "onurtemizkan/paganini"
-       :post-init (add-to-list 'custom-theme-load-path default-directory))

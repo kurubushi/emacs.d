@@ -1,4 +1,0 @@
-(:name evil-collection
-       :type github
-       :pkgname "emacs-evil/evil-collection"
-       :depends (cl-lib evil annalist))

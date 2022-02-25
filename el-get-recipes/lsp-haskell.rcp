@@ -1,6 +1,0 @@
-(:name lsp-haskell
-       :website "https://github.com/emacs-lsp/lsp-haskell"
-       :descripition "lsp-mode heart haskell"
-       :depends (haskell-mode lsp-mode)
-       :type github
-       :pkgname "emacs-lsp/lsp-haskell")
