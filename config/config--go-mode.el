@@ -7,15 +7,19 @@
 (require 'use-package)
 (require 'quelpa-use-package)
 
+;; Depends on gofmt(built-in) and godef
+;; $ go get -u github.com/rogpeppe/godef
+
+;; Install gopls to use an lsp server:
+;; $ go get golang.org/x/tools/gopls
+
 (use-package go-mode
   :quelpa
-  :after pre-config
+  :after (pre-config lsp-mode)
   :mode (("\\.go\\'" . go-mode))
-  :init
-  ;; depends on gofmt(built-in) and godef
-  ;; $ go get -u github.com/rogpeppe/godef
-  (add-to-list 'exec-path (concat env--gopath "/bin"))
-  (add-hook 'before-save-hook 'gofmt-before-save))
+  :init (add-to-list 'exec-path (concat env--gopath "/bin"))
+  :hook ((go-mode . lsp)
+         (before-save . gofmt-before-save)))
 
 (provide 'config--go-mode)
 

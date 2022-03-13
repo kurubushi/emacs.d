@@ -9,13 +9,6 @@
 
 (use-package lsp-mode
   :quelpa
-  :hook
-  (;; [Go] install gopls:
-   ;; $ go get golang.org/x/tools/gopls
-   (go-mode . lsp)
-   ;; [Ruby] install solargraph
-   ;; $ gem install --user solargraph
-   (ruby-mode . lsp))
   :commands lsp
   :init
   ;; define functions for backward compatibility
