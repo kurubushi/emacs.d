@@ -10,8 +10,8 @@
 
 (use-package which-key
   :quelpa
-  :config
-  (which-key-mode)
+  :demand
+  :config (which-key-mode)
   :general
   (general-define-key :keymaps '(normal)
                       :prefix "SPC"
