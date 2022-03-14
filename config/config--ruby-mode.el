@@ -7,15 +7,10 @@
 (require 'use-package)
 (require 'quelpa-use-package)
 
-;; Install solargraph to use an lsp server.
-;; $ gem install --user solargraph
-
 (use-package ruby-mode
   :quelpa
-  :after lsp-mode
-  :mode (("\\.rb\\'" . ruby-mode))
-  :init (setq ruby-insert-encoding-magic-comment nil)
-  :hook (ruby-mode . lsp))
+  :mode ("\\.rb\\'" . ruby-mode)
+  :config (setq ruby-insert-encoding-magic-comment nil))
 
 (provide 'config--ruby-mode)
 

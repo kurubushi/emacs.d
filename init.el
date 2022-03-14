@@ -122,7 +122,6 @@
 ;;; Haskell
 
 (use-package config--haskell-mode)
-(use-package config--lsp-haskell)
 
 ;;; Scala
 
