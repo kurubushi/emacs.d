@@ -10,8 +10,7 @@
 
 (use-package evil
   :quelpa
-
-  :after config--undo-fu
+  :after config--undo-tree
 
   :init
   (custom-set-variables '(evil-want-keybinding nil)) ; for evil-collection
@@ -24,7 +23,7 @@
   (custom-set-variables  '(evil-search-module 'isearch))
 
   ;; https://github.com/emacs-evil/evil/pull/1360
-  (evil-set-undo-system 'undo-fu)
+  (evil-set-undo-system 'undo-tree)
   (evil-mode 1)
 
   ;;keymap

@@ -88,7 +88,7 @@
 (use-package config--auto-spacing)
 (use-package config--ispell)
 (use-package config--flyspell)
-(use-package config--undo-fu)
+(use-package config--undo-tree)
 
 ;;; view
 
