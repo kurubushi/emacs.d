@@ -29,9 +29,11 @@
     (goto-char (point-min))
     (neotree-select-up-node))
   :general
-  (general-define-key :keymaps '(normal insert visual emacs)
-                      "<f9>" 'neotree-toggle-on-current-buffer)
+  (general-define-key :keymaps 'normal
+                      :prefix "SPC f"
+                      "d" 'neotree-toggle-on-current-buffer)
   (general-define-key :keymaps 'neotree-mode-map
+                      :states 'normal
                       "j" 'neotree-next-line
                       "k" 'neotree-previous-line
                       "l" 'neotree-change-root
