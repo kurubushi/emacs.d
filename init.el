@@ -104,6 +104,7 @@
 (use-package config--which-key)
 (use-package config--flycheck)
 (use-package config--shell-pop)
+(use-package config--org-mode)
 
 ;;; LSP
 
