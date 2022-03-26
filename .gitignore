@@ -1,0 +1,16 @@
+# cache files
+*#
+*~
+.lsp-session-v1
+elpa/
+emojis/
+persp-confs/
+quelpa/
+recentf
+transient/
+tutorial/
+
+# custom files
+custom.el
+custom/pre-config.el
+custom/post-config.el
