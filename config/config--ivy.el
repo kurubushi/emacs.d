@@ -20,36 +20,37 @@
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法
   (setf (alist-get 'counsel-M-x ivy-initial-inputs-alist) "") ; 絞り込み文字プリセット
 
+  ;; hooks
+
+  (defvar after-ivy-switch-buffe-hook nil)
+
+  (defun after-ivy-switch-buffer-advice (&rest args)
+    "Advice of `ivy-switch-buffer' with ARGS."
+    (apply 'run-hook-with-args 'after-ivy-switch-buffer-hook args))
+
+  (advice-add 'ivy-switch-buffer :after 'after-ivy-switch-buffer-advice)
+
   ;; Ignore *-ed buffers (i.e. *Messages*).
   ;; `ivy-toggle-ignore' (C-c C-a) shows ignored buffers.
   ;; (add-to-list 'ivy-ignore-buffers "\\*.*\\*\\'")
 
   ;; switch-mode
-
   (ivy-mode 1)
   (counsel-mode 1)
 
-  :general
-  (general-define-key ; for executer
-   :keymaps '(normal visual)
-   :prefix "SPC"
-   "SPC" 'counsel-M-x)
-
-  (general-define-key ; for buffers
-   :keymaps 'normal
-   :prefix "SPC b"
-   "b" 'counsel-switch-buffer)
-
-  (general-define-key ; for files
-   :keymaps 'normal
-   :prefix "SPC f"
-   "f" 'counsel-find-file
-   "r" 'counsel-recentf)
-
-  (general-define-key ; for Git
-   :keymaps 'normal
-   :prefix "SPC g"
-   "g" 'counsel-git-grep))
+  :general (general-define-key :keymaps '(normal visual)
+                               :prefix "SPC"
+                               "SPC" 'counsel-M-x)
+           (general-define-key :keymaps 'normal
+                               :prefix "SPC b"
+                               "b" 'counsel-switch-buffer)
+           (general-define-key :keymaps 'normal
+                               :prefix "SPC f"
+                               "f" 'counsel-find-file
+                               "r" 'counsel-recentf)
+           (general-define-key :keymaps 'normal
+                               :prefix "SPC g"
+                               "g" 'counsel-git-grep))
 
 (provide 'config--ivy)
 

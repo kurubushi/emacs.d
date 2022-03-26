@@ -15,7 +15,6 @@
   :after (config--emacs config--ivy)
 
   :custom (ivy-use-ignore-default 'always)
-          (persp-add-buffer-on-find-file nil)
 
   :config
   (defun persp-ignore-other-workspace-buffers (buffer)
@@ -47,6 +46,12 @@
     (interactive)
     (persp-save-state-to-file))
 
+  (defun persp-add-current-buffer-to-current-persp (&rest args)
+    "Add current buffer to current perspective."
+    (when (and persp-mode
+               (not persp-temporarily-display-buffer))
+      (persp-add-buffer (current-buffer))))
+
   ;; Ignore buffers which are in not current perspective.
   (add-to-list 'ivy-ignore-buffers 'persp-ignore-other-workspace-buffers)
 
@@ -58,7 +63,8 @@
 
   (persp-mode 1)
 
-  :hook (after-find-file . persp-add-or-not-on-find-file-with-any-args)
+  :hook ((after-find-file         . persp-add-current-buffer-to-current-persp)
+         (after-ivy-switch-buffer . persp-add-current-buffer-to-current-persp))
 
   :general (general-define-key :keymaps 'normal
                                :prefix "SPC p"
