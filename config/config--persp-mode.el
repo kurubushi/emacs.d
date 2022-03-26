@@ -14,27 +14,19 @@
   :quelpa
   :after (config--emacs config--ivy)
 
-  :custom
-  (ivy-use-ignore-default 'always)
+  :custom (ivy-use-ignore-default 'always)
+          (persp-add-buffer-on-find-file nil)
 
   :config
-  ;; Ignore buffers not included in the current workspace.
   (defun persp-ignore-other-workspace-buffers (buffer)
     "Ignore BUFFER if it is in other workspaces."
     (when persp-mode
       (not (persp-contain-buffer-p buffer (get-current-persp)))))
-  (add-hook 'ivy-ignore-buffers 'persp-ignore-other-workspace-buffers)
 
-  ;; Add a buffer to current workspace even if the buffer is open in other workspaces.
   (defun persp-add-or-not-on-find-file-with-any-args (&rest args)
     "Execute `persp-add-or-not-on-find-file' with ignoring ARGS."
     (persp-add-or-not-on-find-file))
-  (remove-hook 'find-file-hooks 'persp-add-or-not-on-find-file) ; This hook only fires when creating a buffer.
-  (add-hook 'after-find-file-hooks 'persp-add-or-not-on-find-file-with-any-args)
 
-  (persp-mode 1)
-
-  ;; Setup initial buffers (add-to-hook after persp-mode is enabled to avoid applyint to the first workspace)
   (defun persp-setup-initial-buffers (persp &rest args)
     "Create a buffer for scratch and Share some buffers in PERSP, ignoring ARGS."
     (let* ((scratch-buf (format "*scratch<%s>*" (format-time-string "%s")))
@@ -44,12 +36,10 @@
       (switch-to-buffer scratch-buf)
       (funcall initial-major-mode)
 
-
       ;; add buffers to new workspace
       (persp-add-buffer shared-buffers persp)
 
       (switch-to-buffer scratch-buf)))
-  (add-hook 'persp-created-functions 'persp-setup-initial-buffers)
 
   (defun persp-save-state-to-default-file ()
     "Save persp-mode state to default file.
@@ -57,16 +47,27 @@
     (interactive)
     (persp-save-state-to-file))
 
-  :general
-  (general-define-key
-   :keymaps 'normal
-   :prefix "SPC p"
-   "p" 'persp-frame-switch
-   "w" 'persp-window
-   "r" 'persp-rename
-   "c" 'persp-copy
-   "k" 'persp-kill
-   "s" 'persp-save-state-to-default-file))
+  ;; Ignore buffers which are in not current perspective.
+  (add-to-list 'ivy-ignore-buffers 'persp-ignore-other-workspace-buffers)
+
+  ;; Remove needless hook. This hook only fires when creating a buffer.
+  (remove-hook 'find-file-hook 'persp-add-or-not-on-find-file)
+
+  ;; Setup initial buffers (add-to-hook after persp-mode is enabled to avoid applyint to the first workspace)
+  (add-to-list 'persp-created-functions 'persp-setup-initial-buffers)
+
+  (persp-mode 1)
+
+  :hook (after-find-file . persp-add-or-not-on-find-file-with-any-args)
+
+  :general (general-define-key :keymaps 'normal
+                               :prefix "SPC p"
+                               "p" 'persp-frame-switch
+                               "w" 'persp-window
+                               "r" 'persp-rename
+                               "c" 'persp-copy
+                               "k" 'persp-kill
+                               "s" 'persp-save-state-to-default-file))
 
 (provide 'config--persp-mode)
 

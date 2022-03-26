@@ -6,11 +6,11 @@
 
 ;;; hooks
 
-(defvar after-find-file-hooks nil)
+(defvar after-find-file-hook nil)
 
 (defun after-find-file-advice (&rest args)
   "Advice of `find-file' with ARGS."
-  (apply 'run-hook-with-args 'after-find-file-hooks args))
+  (apply 'run-hook-with-args 'after-find-file-hook args))
 
 (advice-add 'find-file :after 'after-find-file-advice)
 

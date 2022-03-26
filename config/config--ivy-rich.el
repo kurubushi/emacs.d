@@ -6,6 +6,7 @@
 
 (require 'use-package)
 (require 'quelpa-use-package)
+(require 'general)
 
 (use-package ivy-rich
   :quelpa

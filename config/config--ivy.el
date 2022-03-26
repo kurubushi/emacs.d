@@ -19,6 +19,13 @@
   :config
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法
   (setf (alist-get 'counsel-M-x ivy-initial-inputs-alist) "") ; 絞り込み文字プリセット
+
+  ;; Ignore *-ed buffers (i.e. *Messages*).
+  ;; `ivy-toggle-ignore' (C-c C-a) shows ignored buffers.
+  ;; (add-to-list 'ivy-ignore-buffers "\\*.*\\*\\'")
+
+  ;; switch-mode
+
   (ivy-mode 1)
   (counsel-mode 1)
 
