@@ -43,13 +43,19 @@
       ;; create a buffer for scratch.
       (switch-to-buffer scratch-buf)
       (funcall initial-major-mode)
-      (insert (format ";;; %s created at %s\n\n" (buffer-name) (format-time-string "%Y-%m-%d %H:%M:%S.%N")))
+
 
       ;; add buffers to new workspace
       (persp-add-buffer shared-buffers persp)
 
       (switch-to-buffer scratch-buf)))
   (add-hook 'persp-created-functions 'persp-setup-initial-buffers)
+
+  (defun persp-save-state-to-default-file ()
+    "Save persp-mode state to default file.
+  The default file path is `(expand-file-name persp-auto-save-fname persp-save-dir)'."
+    (interactive)
+    (persp-save-state-to-file))
 
   :general
   (general-define-key
@@ -59,7 +65,8 @@
    "w" 'persp-window
    "r" 'persp-rename
    "c" 'persp-copy
-   "k" 'persp-kill))
+   "k" 'persp-kill
+   "s" 'persp-save-state-to-default-file))
 
 (provide 'config--persp-mode)
 
