@@ -27,7 +27,6 @@
 
 (tool-bar-mode 0) ; disable tool-bar
 (menu-bar-mode 0) ; disable menu-bar
-(show-paren-mode t) ; 括弧の対応をハイライト
 (hl-line-mode t) ; highlights current line
 
 (defalias 'yes-or-no-p 'y-or-n-p) ; yes/not -> y/n

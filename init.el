@@ -89,6 +89,7 @@
 (use-package config--ispell)
 (use-package config--flyspell)
 (use-package config--undo-tree)
+(use-package config--parentheses)
 
 ;;; view
 
