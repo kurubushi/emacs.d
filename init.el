@@ -174,6 +174,10 @@
 
 (use-package config--dockerfile-mode)
 
+;;; CSV
+
+(use-package config--csv-mode)
+
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
