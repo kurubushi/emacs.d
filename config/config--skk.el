@@ -46,6 +46,21 @@
    (evil-insert-state-entry . skk-latin-mode-on)
    (evil-insert-state-exit  . skk-latin-mode-on)))
 
+(use-package skk-jisyo-edit
+  :quelpa ddskk
+  :config
+  (defun current-buffer-coding ()
+    "Get coding in the current buffer."
+    (plist-get (coding-system-plist buffer-file-coding-system) :mime-charset))
+
+  (defun revert-buffer-with-euc-jp ()
+    "Revert the current buffer with EUC-jp."
+    (unless (eq (current-buffer-coding) 'euc-jp)
+      (revert-buffer-with-coding-system 'euc-jp)))
+
+  :mode ("\\.skk\\'" . skk-jisyo-edit-mode)
+  :hook (skk-jisyo-edit-mode . revert-buffer-with-euc-jp))
+
 (provide 'config--skk)
 
 ;;; config--skk.el ends here
