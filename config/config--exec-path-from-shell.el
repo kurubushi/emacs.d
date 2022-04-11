@@ -9,11 +9,10 @@
 
 (use-package exec-path-from-shell
   :quelpa
+  :custom
+  (exec-path-from-shell-variables '("PATH"
+                                    "LD_LIBRARY_PATH"))
   :config
-  (setq exec-path-from-shell-shell-name (getenv "ESHELL"))
-  (setq exec-path-from-shell-variables
-        '("PATH" "LD_LIBRARY_PATH"
-          "SSH_AGENT_PID" "SSH_AUTH_SOCK")) ; ssh-agent
   (exec-path-from-shell-initialize)
   (setenv "LANG" "ja_JP.UTF-8")) ; to pass "flycheck invalid multibyte char"
 
