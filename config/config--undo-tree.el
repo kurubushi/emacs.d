@@ -18,7 +18,7 @@
 (use-package undo-tree
   :custom (undo-tree-history-directory-alist `(("." . ,undo-tree-history-directory)))
   :quelpa (undo-tree :fetcher git
-		     :url "git@gitlab.com:tsc25/undo-tree.git")
+		     :url "git@github.com:emacsmirror/undo-tree.git")
   :config (global-undo-tree-mode))
 
 (provide 'config--undo-tree)
