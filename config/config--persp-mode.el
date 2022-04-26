@@ -13,7 +13,7 @@
 (use-package persp-mode
   :quelpa
   :demand
-  :after (config--emacs config--ivy)
+  :after (utils--find-file config--ivy)
 
   :custom (ivy-use-ignore-default 'always)
 

@@ -15,6 +15,9 @@
 
 (use-package counsel ; requires ivy and swiper
   :quelpa
+  :after utils--buffer
+  :functions (;; utils--buffer
+              with-killing-mru-file-buffer)
 
   :config
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法
@@ -29,6 +32,12 @@
     (apply 'run-hook-with-args 'after-ivy-switch-buffer-hook args))
 
   (advice-add 'ivy-switch-buffer :after 'after-ivy-switch-buffer-advice)
+
+  (defun ivy-done-with-killing-mru-file-buffer (&rest args)
+    "Execute 'ivy-done' with killing the most recently buffer for file.
+ARGS are parameters for 'ivy-done'."
+    (interactive)
+    (with-killing-mru-file-buffer (apply 'ivy-done args)))
 
   ;; Ignore *-ed buffers (i.e. *Messages*).
   ;; `ivy-toggle-ignore' (C-c C-a) shows ignored buffers.
@@ -50,7 +59,10 @@
                                "r" 'counsel-recentf)
            (general-define-key :keymaps 'normal
                                :prefix "SPC g"
-                               "g" 'counsel-git-grep))
+                               "g" 'counsel-git-grep)
+           (general-define-key :keymaps 'ivy-minibuffer-map
+                               "RET" 'ivy-done
+                               "C-<return>" 'ivy-done-with-killing-mru-file-buffer))
 
 (provide 'config--ivy)
 

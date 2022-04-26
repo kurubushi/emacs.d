@@ -51,12 +51,18 @@
 ;;; Load configurations
 
 (eval-when-compile
+  (add-to-list 'load-path (concat user-emacs-directory "utils"))
   (add-to-list 'load-path (concat user-emacs-directory "config"))
   (add-to-list 'load-path (concat user-emacs-directory "custom")))
 
 ;;; Device-specific configuration
 
 (use-package pre-config) ; sample: custom/pre-config.sample.el
+
+;;; Utilities
+
+(use-package utils--find-file)
+(use-package utils--buffer)
 
 ;;; Emacs
 
