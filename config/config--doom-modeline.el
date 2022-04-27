@@ -40,12 +40,13 @@
     "Display current state of evil."
     (when evil-mode
       (let* ((state-char (cond
-                          ((evil-normal-state-p) "N")
-                          ((evil-insert-state-p) "I")
-                          ((evil-motion-state-p) "M")
-                          ((evil-visual-state-p) "V")
+                          ((evil-normal-state-p)   "N")
+                          ((evil-insert-state-p)   "I")
+                          ((evil-motion-state-p)   "M")
+                          ((evil-visual-state-p)   "V")
                           ((evil-operator-state-p) "O")
-                          ((evil-replace-state-p) "R")
+                          ((evil-replace-state-p)  "R")
+                          ((evil-emacs-state-p)    "E")
                           (t "?")))
              (state-face (if defining-kbd-macro
                               '(:weight bold :foreground "red")
