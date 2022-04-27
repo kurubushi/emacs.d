@@ -4,51 +4,30 @@
 
 ;;; Code:
 
-(require 'cl-lib)
 (require 'use-package)
 (require 'quelpa-use-package)
 
-;;; buffer
-
-(defun is-asterisked (buffer)
-  "Check if BUFFER's name is surrounded asterisks."
-  (string-match "\\*.*\\*\\'" (buffer-name buffer)))
-
-(defun kill-all-buffers-except-asterisked-buffers ()
-  "Kill all asterisked buffers."
-  (interactive)
-  (mapc 'kill-buffer
-        (cl-remove-if 'is-asterisked (buffer-list))))
-
-(defun is-dired (buffer)
-  "Check if BUFFER is directory buffer."
-  (eq 'dired-mode (buffer-local-value 'major-mode buffer)))
-
-(defun kill-all-dired-buffers ()
-  "Kill all directory buffers."
-  (interactive)
-  (mapc 'kill-buffer
-        (cl-remove-if-not 'is-dired (buffer-list))))
-
 ;;; eval
 
-(defun eval-and-replace ()
-  "Replace the preceding sexp with its value.
-http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
-  (interactive)
-  (backward-kill-sexp)
-  (condition-case nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
 
 ;;; general
 
 (use-package general
   :quelpa general
+  :custom (general-default-keymaps 'evil-normal-state-map)
+
   :config
-  (setq general-default-keymaps 'evil-normal-state-map)
+  (defun eval-and-replace ()
+    "Replace the preceding sexp with its value.
+http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
+    (interactive)
+    (backward-kill-sexp)
+    (condition-case nil
+        (prin1 (eval (read (current-kill 0)))
+               (current-buffer))
+      (error (message "Invalid expression")
+             (insert (current-kill 0)))))
+
   ;; ここで :general キーワードは利用できない
   (general-define-key :keymaps '(insert)
                       ;; eval
@@ -64,8 +43,6 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       "vd" 'disable-theme
                       ;; buffer
                       "bd" 'kill-this-buffer
-                      "bD" 'kill-all-dired-buffers
-                      "bA" 'kill-all-buffers-except-asterisked-buffers
                       "bn" 'next-buffer
                       "bp" 'previous-buffer
                       "bk" 'kill-some-buffers)

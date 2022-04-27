@@ -4,7 +4,24 @@
 
 ;;; Code:
 
+(require 'cl-lib)
 (require 'utils--find-file)
+
+;;; Buffers for file
+
+(defun kill-file-buffers ()
+  "Close buffers which file visited in."
+  (interactive)
+  (mapc 'kill-buffer
+        (cl-remove-if-not 'buffer-file-name (buffer-list))))
+
+(defun is-dired (buffer)
+  "Check if BUFFER is directory buffer."
+  (eq 'dired-mode (buffer-local-value 'major-mode buffer)))
+
+(defun is-asterisked (buffer)
+  "Check if BUFFER's name is surrounded asterisks."
+  (string-match "\\*.*\\*\\'" (buffer-name buffer)))
 
 ;;; Most recently used buffers
 

@@ -6,6 +6,7 @@
 
 ;;; Code:
 
+(require 'cl-lib)
 (require 'use-package)
 (require 'quelpa-use-package)
 (require 'general)
@@ -43,7 +44,8 @@
 
   (defun persp-save-state-to-default-file ()
     "Save persp-mode state to default file.
-  The default file path is `(expand-file-name persp-auto-save-fname persp-save-dir)'."
+  The default file path is
+  `(expand-file-name persp-auto-save-fname persp-save-dir)'."
     (interactive)
     (persp-save-state-to-file))
 
@@ -62,6 +64,21 @@
   ;; Setup initial buffers (add-to-hook after persp-mode is enabled to avoid applyint to the first workspace)
   (add-to-list 'persp-created-functions 'persp-setup-initial-buffers)
 
+  (defconst persp-selected-candidates '(file-buffers asterisked-buffers all-buffers)
+    "Candidates of buffers to be killed.")
+
+  (defun kill-persp-selected-buffers (buffer-type)
+    "Kill selected buffers at the current perspective."
+    (interactive
+     (list (intern (completing-read "Kill buffers: " persp-selected-candidates))))
+    (let ((filter (cl-case buffer-type
+                    ('file-buffers 'buffer-file-name)
+                    ('asterisked-buffers 'is-asterisked)
+                    ('all-buffers 'identity)
+                    (t 'not))))
+      (mapc 'kill-buffer
+            (cl-remove-if-not filter (persp-buffer-list)))))
+
   (persp-mode 1)
 
   :hook ((after-find-file         . persp-add-current-buffer-to-current-persp)
@@ -74,7 +91,10 @@
                                "r" 'persp-rename
                                "c" 'persp-copy
                                "k" 'persp-kill
-                               "s" 'persp-save-state-to-default-file))
+                               "s" 'persp-save-state-to-default-file)
+           (general-define-key :keymaps 'normal
+                               :prefix "SPC b"
+                               "D" 'kill-persp-selected-buffers))
 
 (provide 'config--persp-mode)
 
