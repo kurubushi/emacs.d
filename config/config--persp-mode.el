@@ -30,12 +30,8 @@
 
   (defun persp-setup-initial-buffers (persp &rest args)
     "Create a buffer for scratch and Share some buffers in PERSP, ignoring ARGS."
-    (let* ((scratch-buf (format "*scratch<%s>*" (format-time-string "%s")))
-           (shared-buffers `("*Messages*" ,scratch-buf)))
-
-      ;; create a buffer for scratch.
-      (switch-to-buffer scratch-buf)
-      (funcall initial-major-mode)
+    (let* ((scratch-buf "*scratch*")
+           (shared-buffers `(,scratch-buf)))
 
       ;; add buffers to new workspace
       (persp-add-buffer shared-buffers persp)
@@ -71,13 +67,16 @@
     "Kill selected buffers at the current perspective."
     (interactive
      (list (intern (completing-read "Kill buffers: " persp-selected-candidates))))
-    (let ((filter (cl-case buffer-type
-                    ('file-buffers 'buffer-file-name)
-                    ('asterisked-buffers 'is-asterisked)
-                    ('all-buffers 'identity)
-                    (t 'not))))
+    (let* ((filter (cl-case buffer-type
+                     ('file-buffers 'buffer-file-name)
+                     ('asterisked-buffers 'is-asterisked)
+                     ('all-buffers 'identity)
+                     (t 'not)))
+           (is-scratch (lambda (buf)
+                         (string-match "\\*scratch\\*\\'" (buffer-name buf))))
+           (buffers (cl-remove-if is-scratch (persp-buffer-list))))
       (mapc 'kill-buffer
-            (cl-remove-if-not filter (persp-buffer-list)))))
+            (cl-remove-if-not filter buffers))))
 
   (persp-mode 1)
 
