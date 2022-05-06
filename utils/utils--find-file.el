@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-;;; hooks
+;;; Hooks of `find-file'.
 
 (defvar before-find-file-hook nil
   "Functions to run before 'find-file'.")
@@ -21,6 +21,9 @@
 
 (advice-add 'find-file :before 'before-find-file-advice)
 (advice-add 'find-file :after 'after-find-file-advice)
+
+(advice-add 'find-file-noselect :before 'before-find-file-advice)
+(advice-add 'find-file-noselect :after 'after-find-file-advice)
 
 ;;; provide
 

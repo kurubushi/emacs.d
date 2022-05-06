@@ -14,9 +14,7 @@
 (use-package persp-mode
   :quelpa
   :demand
-  :after (utils--find-file config--ivy)
-
-  :custom (ivy-use-ignore-default 'always)
+  :after utils--find-file
 
   :config
   (defun persp-ignore-other-workspace-buffers (buffer)
@@ -53,7 +51,7 @@
       (persp-save-state-to-default-file)))
 
   ;; Ignore buffers which are in not current perspective.
-  (add-to-list 'ivy-ignore-buffers 'persp-ignore-other-workspace-buffers)
+  ;;(add-to-list 'ivy-ignore-buffers 'persp-ignore-other-workspace-buffers)
 
   ;; Remove needless hook. This hook only fires when creating a buffer.
   (remove-hook 'find-file-hook 'persp-add-or-not-on-find-file)
@@ -81,8 +79,8 @@
 
   (persp-mode 1)
 
-  :hook ((after-find-file         . persp-add-current-buffer-to-current-persp)
-         (after-ivy-switch-buffer . persp-add-current-buffer-to-current-persp))
+  :hook (after-find-file         . persp-add-current-buffer-to-current-persp)
+        ;; (after-ivy-switch-buffer . persp-add-current-buffer-to-current-persp))
 
   :general (general-define-key :keymaps 'normal
                                :prefix "SPC p"

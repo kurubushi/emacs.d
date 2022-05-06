@@ -76,20 +76,21 @@
 (use-package config--exec-path-from-shell)
 (use-package config--general) ; provides :general keyword
 
-;;; file/buffer
+;;; files
 
 (use-package config--recentf)
 (use-package config--neotree)
 
-;; ivy + persp-mode
-(use-package config--ivy)
-(use-package config--ivy-rich)
+;;; buffers
+
 (use-package config--persp-mode)
 
-;; helm + perspeen
-;;(use-package config--helm)
-;;(use-package config--perspeen)
-;;(use-package config--helm-perspeen)
+;;; mini-buffer
+
+(use-package config--vertico)
+(use-package config--embark)
+(use-package config--consult)
+(use-package config--marginalia)
 
 ;;; edit
 
