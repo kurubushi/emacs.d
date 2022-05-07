@@ -4,9 +4,11 @@
 .lsp-session-v1
 elpa/
 emojis/
+history
 persp-confs/
 quelpa/
 recentf
+tramp
 transient/
 tutorial/
 
