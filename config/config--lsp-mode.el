@@ -30,6 +30,12 @@
 ;; Install gopls to use an lsp server:
 ;; $ go get golang.org/x/tools/gopls
 
+;;; TypeScript
+
+;; Install typescript-language-server and typescript to use lsp server:
+;; $ npm install -g typescript-language-server typescript
+;; ref. https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
+
 ;;; use-package
 
 (use-package lsp-mode
@@ -48,8 +54,9 @@
     (lsp-completion--resolve item))
 
   :hook ((haskell-mode . lsp)
-         (ruby-mode . lsp)
-         (go-mode . lsp)))
+         (ruby-mode    . lsp)
+         (go-mode      . lsp)
+         (web-mode     . lsp)))
 
 (provide 'config--lsp-mode)
 
