@@ -8,7 +8,7 @@
 (show-paren-mode t)
 
 ;; Complete parentheses pairs.
-(electric-pair-mode t)
+;;(electric-pair-mode t)
 
 (provide 'config--parentheses)
 
