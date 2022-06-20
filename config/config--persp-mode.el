@@ -49,7 +49,8 @@
     "Add current buffer to current perspective."
     (when (and persp-mode
                (not persp-temporarily-display-buffer))
-      (persp-add-buffer (current-buffer))))
+      (persp-add-buffer (current-buffer))
+      (persp-save-state-to-default-file)))
 
   ;; Ignore buffers which are in not current perspective.
   (add-to-list 'ivy-ignore-buffers 'persp-ignore-other-workspace-buffers)
