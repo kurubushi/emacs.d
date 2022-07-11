@@ -18,7 +18,7 @@
 (use-package org-mode
   :custom
   ;; org-todo
-  (org-todo-keywords '((sequence "TODO(t)" "WIP(w)" "|" "DONE(d)" "CANCELLED(c)")))
+  (org-todo-keywords '((sequence "TODO(t)" "WIP(w)" "PENDING(p)" "|" "DONE(d)" "CANCELLED(c)")))
   (org-log-done 'time)
 
   ;; org-capture
