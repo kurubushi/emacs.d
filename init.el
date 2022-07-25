@@ -48,6 +48,12 @@
           :url "https://github.com/quelpa/quelpa-use-package.git"))
 (require 'quelpa-use-package)
 
+;; https://github.com/quelpa/quelpa/pull/232
+(quelpa 'package-build)
+(require 'package-build)
+(custom-set-variables '(quelpa-build-default-files-spec
+                        package-build-default-files-spec))
+
 ;;; Load configurations
 
 (eval-when-compile
