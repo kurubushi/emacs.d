@@ -53,41 +53,41 @@
                             '(:weight bold)))
              (state (propertize state-char 'face state-face)))
         (concat
-         (doom-modeline-spc)
+         doom-modeline-spc
          state))))
 
   ;; override position segment
   (doom-modeline-def-segment buffer-position
     "The current position in the current buffer."
     (concat
-     (doom-modeline-spc)
+     doom-modeline-spc
      "%l:%C"
      (when nyan-mode
        (concat
-        (doom-modeline-vspc)
+        doom-modeline-vspc
         (propertize (nyan-create) ; nyancat の現在地を強調する face
                     'face '(:background "#111111"))))
-     (doom-modeline-spc)))
+     doom-modeline-spc))
 
   (doom-modeline-def-segment perspeen
     "The current perspeen workspace name."
     (when perspeen-mode
       (concat
-       (doom-modeline-spc)
+       doom-modeline-spc
        (all-the-icons-material "desktop_windows")
-       (doom-modeline-vspc)
+       doom-modeline-vspc
        (perspeen-ws-struct-name perspeen-current-ws)
-       (doom-modeline-spc))))
+       doom-modeline-spc)))
 
   (doom-modeline-def-segment persp-mode
     "The current persp-mode workspace name."
     (when (and persp-mode (get-current-persp))
       (concat
-       (doom-modeline-spc)
+       doom-modeline-spc
        (all-the-icons-material "desktop_windows")
-       (doom-modeline-vspc)
+       doom-modeline-vspc
        (persp-name (get-current-persp))
-       (doom-modeline-spc))))
+       doom-modeline-spc)))
 
   ;; override main modeline
   (doom-modeline-def-modeline 'main
