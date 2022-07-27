@@ -23,6 +23,13 @@
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法
   (setf (alist-get 'counsel-M-x ivy-initial-inputs-alist) "") ; 絞り込み文字プリセット
 
+  ;; functions
+
+  (defun counsel-explore-project ()
+    "Explore the project root."
+    (interactive)
+    (counsel-file-jump nil (counsel--project-current)))
+
   ;; hooks
 
   (defvar after-ivy-switch-buffe-hook nil)
@@ -56,7 +63,8 @@ ARGS are parameters for 'ivy-done'."
            (general-define-key :keymaps 'normal
                                :prefix "SPC f"
                                "f" 'counsel-find-file
-                               "r" 'counsel-recentf)
+                               "r" 'counsel-recentf
+                               "e" 'counsel-explore-project)
            (general-define-key :keymaps 'normal
                                :prefix "SPC g"
                                "g" 'counsel-git-grep)
