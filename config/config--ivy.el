@@ -16,19 +16,66 @@
 (use-package counsel ; requires ivy and swiper
   :quelpa
   :after utils--buffer
-  :functions (;; utils--buffer
-              with-killing-mru-file-buffer)
+  :functions (with-killing-mru-file-buffer
+              ivy-more-chars
+              counsel--async-command
+              counsel--project-current)
 
   :config
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法
   (setf (alist-get 'counsel-M-x ivy-initial-inputs-alist) "") ; 絞り込み文字プリセット
 
-  ;; functions
+  ;; counsel-explore-file
 
-  (defun counsel-explore-project ()
-    "Explore the project root."
+  (defun counsel-explore-file-args (strings)
+    "Argument to find files for STRINGS."
+    (mapconcat (lambda (str)
+                 (format "-iregex '.*%s.*'" str))
+               strings
+               " -and "))
+
+  (defun counsel-explore-file-except (strings)
+    "Argument to avoid finding for STRINGS."
+    (mapconcat (lambda (str)
+                 (format "-not \\( -wholename '%s' -prune \\)" str))
+               strings
+               " "))
+
+  (defun counsel-explore-file-cmd (string)
+    "Command to find files for STRING."
+    (let ((keywords (split-string string))
+          (ng-words '("*/.*" "*~" "*#")))
+      (format "find . %s %s"
+              (counsel-explore-file-except ng-words)
+              (counsel-explore-file-args keywords))))
+
+  (defun counsel-explore-file-function (string &optional)
+    "Find fine in the current directory for STRING."
+    (or
+     (ivy-more-chars)
+     (progn
+       (counsel--async-command (counsel-explore-file-cmd string))
+       nil)))
+
+  (defun counsel-explore-file (&optional initial-input directory)
+    "Explore files at the current directory.
+INITIAL-INPUT can be given as the initial minibuffer input.
+DIRECTORY, if non-nil, is used as the root directory for search."
     (interactive)
-    (counsel-file-jump nil (counsel--project-current)))
+    (let ((collection-function
+           (lambda (str) (counsel-explore-file-function str))))
+      (cd directory)
+      (ivy-read "Explore file: " collection-function
+                :initial-input initial-input
+                :dynamic-collection t
+                :action #'find-file
+                :require-match t
+                :caller 'counsel-explore-file)))
+
+  (defun counsel-explore-file-on-project-root ()
+    "Explore files in the project root."
+    (interactive)
+    (counsel-explore-file nil (counsel--project-current)))
 
   ;; hooks
 
@@ -64,7 +111,7 @@ ARGS are parameters for 'ivy-done'."
                                :prefix "SPC f"
                                "f" 'counsel-find-file
                                "r" 'counsel-recentf
-                               "e" 'counsel-explore-project)
+                               "e" 'counsel-explore-file-on-project-root)
            (general-define-key :keymaps 'normal
                                :prefix "SPC g"
                                "g" 'counsel-git-grep)
