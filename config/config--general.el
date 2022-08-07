@@ -42,7 +42,7 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       "ve" 'enable-theme
                       "vd" 'disable-theme
                       ;; buffer
-                      "bd" 'kill-this-buffer
+                      "bd" 'kill-current-buffer
                       "bn" 'next-buffer
                       "bp" 'previous-buffer
                       "bk" 'kill-some-buffers)
