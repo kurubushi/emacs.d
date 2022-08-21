@@ -27,6 +27,12 @@
 
   ;; counsel-explore-file
 
+  (defmacro with-cd (directory &rest body)
+    "Execute BODY with changing directory to DIRECTORY temporarily"
+    `(with-temp-buffer
+       (cd ,directory)
+       ,@body))
+
   (defun counsel-explore-file-args (strings)
     "Argument to find files for STRINGS."
     (mapconcat (lambda (str)
@@ -65,13 +71,13 @@ DIRECTORY, if non-nil, is used as the root directory for search."
     (let ((dir (or directory "."))
           (collection-function
            (lambda (str) (counsel-explore-file-function str))))
-      (cd dir)
-      (ivy-read "Explore file: " collection-function
-                :initial-input initial-input
-                :dynamic-collection t
-                :action #'find-file
-                :require-match t
-                :caller 'counsel-explore-file)))
+      (with-cd dir
+        (ivy-read "Explore file: " collection-function
+                  :initial-input initial-input
+                  :dynamic-collection t
+                  :action #'find-file
+                  :require-match t
+                  :caller 'counsel-explore-file))))
 
   (defun counsel-explore-file-on-project-root ()
     "Explore files in the project root."
