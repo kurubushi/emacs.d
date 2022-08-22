@@ -69,8 +69,7 @@ INITIAL-INPUT can be given as the initial minibuffer input.
 DIRECTORY, if non-nil, is used as the root directory for search."
     (interactive)
     (let ((dir (or directory "."))
-          (collection-function
-           (lambda (str) (counsel-explore-file-function str))))
+          (collection-function 'counsel-explore-file-function))
       (with-cd dir
         (ivy-read "Explore file: " collection-function
                   :initial-input initial-input
