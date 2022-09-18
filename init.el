@@ -191,6 +191,10 @@
 
 (use-package config--csv-mode)
 
+;;; PlantUML
+
+(use-package config--plantuml-mode)
+
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
