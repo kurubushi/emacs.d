@@ -13,11 +13,13 @@
 (use-package skk
   :quelpa ddskk
   :custom
+  (skk-jisyo (concat user-emacs-directory "skk-jisyo"))
+  ;;(skk-large-jisyo "/large/jisyo/path") ; in prefix.el
+  ;;(skk-aux-large-jisyo (concat (getenv "HOME") "/.skk/skk-jisyo"))
   (skk-sticky-key ";")
   (skk-kutouten-type 'jp)
   (skk-rom-kana-rule-list '(("!" nil "！")
                             ("?" nil "？")))
-  ;;(skk-large-jisyo "/large/jisyo/path") ; in prefix.el
 
   :config
   ;; priority to skk-j-mode-map over any minor mode map
