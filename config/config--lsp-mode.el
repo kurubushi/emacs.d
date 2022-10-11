@@ -36,6 +36,11 @@
 ;; $ npm install -g typescript-language-server typescript
 ;; ref. https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
 
+;;; Rust
+
+;; Install binaries via `rustup'.
+;; $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 ;;; use-package
 
 (use-package lsp-mode
@@ -56,7 +61,8 @@
   :hook ((haskell-mode . lsp)
          (ruby-mode    . lsp)
          (go-mode      . lsp)
-         (web-mode     . lsp)))
+         (web-mode     . lsp)
+         (rust-mode    . lsp)))
 
 (provide 'config--lsp-mode)
 
