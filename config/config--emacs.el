@@ -24,12 +24,17 @@
 
 ;;; fonts
 
+;; depends on Ricty and Noto Color Emoji
+;;   $ yay -S noto-fonts-emoji ttf-ricty
+
 (defun set-my-font-with-size (size)
   "Set my font in the SIZE."
   (interactive "nsize: ")
-  (let* ((fontfamily "Ricty"))
-    (set-face-attribute 'default nil :family fontfamily :height (* size 10))
-    (set-fontset-font t 'unicode (font-spec :family fontfamily))))
+  (set-face-attribute 'default nil :family "Ricty" :height (* size 10))
+  (set-fontset-font "fontset-default" 'unicode (font-spec :family "Ricty"))
+  ;; 'symbol を選択しても :wrench: に Noto が使われなかったので 'unicode を選択する
+  ;; 上の Ricty より優先されるように 'prepend を指定する
+  (set-fontset-font "fontset-default" 'unicode (font-spec :family "Noto Color Emoji") nil 'prepend))
 
 (set-my-font-with-size 15)
 

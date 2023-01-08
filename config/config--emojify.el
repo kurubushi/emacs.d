@@ -11,6 +11,7 @@
 (use-package emojify
   :quelpa
   :hook (after-init . global-emojify-mode)
+  :custom (emojify-display-style 'unicode)
   :config (emojify-set-emoji-styles '(github)))
 
 (provide 'config--emojify)
