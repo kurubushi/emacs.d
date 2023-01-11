@@ -11,8 +11,18 @@
 (use-package emojify
   :quelpa
   :hook (after-init . global-emojify-mode)
-  :custom (emojify-display-style 'unicode)
-  :config (emojify-set-emoji-styles '(github)))
+  :custom
+  (emojify-display-style 'unicode)
+  (emojify-user-emojis '((":safety_vest:" .
+                          (("name"    . "Safety Vest")
+                           ("unicode" . "🦺")
+                           ("style"   . "github")))
+                         (":test_tube:" .
+                          (("name"    . "Test Tube")
+                           ("unicode" . "🧪")
+                           ("style"   . "github")))))
+  :config
+  (emojify-set-emoji-styles '(github)))
 
 (provide 'config--emojify)
 
