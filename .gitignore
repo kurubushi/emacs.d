@@ -1,6 +1,7 @@
 # cache files
 *#
 *~
+.cache/
 .lsp-session-v1
 elpa/
 emojis/
@@ -12,6 +13,7 @@ skk-jisyo
 tramp
 transient/
 tutorial/
+url/
 
 # custom files
 custom.el
