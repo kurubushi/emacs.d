@@ -159,6 +159,10 @@
 (use-package config--ruby-mode)
 (use-package config--rubocop)
 
+;;; Slim
+
+(use-package config--slim-mode)
+
 ;;; Node
 
 (use-package config--web-mode)
