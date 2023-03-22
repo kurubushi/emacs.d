@@ -22,16 +22,6 @@
   :config
   (flycheck-add-mode 'javascript-eslint 'web-mode))
 
-(use-package add-node-modules-path
-  :quelpa
-  :after web-mode
-  :hook (web-mode . add-node-modules-path))
-
-(use-package prettier-js
-  :quelpa
-  :after web-mode
-  :hook (web-mode . prettier-js-mode))
-
 (provide 'config--web-mode)
 
 ;;; config--web-mode.el ends here

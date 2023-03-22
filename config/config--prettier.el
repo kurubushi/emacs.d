@@ -1,0 +1,17 @@
+;;; config--prettier.el --- Configuration of prettier.
+
+;;; Commentary:
+
+;;; Code:
+
+(require 'use-package)
+(require 'quelpa-use-package)
+
+(use-package prettier
+  :quelpa prettier
+  :hook ((web-mode . prettier-mode)
+         (ruby-mode . prettier-mode)))
+
+(provide 'config--prettier)
+
+;;; config--prettier.el ends here

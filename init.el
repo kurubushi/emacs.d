@@ -123,6 +123,10 @@
 (use-package config--lsp-mode)
 (use-package config--lsp-ui)
 
+;;; Prettier
+
+(use-package config--prettier)
+
 ;;; Git
 
 (use-package config--magit)
