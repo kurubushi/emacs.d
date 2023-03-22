@@ -7,6 +7,9 @@
 (require 'use-package)
 (require 'quelpa-use-package)
 
+;; Install Prettier:
+;; $ npm install -g prettier
+
 (use-package prettier
   :quelpa prettier
   :hook ((web-mode . prettier-mode)
