@@ -203,6 +203,10 @@
 
 (use-package config--plantuml-mode)
 
+;;; fish shell
+
+(use-package config--fish-mode)
+
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
