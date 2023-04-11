@@ -35,12 +35,19 @@
     (goto-char (point-min))
     (neotree-select-up-node))
 
-  (defun neotree-toggle ()
-    "Open and close the side bar for neotree."
+  (defun neotree-toggle (&optional filepath)
+    "Open FILEPATH or close the side bar for neotree."
     (interactive)
     (if (neo-global--window-exists-p)
         (neotree-hide)
-      (neotree-show)))
+      (if filepath
+          (neotree-find filepath)
+        (neotree-show))))
+
+  (defun neotree-toggle-on-current-buffer ()
+    (interactive)
+    "Open and close side bar on the mru buffer."
+    (neotree-toggle (buffer-file-name)))
 
   (defun neotree-enter-with-killing-mru-file-buffer (&rest args)
     "Enter the selected node with killing the most recently used buffer.
@@ -58,6 +65,8 @@ ARG are the same as `neotree-enter'."
                       :prefix "SPC f"
                       "d" 'neotree-show
                       "D" 'neotree-find-current-buffer)
+  (general-define-key :keymaps 'normal
+                      "<f7>" 'neotree-toggle-on-current-buffer)
   (general-define-key :keymaps 'neotree-mode-map
                       :states 'normal
                       "RET" 'neotree-enter
