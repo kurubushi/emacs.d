@@ -8,9 +8,15 @@
 
 ;;; SKK
 
-(setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L") ; for Linux
-;;(setq skk-large-jisyo (concat (getenv "HOME") "/.dotfiles/skk/SKK-JISYO.L")) ; for Mac
+;; for Linux
+;;(setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
+;;(setq skk-extra-jisyo-file-list `(,(concat (getenv "HOME") "/.skk.d/SKK-JISYO.user")
+;;                                  ("/usr/share/skk/SKK-JISYO.emoji.utf8" . utf-8)))
 
+;; for macOS
+;;(setq skk-large-jisyo (concat (getenv "HOME") "/.skk.d/SKK-JISYO.L"))
+;;(setq skk-extra-jisyo-file-list `(,(concat (getenv "HOME") "/.skk.d/SKK-JISYO.user")
+;;                                  (,(concat (getenv "HOME") "/.skk.d/SKK-JISYO.emoji.utf8") . utf-8)))
 
 (provide 'post-config)
 

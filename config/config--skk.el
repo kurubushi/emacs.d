@@ -14,8 +14,13 @@
   :quelpa ddskk
   :custom
   (skk-jisyo (concat user-emacs-directory "skk-jisyo"))
-  ;;(skk-large-jisyo "/large/jisyo/path") ; in prefix.el
-  ;;(skk-aux-large-jisyo (concat (getenv "HOME") "/.skk/skk-jisyo"))
+  ;; Each file name (excluding directory path) must not conflict with others.
+  ;; For example, let `skk-jisyo' be "~/.emacs.d/skk-jisyo";
+  ;; even if `skk-extra-jisyo-file-list' contains "/other/directory/path/skk-jisyo",
+  ;; the jisyo is not a search target.
+  ;; Extra jisyo pathes are defined at post-config.el.
+  ;;(setq skk-large-jisyo "/large/jisyo/path")
+  ;;(setq skk-extra-jisyo-file-list '("/jisyo/path" ("/jisyo/path.utf8" . utf-8)))
   (skk-sticky-key ";")
   (skk-kutouten-type 'jp)
   (skk-rom-kana-rule-list '(("!" nil "！")
