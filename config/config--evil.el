@@ -14,7 +14,6 @@
 
   :custom
   (evil-want-C-u-scroll t)
-  (evil-want-visual-char-semi-exclusive t) ; exclusive \n in visual state
   (evil-search-module 'isearch)
 
   ;; evil-collection assumes the following values.
