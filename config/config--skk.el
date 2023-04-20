@@ -13,7 +13,7 @@
 (use-package skk
   :quelpa ddskk
   :custom
-  (skk-jisyo (concat user-emacs-directory "skk-jisyo"))
+  (skk-jisyo `(,(concat user-emacs-directory "skk-jisyo.utf8") . utf-8))
   ;; Each file name (excluding directory path) must not conflict with others.
   ;; For example, let `skk-jisyo' be "~/.emacs.d/skk-jisyo";
   ;; even if `skk-extra-jisyo-file-list' contains "/other/directory/path/skk-jisyo",
@@ -55,18 +55,7 @@
 
 (use-package skk-jisyo-edit
   :quelpa ddskk
-  :config
-  (defun current-buffer-coding ()
-    "Get coding in the current buffer."
-    (plist-get (coding-system-plist buffer-file-coding-system) :mime-charset))
-
-  (defun revert-buffer-with-euc-jp ()
-    "Revert the current buffer with EUC-jp."
-    (unless (eq (current-buffer-coding) 'euc-jp)
-      (revert-buffer-with-coding-system 'euc-jp)))
-
-  :mode ("\\.skk\\'" . skk-jisyo-edit-mode)
-  :hook (skk-jisyo-edit-mode . revert-buffer-with-euc-jp))
+  :mode ("\\.skk\\'" . skk-jisyo-edit-mode))
 
 (provide 'config--skk)
 

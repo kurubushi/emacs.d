@@ -66,6 +66,17 @@ ARGS are parameters for 'find-file'."
     ;; For example, 'ivy-done' jumps through the following line.
     (setq kill-mru-file-buffer-before-find-file-p nil)))
 
+;;; Encoding
+
+(defun current-buffer-coding ()
+  "Get coding in the current buffer."
+  (plist-get (coding-system-plist buffer-file-coding-system) :mime-charset))
+
+(defun revert-buffer-with-euc-jp ()
+  "Revert the current buffer with EUC-jp."
+  (unless (eq (current-buffer-coding) 'euc-jp)
+    (revert-buffer-with-coding-system 'euc-jp)))
+
 ;;; provide
 
 (provide 'utils--buffer)
