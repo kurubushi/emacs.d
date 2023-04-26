@@ -61,7 +61,7 @@
   ;; Setup initial buffers (add-to-hook after persp-mode is enabled to avoid applyint to the first workspace)
   (add-to-list 'persp-created-functions 'persp-setup-initial-buffers)
 
-  (defconst persp-selected-candidates '(file-buffers asterisked-buffers all-buffers)
+  (defconst persp-selected-candidates '(file-buffers asterisked-buffers all-buffers free-buffers)
     "Candidates of buffers to be killed.")
 
   (defun kill-persp-selected-buffers (buffer-type)
@@ -72,6 +72,7 @@
                      ('file-buffers 'buffer-file-name)
                      ('asterisked-buffers 'is-asterisked)
                      ('all-buffers 'identity)
+                     ('free-buffers 'persp-buffer-free-p)
                      (t 'not)))
            (is-scratch (lambda (buf)
                          (string-match "\\*scratch\\*\\'" (buffer-name buf))))
