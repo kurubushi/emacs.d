@@ -207,6 +207,10 @@
 
 (use-package config--fish-mode)
 
+;;; Copilot
+
+(use-package config--copilot)
+
 ;;; Device-specific configuration
 
 (use-package post-config) ; sample: custom/post-config.sample.el
