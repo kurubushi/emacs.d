@@ -7,6 +7,12 @@
 (require 'use-package)
 (require 'quelpa-use-package)
 
+;; If you want use other lsp server on each project, create .dir-locals.el:
+;;
+;; ((ruby-mode . ((lsp-enabled-clients . (ruby-syntax-tree-ls))
+;;                (lsp-enabled-format-on-save . t))))
+;;
+
 ;;; Haskell
 
 ;; Install ghc, cabal, and hls to use an lsp server.
@@ -24,6 +30,10 @@
 
 ;; Install solargraph to use an lsp server.
 ;; $ gem install --user solargraph
+
+;; Provide lsp-client `ruby-syntax-tree-ls'.
+(use-package lsp-ruby-syntax-tree
+  :after lsp-mode)
 
 ;;; Go
 
@@ -58,11 +68,33 @@
   (defun lsp--resolve-completion (item)
     (lsp-completion--resolve item))
 
-  :hook ((haskell-mode . lsp)
-         (ruby-mode    . lsp)
-         (go-mode      . lsp)
-         (web-mode     . lsp)
-         (rust-mode    . lsp)))
+  :config
+  (defun lsp-restart-if-running ()
+    "Restart lsp-mode if lsp-mode is running."
+    (when lsp-mode
+      (lsp-disconnect)
+      (lsp)))
+
+  (defvar lsp-enabled-format-on-save nil
+    "If non-nil, lsp-mode formats buffer on save.")
+
+  (defun lsp-format-buffer-on-save ()
+    "Format the current buffer if `lsp-enabled-format-on-save' is not `nil'."
+    (when lsp-enabled-format-on-save
+       (lsp-format-buffer)))
+
+  :hook
+  ((haskell-mode . lsp)
+   (ruby-mode    . lsp)
+   (go-mode      . lsp)
+   (web-mode     . lsp)
+   (rust-mode    . lsp)
+
+   ;; Restart lsp-mode when .dir-locals.el exists.
+   (hack-local-variables . lsp-restart-if-running)
+
+   ;; Format buffer on save.
+   (before-save . lsp-format-buffer-on-save)))
 
 (provide 'config--lsp-mode)
 

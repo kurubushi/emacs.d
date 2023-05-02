@@ -12,8 +12,7 @@
 
 (use-package prettier
   :quelpa prettier
-  :hook ((web-mode . prettier-mode)
-         (ruby-mode . prettier-mode)))
+  :hook ((web-mode . prettier-mode)))
 
 (provide 'config--prettier)
 
