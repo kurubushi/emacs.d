@@ -11,6 +11,11 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
+;; Avoid Error:Invalid image type: 'svg' on macOS
+;; ref. https://debbugs.gnu.org/cgi/bugreport.cgi?bug=59081
+(when (eq system-type 'darwin)
+  (setq inhibit-splash-screen t))
+
 ;;; Repositories
 
 (require 'package)
