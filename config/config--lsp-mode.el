@@ -9,7 +9,7 @@
 
 ;; If you want use other lsp server on each project, create .dir-locals.el:
 ;;
-;; ((ruby-mode . ((lsp-enabled-clients . (ruby-syntax-tree-ls))
+;; ((ruby-mode . ((lsp-enabled-clients . (ruby-lsp-ls2))
 ;;                (lsp-enabled-format-on-save . t))))
 ;;
 
@@ -31,9 +31,35 @@
 ;; Install solargraph to use an lsp server.
 ;; $ gem install --user solargraph
 
-;; Provide lsp-client `ruby-syntax-tree-ls'.
-(use-package lsp-ruby-syntax-tree
-  :after lsp-mode)
+;; Provide `ruby-lsp-ls'.
+(use-package lsp-ruby-lsp
+  :after lsp-mode
+
+  :config
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection #'lsp-ruby-lsp--build-command)
+    :activation-fn (lsp-activate-on "ruby")
+    :initialization-options `(:enabledFeatures ["documentHighlights"
+                                                "documentSymbols"
+                                                "documentLink"
+                                                "diagnostics"
+                                                "foldingRanges"
+                                                "selectionRanges"
+                                                "semanticHighlighting"
+                                                "formatting"
+                                                "onTypeFormatting"
+                                                "codeActions"
+                                                "completion"
+                                                "inlayHint"
+                                                "hover"]
+                              :formatter "syntax_tree")
+    :priority -2
+    :server-id 'ruby-lsp-ls2))
+
+  ; (lsp-register-custom-settings
+  ;  '(("rubyLsp.formatter" "syntax_tree"))))
+  )
 
 ;;; Go
 
@@ -60,7 +86,7 @@
   :init
   ;; define functions for backward compatibility
   (defun lsp--sort-completions (completions)
-  (lsp-completion--sort-completions completions))
+    (lsp-completion--sort-completions completions))
 
   (defun lsp--annotate (item)
     (lsp-completion--annotate item))
@@ -81,7 +107,7 @@
   (defun lsp-format-buffer-on-save ()
     "Format the current buffer if `lsp-enabled-format-on-save' is not `nil'."
     (when lsp-enabled-format-on-save
-       (lsp-format-buffer)))
+      (lsp-format-buffer)))
 
   :hook
   ((haskell-mode . lsp)
