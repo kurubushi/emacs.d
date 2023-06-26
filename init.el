@@ -47,6 +47,7 @@
 
 (quelpa 'use-package)
 (require 'use-package)
+(setq use-package-compute-statistics t)
 
 (quelpa '(quelpa-use-package
           :fetcher git
