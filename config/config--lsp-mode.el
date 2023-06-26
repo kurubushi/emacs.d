@@ -9,7 +9,7 @@
 
 ;; If you want use other lsp server on each project, create .dir-locals.el:
 ;;
-;; ((ruby-mode . ((lsp-enabled-clients . (ruby-lsp-ls2))
+;; ((ruby-mode . ((lsp-enabled-clients . (ruby-lsp-ls-with-stree))
 ;;                (lsp-enabled-format-on-save . t))))
 ;;
 
@@ -22,7 +22,7 @@
 
 (use-package lsp-haskell
   :quelpa
-  :after lsp-mode
+  :after (lsp-mode haskell-mode)
   :init
   (add-to-list 'exec-path (concat (getenv "HOME") "/.ghcup/bin")))
 
@@ -31,35 +31,21 @@
 ;; Install solargraph to use an lsp server.
 ;; $ gem install --user solargraph
 
-;; Provide `ruby-lsp-ls'.
+;; Provide `ruby-lsp-ls' and `ruby-lsp-ls-with-stree'.
 (use-package lsp-ruby-lsp
-  :after lsp-mode
+  :after (lsp-mode ruby-mode)
 
   :config
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection #'lsp-ruby-lsp--build-command)
-    :activation-fn (lsp-activate-on "ruby")
-    :initialization-options `(:enabledFeatures ["documentHighlights"
-                                                "documentSymbols"
-                                                "documentLink"
-                                                "diagnostics"
-                                                "foldingRanges"
-                                                "selectionRanges"
-                                                "semanticHighlighting"
-                                                "formatting"
-                                                "onTypeFormatting"
-                                                "codeActions"
-                                                "completion"
-                                                "inlayHint"
-                                                "hover"]
-                              :formatter "syntax_tree")
-    :priority -2
-    :server-id 'ruby-lsp-ls2))
-
-  ; (lsp-register-custom-settings
-  ;  '(("rubyLsp.formatter" "syntax_tree"))))
-  )
+  (let* ((original-client (gethash 'ruby-lsp-ls lsp-clients))
+         (new-client      (copy-lsp--client original-client)))
+    (eval-when-compile
+      ;; Load `lsp-mode' to use both `setf' and `lsp--client-server-id' macros.
+      ;; They does not work well without `eval-and-compile':
+      ;; Error (use-package): lsp-ruby-lsp/:config: Symbol’s function definition is void: \(setf\ lsp--client-server-id\)
+      (require 'lsp-mode))
+    (setf (lsp--client-server-id new-client) 'ruby-lsp-ls-with-stree)
+    (plist-put (lsp--client-initialization-options new-client) :formatter "syntax_tree")
+    (lsp-register-client new-client)))
 
 ;;; Go
 
