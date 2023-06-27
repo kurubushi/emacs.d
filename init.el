@@ -112,6 +112,7 @@
 ;;; view
 
 (use-package config--all-the-icons)
+(use-package config--nerd-icons)
 (use-package config--emojify)
 (use-package config--nyan-mode)
 (use-package config--doom-themes)

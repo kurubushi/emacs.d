@@ -10,7 +10,10 @@
 (use-package all-the-icons
   :quelpa
   :config
-  (all-the-icons-install-fonts t))
+  (let* ((get-name    (lambda (f) (funcall (all-the-icons--family-name f))))
+         (installed-p (lambda (f) (find-font (font-spec :name (funcall get-name f))))))
+    (unless (and (mapcar installed-p all-the-icons-font-families))
+      (all-the-icons-install-fonts t))))
 
 (provide 'config--all-the-icons)
 
