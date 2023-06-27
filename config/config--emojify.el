@@ -22,7 +22,8 @@
                            ("unicode" . "🧪")
                            ("style"   . "github")))))
   :config
-  (emojify-set-emoji-styles '(github)))
+  (emojify-set-emoji-styles '(github))
+  (global-emojify-mode))
 
 (provide 'config--emojify)
 
