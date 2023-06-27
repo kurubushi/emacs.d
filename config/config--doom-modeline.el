@@ -53,7 +53,7 @@
                             '(:weight bold)))
              (state (propertize state-char 'face state-face)))
         (concat
-         doom-modeline-spc
+         (doom-modeline-spc)
          state))))
 
   ;; override position segment
@@ -71,7 +71,7 @@
 
   (doom-modeline-def-segment perspeen
     "The current perspeen workspace name."
-    (when perspeen-mode
+    (when (and (boundp 'perspeen-mode) perspeen-mode)
       (concat
        (doom-modeline-spc)
        (all-the-icons-material "desktop_windows")
@@ -81,7 +81,7 @@
 
   (doom-modeline-def-segment persp-mode
     "The current persp-mode workspace name."
-    (when (and persp-mode (get-current-persp))
+    (when (and (boundp 'persp-mode) persp-mode (get-current-persp))
       (concat
        (doom-modeline-spc)
        (all-the-icons-material "desktop_windows")
