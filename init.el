@@ -69,7 +69,8 @@
 
 ;;; Device-specific configuration
 
-(use-package pre-config) ; sample: custom/pre-config.sample.el
+(use-package pre-config
+  :if (file-exists-p (concat user-emacs-directory "custom/pre-config.el")))
 
 ;;; Utilities
 
@@ -220,7 +221,8 @@
 
 ;;; Device-specific configuration
 
-(use-package post-config) ; sample: custom/post-config.sample.el
+(use-package post-config
+  :if (file-exists-p (concat user-emacs-directory "custom/post-config.el")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not cl-functions obsolete)
