@@ -6,11 +6,12 @@
 
 (require 'use-package)
 (require 'quelpa-use-package)
+(require 'utils--font)
 
 (use-package nerd-icons
   :quelpa
   :config
-  (unless (find-font (font-spec :name nerd-icons-font-family))
+  (unless (installed-font-family-p nerd-icons-font-family)
     (nerd-icons-install-fonts t)))
 
 (provide 'config--nerd-icons)
