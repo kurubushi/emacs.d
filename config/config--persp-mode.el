@@ -14,7 +14,7 @@
 (use-package persp-mode
   :quelpa
   :demand
-  :after (utils--find-file config--ivy)
+  :after (utils--find-file utils--buffer config--ivy)
 
   :custom (ivy-use-ignore-default 'always)
 
