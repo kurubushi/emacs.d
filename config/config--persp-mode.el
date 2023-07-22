@@ -70,7 +70,7 @@
      (list (intern (completing-read "Kill buffers: " persp-selected-candidates))))
     (let* ((filter (cl-case buffer-type
                      ('file-buffers 'buffer-file-name)
-                     ('asterisked-buffers 'is-asterisked)
+                     ('asterisked-buffers 'buffer-asterisked-p)
                      ('all-buffers 'identity)
                      ('free-buffers 'persp-buffer-free-p)
                      (t 'not)))

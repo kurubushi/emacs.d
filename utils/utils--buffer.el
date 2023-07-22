@@ -21,11 +21,11 @@
   (mapc 'kill-buffer
         (cl-remove-if-not 'buffer-file-name (buffer-list))))
 
-(defun is-dired (buffer)
+(defun buffer-dired-p (buffer)
   "Check if BUFFER is directory buffer."
   (eq 'dired-mode (buffer-local-value 'major-mode buffer)))
 
-(defun is-asterisked (buffer)
+(defun buffer-asterisked-p (buffer)
   "Check if BUFFER's name is surrounded asterisks."
   (string-match "\\*.*\\*\\'" (buffer-name buffer)))
 
