@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(require 'utils--font)
+
 ;;; coding
 
 (prefer-coding-system 'utf-8)
@@ -32,22 +34,36 @@
 (defconst default-emoji-font-family "Noto Color Emoji")
 (defconst default-font-size 14)
 
-(defun set-my-font-with-size (size)
-  "Set my font in the SIZE."
-  (interactive "nsize: ")
-  (set-face-attribute 'default nil :family default-font-family :height (* size 10))
-  (set-fontset-font "fontset-default" 'unicode (font-spec :family default-font-family))
-  ;; 'symbol を選択しても :wrench: に Noto が使われなかったので 'unicode を選択する
-  ;; 上の Ricty より優先されるように 'prepend を指定する
-  (set-fontset-font "fontset-default" 'unicode (font-spec :family default-emoji-font-family) nil 'prepend))
+(setq use-default-font-for-symbols nil)
 
-(set-my-font-with-size 15)
+(defun set-my-font-family (font-family)
+  "Set FONT-FAMILY as default font family."
+  (interactive (list (completing-read "font-family: " (font-family-list) nil t default-font-family)))
+  (if (not (installed-font-family-p font-family))
+      (warn "font-family \"%s\" is not installed" font-family)
+    (set-fontset-font t 'unicode (font-spec :family font-family)))
+  (if (not (installed-font-family-p default-emoji-font-family))
+      (warn "font-family \"%s\" is not installed" default-emoji-font-family)
+    (set-fontset-font t 'unicode (font-spec :family default-emoji-font-family) nil 'prepend)))
+
+(defun set-my-font-size (size)
+  "Set SIZE as default font size."
+  (interactive (list (read-number "size: " default-font-size)))
+  (let ((height (* size 10)))
+    (set-face-attribute 'default nil :height height)))
+
+(set-my-font-family default-font-family)
+(set-my-font-size default-font-size)
+(set-language-environment "Japanese")
 
 (defun set-my-font-atonce (&rest args)
   "Set my font only once with ARGS."
-  (set-my-font-with-size 15)
+  (set-my-font-family default-font-family)
+  (set-my-font-size default-font-size)
   (remove-hook 'after-make-frame-functions #'set-my-font-atonce))
-(add-hook 'after-make-frame-functions #'set-my-font-atonce) ; systemd 経由だと適用されない．しょうがないので hook する
+
+;; systemd 経由だと適用されない．しょうがないので hook する
+(add-hook 'after-make-frame-functions #'set-my-font-atonce)
 
 ;;; theme
 

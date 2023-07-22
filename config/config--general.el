@@ -36,7 +36,8 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       :prefix "SPC"
                       ;; view
                       "vs" 'text-scale-adjust
-                      "vS" 'set-my-font-with-size
+                      "vS" 'set-my-font-size
+                      "vF" 'set-my-font-family
                       "vR" 'reload-my-theme
                       "vl" 'load-theme
                       "ve" 'enable-theme
