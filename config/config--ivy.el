@@ -77,6 +77,42 @@ DIRECTORY, if non-nil, is used as the root directory for search."
     (interactive)
     (counsel-explore-file nil (counsel--project-current)))
 
+  ;; git ls-files
+
+  (defun counsel-git-ls-files-cmd (string)
+    "Command to find files for STRING with git ls-files."
+    (let ((keywords (split-string string)))
+      ;; `cat' ignores an error when no file is found.
+      (format "git ls-files %s | cat"
+              (mapconcat (lambda (str) (format "| grep -E %s" str))
+                         keywords
+                         " "))))
+
+  (defun counsel-git-ls-files-function (string &optional)
+    "Find files in the git repository for STRING."
+    (or
+     (ivy-more-chars)
+     (progn
+       (counsel--async-command (counsel-git-ls-files-cmd string))
+       nil)))
+
+  (defun counsel-git-ls-files (&optional directory)
+    "Find files in the git repository.
+DIRECTORY, if non-nil, is used as the root directory for search."
+    (interactive)
+    (let ((dir (or directory ".")))
+      (with-cd dir
+               (ivy-read "git ls-files: " #'counsel-git-ls-files-function
+                         :dynamic-collection t
+                         :action #'find-file
+                         :require-match t
+                         :caller 'counsel-git-ls-files))))
+
+  (defun counsel-git-ls-files-at-repository-root ()
+    "Find files in the git repository root."
+    (interactive)
+    (counsel-git-ls-files (counsel--project-current)))
+
   ;; hooks
 
   (defvar after-ivy-switch-buffe-hook nil)
@@ -114,7 +150,8 @@ ARGS are parameters for 'ivy-done'."
                                "e" 'counsel-explore-file-on-project-root)
            (general-define-key :keymaps 'normal
                                :prefix "SPC g"
-                               "g" 'counsel-git-grep)
+                               "g" 'counsel-git-grep
+                               "e" 'counsel-git-ls-files-at-repository-root)
            (general-define-key :keymaps 'ivy-minibuffer-map
                                "RET" 'ivy-done
                                "C-<return>" 'ivy-done-with-killing-mru-file-buffer))
