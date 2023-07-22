@@ -27,12 +27,6 @@
 
   ;; counsel-explore-file
 
-  (defmacro with-cd (directory &rest body)
-    "Execute BODY with changing directory to DIRECTORY temporarily"
-    `(with-temp-buffer
-       (cd ,directory)
-       ,@body))
-
   (defun counsel-explore-file-args (strings)
     "Argument to find files for STRINGS."
     (mapconcat (lambda (str)

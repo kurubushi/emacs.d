@@ -7,6 +7,12 @@
 (require 'cl-lib)
 (require 'utils--find-file)
 
+(defmacro with-cd (directory &rest body)
+  "Execute BODY with changing directory to DIRECTORY temporarily"
+  `(with-temp-buffer
+     (cd ,directory)
+     ,@body))
+
 ;;; Buffers for file
 
 (defun kill-file-buffers ()

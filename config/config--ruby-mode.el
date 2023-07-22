@@ -9,6 +9,7 @@
 
 (use-package ruby-mode
   :quelpa
+  :after utils--buffer
   :mode ("\\.rb\\'" . ruby-mode)
 
   :config
@@ -21,12 +22,6 @@
   ;;
   (defvar stree-write-on-save nil
     "If non-nil, execute stree write command on save.")
-
-  (defmacro with-cd (directory &rest body)
-    "Execute BODY with changing directory to DIRECTORY temporarily"
-    `(with-temp-buffer
-       (cd ,directory)
-       ,@body))
 
   (defun execute-stree-write (buffer)
     "Execute stree write command at the BUFFER."
