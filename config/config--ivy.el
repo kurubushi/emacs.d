@@ -84,7 +84,7 @@ DIRECTORY, if non-nil, is used as the root directory for search."
     (let ((keywords (split-string string)))
       ;; `cat' ignores an error when no file is found.
       (format "git ls-files %s | cat"
-              (mapconcat (lambda (str) (format "| grep -E %s" str))
+              (mapconcat (lambda (str) (format "| grep -iE %s" str))
                          keywords
                          " "))))
 
