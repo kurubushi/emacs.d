@@ -91,6 +91,7 @@
                                "w" 'persp-window
                                "r" 'persp-rename
                                "c" 'persp-copy
+                               "a" 'persp-add-buffer
                                "k" 'persp-kill
                                "s" 'persp-save-state-to-default-file)
            (general-define-key :keymaps 'normal
