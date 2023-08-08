@@ -18,8 +18,7 @@
   :after utils--buffer
   :functions (with-killing-mru-file-buffer
               ivy-more-chars
-              counsel--async-command
-              counsel--project-current)
+              counsel--async-command)
 
   :config
   (setf (alist-get t ivy-re-builders-alist) 'ivy--regex-ignore-order) ; 絞り込み方法
@@ -75,7 +74,7 @@ DIRECTORY, if non-nil, is used as the root directory for search."
   (defun counsel-explore-file-on-project-root ()
     "Explore files in the project root."
     (interactive)
-    (counsel-explore-file nil (counsel--project-current)))
+    (counsel-explore-file nil (project-root (project-current))))
 
   ;; git ls-files
 
@@ -111,7 +110,7 @@ DIRECTORY, if non-nil, is used as the root directory for search."
   (defun counsel-git-ls-files-at-repository-root ()
     "Find files in the git repository root."
     (interactive)
-    (counsel-git-ls-files (counsel--project-current)))
+    (counsel-git-ls-files (project-root (project-current))))
 
   ;; hooks
 
