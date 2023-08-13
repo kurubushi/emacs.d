@@ -18,20 +18,20 @@
   "Check if JISYO is available."
   (file-readable-p (get-jisyo-path jisyo)))
 
-(defun home/ (path)
-  "Prepend `$HOME' to PATH."
-  (format "%s/%s" (getenv "HOME") path))
+(defun skk/ (path)
+  "Prepend `$HOME/.local/share' to PATH."
+  (format "%s/.local/share/skk/%s" (getenv "HOME") path))
 
 ;; https://skk-dev.github.io/ddskk/skk.html
 
 ;; install JISYO
-;; - ~/.skk.d/SKK-JISYO.L (symbolic link is OK)
-;; - ~/.skk.d/SKK-JISYO.*.utf8
+;; - ~/.local/share/skk/SKK-JISYO.L (symbolic link is OK)
+;; - ~/.local/share/skk/SKK-JISYO.*.utf8
 
 (use-package skk
   :quelpa ddskk
   :custom
-  (skk-large-jisyo (home/ ".skk.d/SKK-JISYO.L"))
+  (skk-large-jisyo (skk/ "SKK-JISYO.L"))
   (skk-jisyo `(,(concat user-emacs-directory "skk-jisyo.utf8") . utf-8))
   ;; Each file name (excluding directory path) must not conflict with others.
   ;; For example, let `skk-jisyo' be "~/.emacs.d/skk-jisyo";
@@ -39,9 +39,9 @@
   ;; the jisyo is not a search target.
   (skk-extra-jisyo-file-list
    (seq-filter #'available-jisyo-p
-               `((,(home/ ".skk.d/SKK-JISYO.user.utf8") . utf-8)
-                 (,(home/ ".skk.d/SKK-JISYO.emoji.utf8") . utf-8)
-                 (,(home/ ".skk.d/SKK-JISYO.jawiki.utf8") . utf-8))))
+               `((,(skk/ "SKK-JISYO.user.utf8") . utf-8)
+                 (,(skk/ "SKK-JISYO.emoji.utf8") . utf-8)
+                 (,(skk/ "SKK-JISYO.jawiki.utf8") . utf-8))))
   (skk-sticky-key ";")
   (skk-kutouten-type 'jp)
   (skk-rom-kana-rule-list '(("!" nil "！")
