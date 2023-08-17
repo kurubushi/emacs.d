@@ -27,10 +27,14 @@
     "Execute stree write command at the BUFFER."
     (let* ((file-path (buffer-file-name buffer))
            (root-path (locate-dominating-file (file-name-directory file-path) ".streerc"))
-           (dir-path (or root-path (file-name-directory file-path))))
-      (message "Formatting %s." file-path)
-      (with-cd dir-path (shell-command (format "stree write %s" file-path)))
-      (message "Formatted %s." file-path)
+           (dir-path (or root-path (file-name-directory file-path)))
+           (file-rpath (file-relative-name file-path dir-path)))
+      (message "Formatting %s." file-rpath)
+      ;; `stree-write' requires that
+      ;;   - the current directory be the root of the project where .streerc is located, and
+      ;;   - the file path be relative to the root.
+      (with-cd dir-path (shell-command (format "stree write %s" file-rpath)))
+      (message "Formatted %s." file-rpath)
       (with-current-buffer buffer (revert-buffer t t t))))
 
   (defun execute-stree-write-on-save ()
