@@ -12,14 +12,14 @@
   "Port to receive the clipboard")
 
 (defun send-to-nc (str)
-  ;; remote$ while :; do nc -l 8001 | pbcopy; done
+  ;; remote$ while :; do nc -lp 8001 | pbcopy; done
   (let* ((process-connection-type nil)
-         (proc (start-process "send-to-nc" nil "nc" "-N" "localhost" clipboard-nc-send-port)))
+         (proc (start-process "send-to-nc" nil "nc" "-c" "localhost" clipboard-nc-send-port)))
     (process-send-string proc str)
     (process-send-eof proc)))
 
 (defun recv-from-nc ()
-  ;; remote$ ncat -l 8002 --exec (which pbpaste)
+  ;; remote$ while :; do nc -lp 8002 -e $(which pbpaste); done
   (with-temp-buffer
     (call-process "nc" nil t nil "localhost" clipboard-nc-recv-port)
     (buffer-string)))

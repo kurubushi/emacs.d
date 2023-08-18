@@ -125,6 +125,7 @@
 (use-package config--flycheck)
 (use-package config--shell-pop)
 (use-package config--org-mode)
+(use-package config--clipboard)
 
 ;;; LSP
 
