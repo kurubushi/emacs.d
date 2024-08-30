@@ -46,7 +46,8 @@
                                "a" 'org-agenda
                                "c" 'org-capture
                                "r" 'org-refile
-                               "m" 'show-org-notes))
+                               "m" 'show-org-notes
+                               "g" 'org-clock-goto))
 
 (provide 'config--org-mode)
 
