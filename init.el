@@ -74,6 +74,7 @@
 
 ;;; Utilities
 
+(use-package utils--sequence)
 (use-package utils--find-file)
 (use-package utils--buffer)
 
