@@ -122,11 +122,35 @@ DIRECTORY, if non-nil, is used as the root directory for search."
 
   (advice-add 'ivy-switch-buffer :after 'after-ivy-switch-buffer-advice)
 
+  (defvar after-ivy--switch-buffe-action-hook nil)
+
+  (defun after-ivy--switch-buffer-action-advice (&rest args)
+    "Advice of 'ivy--switch-buffer-action' with ARGS."
+    (apply 'run-hook-with-args 'after-ivy--switch-buffer-action-hook args))
+
+  (advice-add 'ivy--switch-buffer-action :after 'after-ivy--switch-buffer-action-advice)
+
+  ;; functions
+
   (defun ivy-done-with-killing-mru-file-buffer (&rest args)
     "Execute 'ivy-done' with killing the most recently buffer for file.
 ARGS are parameters for 'ivy-done'."
     (interactive)
     (with-killing-mru-file-buffer (apply 'ivy-done args)))
+
+  (defun ivy-next-line-and-call-with-fundamental-mode (&rest args)
+    "Execute 'ivy-next-line-and-call' with fundamental-mode.
+ARGS are parameters for 'ivy-next-line-and-call'."
+        (interactive)
+        (let ((auto-mode-alist nil))
+          (apply 'ivy-next-line-and-call args)))
+
+  (defun ivy-previous-line-and-call-with-fundamental-mode (&rest args)
+    "Execute 'ivy-previous-line-and-call' with fundamental-mode.
+ARGS are parameters for 'ivy-previous-line-and-call'."
+        (interactive)
+        (let ((auto-mode-alist nil))
+          (apply 'ivy-previous-line-and-call args)))
 
   ;; Ignore *-ed buffers (i.e. *Messages*).
   ;; `ivy-toggle-ignore' (C-c C-a) shows ignored buffers.
@@ -153,6 +177,10 @@ ARGS are parameters for 'ivy-done'."
                                "e" 'counsel-git-ls-files-at-repository-root)
            (general-define-key :keymaps 'ivy-minibuffer-map
                                "RET" 'ivy-done
+                               "C-n" 'ivy-next-line-and-call-with-fundamental-mode
+                               "<down>" 'ivy-next-line-and-call-with-fundamental-mode
+                               "C-p" 'ivy-previous-line-and-call-with-fundamental-mode
+                               "<up>" 'ivy-previous-line-and-call-with-fundamental-mode
                                "C-<return>" 'ivy-done-with-killing-mru-file-buffer))
 
 (provide 'config--ivy)
