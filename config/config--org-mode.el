@@ -18,7 +18,7 @@
 (use-package org-mode
   :custom
   ;; org-todo
-  (org-todo-keywords '((sequence "TODO(t)" "WIP(w)" "PENDING(p)" "|" "DONE(d)" "CANCELLED(c)")))
+  (org-todo-keywords '((sequence "TODO(t)" "WIP(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (org-log-done 'time)
 
   ;; org-capture
@@ -41,13 +41,19 @@
           (switch-to-buffer buffer))
       (find-file org-notes-file)))
 
-  :general (general-define-key :keymaps 'normal
-                               :prefix "SPC o"
-                               "a" 'org-agenda
-                               "c" 'org-capture
-                               "r" 'org-refile
-                               "m" 'show-org-notes
-                               "g" 'org-clock-goto))
+  :general
+  (general-define-key :keymaps 'normal
+                      :prefix "SPC o"
+                      "a" 'org-agenda
+                      "c" 'org-capture
+                      "r" 'org-refile
+                      "m" 'show-org-notes)
+  (general-define-key :keymaps 'org-mode-map
+                      :states 'normal
+                      "M-k" 'org-metaup
+                      "M-j" 'org-metadown
+                      "M-K" 'org-shiftmetaup
+                      "M-J" 'org-shiftmetadown))
 
 (provide 'config--org-mode)
 
