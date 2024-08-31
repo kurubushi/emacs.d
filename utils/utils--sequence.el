@@ -8,8 +8,8 @@
 
 (defun random-in-range (from to)
   "Return a random non-negative integer in [FROM, TO).
-FROM is inclusive, TO is exclusive."
-  (+ from (random (+ (- to from)))))
+FROM is inclusive and TO is exclusive."
+  (+ from (random (- to from))))
 
 (defun shuffle (seq)
   "Shuffle SEQ."
