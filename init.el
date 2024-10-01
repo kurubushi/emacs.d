@@ -28,6 +28,9 @@
 (package-refresh-contents)
 (package-install 'gnu-elpa-keyring-update)
 
+;; Uncomment to avoid `bad-signature' temporarily
+;; (setq package-check-signature nil)
+
 ;;; quelpa
 
 ;; https://github.com/quelpa/quelpa
