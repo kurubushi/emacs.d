@@ -92,7 +92,7 @@
   ;; override main modeline
   (doom-modeline-def-modeline 'main
     '(bar modals buffer-info remote-host buffer-position)
-    '(buffer-encoding vcs checker perspeen persp-mode))
+    '(buffer-encoding vcs check perspeen persp-mode))
   (doom-modeline-mode t))
 
 (provide 'config--doom-modeline)
