@@ -41,6 +41,10 @@
 
   :hook (prog-mode . copilot-turn-on))
 
+(use-package copilot-chat
+  :quelpa
+  :after (request org markdown-mode))
+
 (provide 'config--copilot)
 
 ;;; config--copilot.el ends here
