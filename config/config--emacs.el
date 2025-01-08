@@ -78,6 +78,11 @@
 
 (setq custom-file (locate-user-emacs-file "custom.el")) ; custom.el を作らせない
 
+;;; auto-mode-alist
+
+(add-to-list 'auto-mode-alist '("/\\.envrc\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("/\\.env\\'" . sh-mode))
+
 ;;; provide
 
 (provide 'config--emacs)
