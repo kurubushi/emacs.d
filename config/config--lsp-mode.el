@@ -106,7 +106,21 @@
    (hack-local-variables . lsp-restart-if-running)
 
    ;; Format buffer on save.
-   (before-save . lsp-format-buffer-on-save)))
+   (before-save . lsp-format-buffer-on-save))
+
+  :general
+  (general-define-key :keymaps 'normal
+                      :prefix "SPC l"
+                      "d" 'lsp-find-definition
+                      "r" 'lsp-find-references
+                      "t" 'lsp-find-type-definition
+                      "f" 'lsp-format-buffer
+                      "s" 'lsp-signature-help
+                      "R" 'lsp-restart-workspace
+                      "S" 'lsp-describe-session)
+  (general-define-key :keymaps 'normal
+                      :prefix "SPC b"
+                      "D" 'kill-persp-selected-buffers))
 
 (provide 'config--lsp-mode)
 
