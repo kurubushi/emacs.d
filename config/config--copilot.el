@@ -27,12 +27,10 @@
   :config
   (defun copilot-login-p ()
     "Check if copilot is logged in."
-    (if (not (locate-file copilot-node-executable exec-path))
-        (warn "%s is not found." copilot-node-executable)
-      (copilot--dbind
-          (:status :user :userCode user-code :verificationUri verification-uri)
-          (copilot--request 'signInInitiate '(:dummy "signInInitiate"))
-        (s-equals-p status "AlreadySignedIn"))))
+    (copilot--dbind
+        (status)
+        (copilot--request 'signInInitiate '(:dummy "signInInitiate"))
+        (s-equals-p status "AlreadySignedIn")))
 
   (defun copilot-turn-on ()
     "Turn on copilot."
