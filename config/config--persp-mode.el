@@ -55,9 +55,6 @@
   ;; Ignore buffers which are in not current perspective.
   (add-to-list 'ivy-ignore-buffers 'persp-ignore-other-workspace-buffers)
 
-  ;; Remove needless hook. This hook only fires when creating a buffer.
-  (remove-hook 'find-file-hook 'persp-add-or-not-on-find-file)
-
   ;; Setup initial buffers (add-to-hook after persp-mode is enabled to avoid applyint to the first workspace)
   (add-to-list 'persp-created-functions 'persp-setup-initial-buffers)
 
@@ -93,6 +90,9 @@
     (message (format "Removed buffer \"%s\" from the current perspective" (buffer-name))))
 
   (persp-mode 1)
+
+  ;; Remove needless hook. This hook only fires when creating a buffer.
+  (remove-hook 'find-file-hook 'persp-add-or-not-on-find-file)
 
   ;; :hook ((after-find-file         . persp-add-current-buffer-to-current-persp)
   ;;        (after-ivy-switch-buffer . persp-add-current-buffer-to-current-persp))
