@@ -48,7 +48,8 @@ http://emacsredux.com/blog/2013/06/21/eval-and-replace/"
                       "bp" 'previous-buffer
                       "bk" 'kill-some-buffers
                       "br" 'revert-buffer-quick
-                      "by" 'yank-currrent-buffer-file-name)
+                      "by" 'yank-current-buffer-file-name-on-project
+                      "bY" 'yank-current-buffer-file-name)
   ;; remove dangerous binds by typing miss
   (general-define-key :keymaps '(global-map)
                       "C-x C-u" 'nil ; delete 'upcase-region insted of 'disable

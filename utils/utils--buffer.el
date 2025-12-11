@@ -72,10 +72,19 @@ ARGS are parameters for 'find-file'."
     ;; For example, 'ivy-done' jumps through the following line.
     (setq kill-mru-file-buffer-before-find-file-p nil)))
 
-(defun yank-currrent-buffer-file-name ()
+(defun yank-current-buffer-file-name ()
   "Yank the current buffer file name."
   (interactive)
-  (kill-new (buffer-file-name)))
+  (let ((file-name (buffer-file-name)))
+    (kill-new file-name)
+    (message (format "Yanked file name: \"%s\"" file-name))))
+
+(defun yank-current-buffer-file-name-on-project ()
+  "Yank the current buffer file name on project."
+  (interactive)
+  (let ((file-name (file-relative-name (buffer-file-name) (project-root (project-current)))))
+    (kill-new file-name)
+    (message (format "Yanked file name: \"%s\"" file-name))))
 
 ;;; Encoding
 
