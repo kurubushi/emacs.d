@@ -16,7 +16,11 @@
   :demand
   :after (utils--find-file utils--buffer config--ivy)
 
-  :custom (ivy-use-ignore-default 'always)
+  :custom
+  (persp-add-buffer-on-find-file nil)
+  (persp-autokill-buffer-on-remove nil)
+  (persp-when-remove-buffer-switch-to-other-buffer nil)
+  (ivy-use-ignore-default 'always)
 
   :config
   (defun persp-ignore-other-workspace-buffers (buffer)
@@ -90,9 +94,6 @@
     (message (format "Removed buffer \"%s\" from the current perspective" (buffer-name))))
 
   (persp-mode 1)
-
-  ;; Remove needless hook. This hook only fires when creating a buffer.
-  (remove-hook 'find-file-hook 'persp-add-or-not-on-find-file)
 
   ;; :hook ((after-find-file         . persp-add-current-buffer-to-current-persp)
   ;;        (after-ivy-switch-buffer . persp-add-current-buffer-to-current-persp))
