@@ -80,18 +80,33 @@
       (mapc 'kill-buffer
             (cl-remove-if-not filter buffers))))
 
+  (defun persp-add-current-buffer ()
+    "Add the current buffer to the current perspective."
+    (interactive)
+    (persp-add-buffer (current-buffer))
+    (message (format "Added buffer \"%s\" to the current perspective" (buffer-name))))
+
+  (defun persp-remove-current-buffer ()
+    "Remove the current buffer from the current perspective (without killing it)."
+    (interactive)
+    (persp-remove-buffer (current-buffer))
+    (message (format "Removed buffer \"%s\" from the current perspective" (buffer-name))))
+
   (persp-mode 1)
 
-  :hook ((after-find-file         . persp-add-current-buffer-to-current-persp)
-         (after-ivy-switch-buffer . persp-add-current-buffer-to-current-persp))
+  ;; :hook ((after-find-file         . persp-add-current-buffer-to-current-persp)
+  ;;        (after-ivy-switch-buffer . persp-add-current-buffer-to-current-persp))
 
   :general (general-define-key :keymaps 'normal
                                :prefix "SPC p"
                                "p" 'persp-frame-switch
                                "w" 'persp-window
-                               "r" 'persp-rename
+                               "n" 'persp-rename
                                "c" 'persp-copy
-                               "a" 'persp-add-buffer
+                               "a" 'persp-add-current-buffer
+                               "A" 'persp-add-buffer
+                               "r" 'persp-remove-current-buffer
+                               "R" 'persp-remove-buffer
                                "k" 'persp-kill
                                "s" 'persp-save-state-to-default-file)
            (general-define-key :keymaps 'normal
