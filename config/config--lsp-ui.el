@@ -10,7 +10,11 @@
 (use-package lsp-ui
   :quelpa
   :after (config--lsp-mode)
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :general
+  (general-define-key :keymaps 'normal
+                      :prefix "SPC l"
+                      "i" 'lsp-ui-imenu))
 
 (provide 'config--lsp-ui)
 
