@@ -13,6 +13,7 @@
 ;;; edit
 
 (setq require-final-newline t) ; ファイル末尾で必ず改行
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil) ; インデントはハードタブを使わない
 (setq vc-follow-symlinks nil) ; disable to jump from symbolic link files
 

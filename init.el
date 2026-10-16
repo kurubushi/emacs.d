@@ -216,6 +216,10 @@
 
 (use-package config--plantuml-mode)
 
+;;; shell
+
+(use-package config--sh-mode)
+
 ;;; fish shell
 
 (use-package config--fish-mode)
