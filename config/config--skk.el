@@ -41,7 +41,8 @@
    (seq-filter #'available-jisyo-p
                `((,(skk/ "SKK-JISYO.user.utf8") . utf-8)
                  (,(skk/ "SKK-JISYO.emoji.utf8") . utf-8)
-                 (,(skk/ "SKK-JISYO.jawiki.utf8") . utf-8))))
+                 (,(skk/ "SKK-JISYO.jawiki.utf8") . utf-8)
+                 (,(skk/ "SKK-JISYO.math.utf8") . utf-8))))
   (skk-sticky-key ";")
   (skk-kutouten-type 'jp)
   (skk-rom-kana-rule-list '(("!" nil "！")
